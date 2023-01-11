@@ -121,7 +121,7 @@
               </tr>
               <tr>
                 <td>Facing</td>
-                <td><input class="app-input" type="number" placeholder="0°"></td>
+                <td><input class="app-input" type="number" placeholder="0°" oninput="window.gltf.scene.children[0].rotation.y = this.value; render();" step="0.01"></td>
               </tr>
             </tbody>
           </table>
