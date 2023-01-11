@@ -1,7 +1,54 @@
-/* adjust typography defaults */
 @font-face {
   font-family: 'MinecraftTen';
   src: url("https://cdn.glitch.global/17ff8eee-9239-4ba0-8a5c-9263261550b5/MinecraftTen.woff?v=1650256421035")
+}
+
+:root {
+  /* Variable colors from sister project, MCBE Essentials */
+  --lightest-background: #5c63a9;
+  --home-background: #4f5590;
+  --third-color: #3e4e76;
+  --app-background: #443d60;
+  --topbar-background: #26203a;
+  --category-background: #312658;
+  --category-foreground: #ffffff;
+  --category-hover-foreground: var(--category-background);
+  --category-hover-background: var(--category-foreground);
+  --sidebar-background: #312948;
+  --menu-button-closed-background: #312948f0;
+  --sidebar-button-background: var(--topbar-background);
+  --app-main-base-background: #2d2a3b;
+  
+  --app-inner-background: #4b4a5c;
+  --app-inner-inner-background: #5f5e70;
+  
+  --potential-page-background: #1c1532;
+  --potential-app-main-background-color: #352d50;
+  --potential-app-inner-background-color: #454158;
+  --potential-app-inner-inner-background-color: #585372;
+  
+  --button-green: #82f782;
+  --button-blue: #82c1f7;
+  --button-red: #f78282;
+  --button-orange: #ef933c;
+  --button-purple: #d174e5;
+  --button-gray: #cdcbce;
+  --button-hover: #cdcbce;
+  --font-color: #ffffff;
+  
+  --input-border: #2D2A3B;
+  --input-background: #ACACC1;
+  
+  --old-category-background: #dad9dc;
+  --old-category-foreground: #1a1a2c;
+  --old-sidebar-background: #4a4a5c;
+  --old-sidebar-button-background: #1a1c2c;
+  --old-topbar-background: #2b2b3a;
+  --old-font-color: #dad9dc;
+  --old-background: #2e3148;
+  --discarded-app-background: #4b4f78;
+  
+  --general-border-radius: 10px;
 }
 
 body {
@@ -11,10 +58,12 @@ body {
 }
 
 header {
-  height: 3vh;
   min-height: 20px;
-  display: inline;
+  display: inline-block;
+  width:100%;
   user-select: none;
+  background-color: var(--topbar-background);
+  color: white;
 }
 
 header a {
@@ -28,7 +77,7 @@ header a:hover {
 }
 
 .app-left {
-  background: black;
+  background-color: var(--button-gray);
   height: 80vh;
   display: inline-block;
   width: 65%;
@@ -36,7 +85,7 @@ header a:hover {
 }
 
 .app-right {
-  background: lightgray;
+  background-color: var(--app-inner-background);
   height: 80vh;
   display: inline-block;
   width: 35%;
@@ -59,4 +108,5 @@ header a:hover {
 .app-bottom {
   height: 17vh;
   min-height: 100px;
+  background-color: var(--app-inner-inner-background);
 }

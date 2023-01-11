@@ -54,7 +54,7 @@ function init() {
   const light = new THREE.AmbientLight( 0xb7b7b7 ); // soft white light
   scene.add( light );
   
-  scene.background = new THREE.Color( 0xbfe3dd );
+  scene.background = new THREE.Color( 0xcdcbce );
   scene.environment = new THREE.Color( 0xbfe3dd );
   
   const loader = new GLTFLoader().setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' );
