@@ -85,7 +85,7 @@ header a:hover {
 }
 
 .app-right {
-  background-color: var(--app-inner-background);
+  background-color: var(--app-background);
   height: 80vh;
   display: inline-block;
   width: 35%;
@@ -113,6 +113,12 @@ header a:hover {
 
 .bottom-bar {
   height: 40px;
+  background-color: var(--app-inner-background);
+  color: white;
+}
+
+.bottom-button {
+  height: 100%;
 }
 
 .dynamic-editor-container {
