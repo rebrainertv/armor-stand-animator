@@ -110,3 +110,20 @@ header a:hover {
   min-height: 100px;
   background-color: var(--app-inner-inner-background);
 }
+
+.bottom-bar {
+  height: 40px;
+}
+
+.dynamic-editor-container {
+  height: calc(100% - 40px);
+}
+
+.dynamic-editor {
+  height: 100%;
+  border-spacing: 0;
+}
+
+.dynamic-editor td {
+  padding: 0;
+}
