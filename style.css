@@ -134,6 +134,8 @@ header > span.context-label:hover .context-menu {
   display: inline-block;
   width: 35%;
   vertical-align: top;
+  color: white;
+  font-size: 15pt;
 }
 
 .app-right-inner {
@@ -204,4 +206,13 @@ header > span.context-label:hover .context-menu {
   text-align: center;
   font-family: Helvetica;
   width: 105px;
+}
+
+.app-input {
+  width: 100px;
+  border: 1px solid var(--input-border);
+  height: 30px;
+  text-indent: 4px;
+  background-color: var(--input-background);
+  font-size: 15pt;
 }
