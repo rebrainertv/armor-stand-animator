@@ -23,10 +23,11 @@ header a:hover {
 }
 
 .app-left {
-  background: green;
+  background: black;
   height: 80vh;
   display: inline-block;
   width: 65%;
+  vertical-align: top;
 }
 
 .app-right {
@@ -34,6 +35,7 @@ header a:hover {
   height: 80vh;
   display: inline-block;
   width: 35%;
+  vertical-align: top;
 }
 
 .app-bottom {
