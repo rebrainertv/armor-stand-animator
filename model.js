@@ -25,7 +25,7 @@ function init() {
 
   scene = new THREE.Scene();
 
-  new RGBELoader()
+  /*new RGBELoader()
     .setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' )
     .load( 'quarry_01_1k.hdr', function ( texture ) {
 
@@ -45,25 +45,29 @@ function init() {
 
         scene.add( gltf.scene );
 
-        /*// GUI
-        gui = new GUI();
-
-        // Details of the KHR_materials_variants extension used here can be found below
-        // https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_variants
-        const parser = gltf.parser;
-        const variantsExtension = gltf.userData.gltfExtensions[ 'KHR_materials_variants' ];
-        const variants = variantsExtension.variants.map( ( variant ) => variant.name );
-        const variantsCtrl = gui.add( state, 'variant', variants ).name( 'Variant' );
-
-        selectVariant( scene, parser, variantsExtension, state.variant );
-
-        variantsCtrl.onChange( ( value ) => selectVariant( scene, parser, variantsExtension, value ) );*/
-
         render();
 
       } );
 
-    } );
+    } );*/
+  
+  const light = new THREE.AmbientLight( 0xb7b7b7 ); // soft white light
+  scene.add( light );
+  
+  scene.background = new THREE.Color( 0xbfe3dd );
+  scene.environment = new THREE.Color( 0xbfe3dd );
+  
+  const loader = new GLTFLoader().setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' );
+  loader.load( 'model.gltf', function ( gltf ) {
+
+    gltf.scene.scale.set( 1.0, 1.0, 1.0 );
+
+    scene.add( gltf.scene );
+
+    render();
+
+  } );
+  
 
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
@@ -124,10 +128,10 @@ function selectVariant( scene, parser, extension, variantName ) {
 
 function onWindowResize() {
 
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = previewContainer.clientWidth / previewContainer.clientHeight;
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setSize( previewContainer.clientWidth, previewContainer.clientHeight );
 
   render();
 
