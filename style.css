@@ -5,18 +5,18 @@
 
 ::-webkit-scrollbar {
   width: 5px;
-  height: 5px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 10px;
+  border-radius: 0px;
   margin-left: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #888888;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 :root {
@@ -180,7 +180,6 @@ header > span.context-label:hover .context-menu {
 .dynamic-editor {
   height: 100%;
   border-spacing: 0;
-  background: repeating-conic-gradient(#504f4f 0% 25%, #6e6e6e 0% 50%) 50% / 18px 18px;
 }
 
 .dynamic-editor td {

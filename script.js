@@ -17,7 +17,13 @@ function generateEditorTimestamps(amount){
     let element = document.createElement("td");
     element.innerHTML = "<span style='width:60px; display: inline-block;'>" + (lastGeneratedTimestamp + 1).toString().toMMSS() + "</span>";
     lastGeneratedTimestamp++;
+    
+    let empty1 = document.createElement("td");
+    let empty2 = document.createElement("td");
+    
     document.getElementById("dynamic-ruler").appendChild(element);
+    document.getElementById("dynamic-events").appendChild(empty1);
+    document.getElementById("dynamic-animations").appendChild(empty2);
   }
 }
 
