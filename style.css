@@ -1,4 +1,9 @@
 /* adjust typography defaults */
+@font-face {
+  font-family: 'MinecraftTen';
+  src: url("https://cdn.glitch.global/17ff8eee-9239-4ba0-8a5c-9263261550b5/MinecraftTen.woff?v=1650256421035")
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -36,6 +41,19 @@ header a:hover {
   display: inline-block;
   width: 35%;
   vertical-align: top;
+}
+
+.app-right-inner {
+  padding: 4px;
+  user-select: none;
+}
+
+.app-right-inner h1 {
+  font-family: 'MinecraftTen';
+  margin: 0;
+  text-align: center;
+  color: white;
+  filter: drop-shadow(2px 3px 6px black) drop-shadow(-2px 0px 6px black);
 }
 
 .app-bottom {
