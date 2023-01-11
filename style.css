@@ -66,13 +66,13 @@ header {
   color: white;
 }
 
-header a {
+header > span.context-label {
   padding: 6px 10px; 
   vertical-align: middle;
   cursor: pointer;
 }
 
-header a:hover {
+header > span.context-label:hover {
   background-color: gray;
 }
 
@@ -119,6 +119,11 @@ header a:hover {
 
 .bottom-button {
   height: 100%;
+  cursor: pointer;
+}
+
+.bottom-button:hover {
+  background-color: #ffffff60;
 }
 
 .dynamic-editor-container {
