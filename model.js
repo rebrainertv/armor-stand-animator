@@ -68,7 +68,7 @@ function init() {
     window.skeleton = skeleton;
     window.gltf = gltf;
     scene.add( skeleton );*/
-    
+    window.gltf = gltf;
     window.bones = gltf.scene.children[0].children;
 
     scene.add( gltf.scene );
