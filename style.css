@@ -8,24 +8,32 @@ body {
 header {
   height: 3vh;
   min-height: 20px;
+  display: inline;
+  user-select: none;
 }
 
-.header a {
-  padding: 0px 5px; 
+header a {
+  padding: 6px 10px; 
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+header a:hover {
+  background-color: gray;
 }
 
 .app-left {
   background: green;
   height: 80vh;
   display: inline-block;
-  width: 80%;
+  width: 65%;
 }
 
 .app-right {
   background: red;
   height: 80vh;
   display: inline-block;
-  width: 19%;
+  width: 35%;
 }
 
 .app-bottom {
