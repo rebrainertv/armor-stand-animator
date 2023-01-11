@@ -84,10 +84,11 @@ header > span.context-label:hover {
   margin-inline-start: 0;
   list-style-type: none;
   padding-inline-start: 0px;
-  top: 23px;
+  top: 25px;
   left: 0;
   background-color: var(--topbar-background);
   border-top: 2px solid transparent;
+  white-space: nowrap;
 }
 
 header > span.context-label:hover .context-menu {
@@ -99,8 +100,8 @@ header > span.context-label:hover .context-menu {
 }
 
 .context-menu li:hover {
-  background-color: var(--button-gray);
-  color: black;
+  background-color: var(--home-background);
+  /*color: black;*/
 }
 
 .app-left {
@@ -164,4 +165,8 @@ header > span.context-label:hover .context-menu {
 
 .dynamic-editor td {
   padding: 0;
+}
+
+.dynamic-editor-label {
+  
 }
