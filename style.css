@@ -162,6 +162,11 @@ header > span.context-label:hover .context-menu {
 .dynamic-editor {
   height: 100%;
   border-spacing: 0;
+  background: repeating-conic-gradient(#504f4f 0% 25%, #6e6e6e 0% 50%) 50% / 18px 18px;
+}
+
+.dynamic-editor::-webkit-scrollbar {
+  
 }
 
 .dynamic-editor td {
