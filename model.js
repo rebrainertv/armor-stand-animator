@@ -61,6 +61,13 @@ function init() {
   loader.load( 'model.gltf', function ( gltf ) {
 
     gltf.scene.scale.set( 1.0, 1.0, 1.0 );
+    
+    let model = gltf.scene;
+    let skeleton = new THREE.SkeletonHelper( model.children[0] );
+    skeleton.visible = false;
+    window.skeleton = skeleton;
+    window.gltf = gltf;
+    scene.add( skeleton );
 
     scene.add( gltf.scene );
 
