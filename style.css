@@ -156,6 +156,7 @@ header > span.context-label:hover .context-menu {
 
 .dynamic-editor-container {
   height: calc(100% - 40px);
+  overflow-x: scroll;
 }
 
 .dynamic-editor {
@@ -167,6 +168,23 @@ header > span.context-label:hover .context-menu {
   padding: 0;
 }
 
+.dynamic-ruler {
+  background-color: var(--input-background);
+}
+
+.dynamic-ruler td {
+  height: 10px;
+}
+
+.dynamic-editor td:not(.dynamic-editor-label) {
+  width: 60px;
+  border-right: 1px solid black;
+}
+
 .dynamic-editor-label {
-  
+  color: white;
+  background-color: var(--app-main-base-background);
+  text-align: center;
+  font-family: Helvetica;
+  width: 105px;
 }
