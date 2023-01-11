@@ -70,10 +70,37 @@ header > span.context-label {
   padding: 6px 10px; 
   vertical-align: middle;
   cursor: pointer;
+  position: relative;
 }
 
 header > span.context-label:hover {
   background-color: gray;
+}
+
+.context-menu {
+  position: absolute;
+  display: none;
+  margin: 0;
+  margin-inline-start: 0;
+  list-style-type: none;
+  padding-inline-start: 0px;
+  top: 23px;
+  left: 0;
+  background-color: var(--topbar-background);
+  border-top: 2px solid transparent;
+}
+
+header > span.context-label:hover .context-menu {
+  display: inline-block;
+}
+
+.context-menu li {
+  padding: 2px 7px;
+}
+
+.context-menu li:hover {
+  background-color: var(--button-gray);
+  color: black;
 }
 
 .app-left {
