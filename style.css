@@ -3,6 +3,22 @@
   src: url("https://cdn.glitch.global/17ff8eee-9239-4ba0-8a5c-9263261550b5/MinecraftTen.woff?v=1650256421035")
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+  margin-left: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 10px;
+}
+
 :root {
   /* Variable colors from sister project, MCBE Essentials */
   --lightest-background: #5c63a9;
@@ -106,7 +122,7 @@ header > span.context-label:hover .context-menu {
 
 .app-left {
   background-color: var(--button-gray);
-  height: 80vh;
+  height: 75vh;
   display: inline-block;
   width: 65%;
   vertical-align: top;
@@ -114,7 +130,7 @@ header > span.context-label:hover .context-menu {
 
 .app-right {
   background-color: var(--app-background);
-  height: 80vh;
+  height: 75vh;
   display: inline-block;
   width: 35%;
   vertical-align: top;
@@ -134,7 +150,7 @@ header > span.context-label:hover .context-menu {
 }
 
 .app-bottom {
-  height: 17vh;
+  height: 205px;
   min-height: 100px;
   background-color: var(--app-inner-inner-background);
 }
@@ -163,10 +179,6 @@ header > span.context-label:hover .context-menu {
   height: 100%;
   border-spacing: 0;
   background: repeating-conic-gradient(#504f4f 0% 25%, #6e6e6e 0% 50%) 50% / 18px 18px;
-}
-
-.dynamic-editor::-webkit-scrollbar {
-  
 }
 
 .dynamic-editor td {
