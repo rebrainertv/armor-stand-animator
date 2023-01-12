@@ -18,7 +18,7 @@ render();
 function init() {
 
   camera = new THREE.PerspectiveCamera( 45, previewContainer.clientWidth / previewContainer.clientHeight, 0.25, 20 );
-  camera.position.set( 0, 1, 3 );
+  camera.position.set( 0, 0.9, 3 );
   
   window.camera = camera;
   window.render = render;
