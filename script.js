@@ -58,5 +58,8 @@ function updateRotation(){
   bones[7].rotation.z = getRadians(parseFloat(document.getElementById("facing-rightleg-z").value));
   window.gltf.scene.children[0].rotation.y = getRadians(parseFloat(document.getElementById("facing-rotation").value));
   
+  //Offset baseplate rotation
+  bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
+  
   render();
 }

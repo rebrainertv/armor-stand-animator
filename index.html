@@ -122,16 +122,16 @@
               </tr>
               <tr>
                 <td>Facing</td>
-                <td><input class="app-input" type="number" placeholder="0°" id="facing-rotation" step="5" oninput="updateRotation()"></td>
+                <td colspan="3"><input class="app-input" style="width:16em;" type="number" placeholder="0°" id="facing-rotation" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Mode</td>
                 <td colspan="3">
-                  <select class="app-input" style="width:10em;">
-                    <option>No Transition</option>
-                    <option selected>Linear</option>
-                    <option>Ease in</option>
-                    <option>Ease out</option>
+                  <select class="app-input" style="width:16.3em;">
+                    <option value="none">No Transition</option>
+                    <option selected value="linear">Linear</option>
+                    <option value="ease_in">Ease in</option>
+                    <option value="ease_out">Ease out</option>
                   </select>
                 </td>
               </tr>
