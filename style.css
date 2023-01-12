@@ -175,6 +175,7 @@ header > span.context-label:hover .context-menu {
 .dynamic-editor-container {
   height: calc(100% - 40px);
   overflow-x: scroll;
+  position: relative;
 }
 
 .dynamic-editor {
@@ -219,3 +220,21 @@ header > span.context-label:hover .context-menu {
   background-color: var(--input-background);
   font-size: 15pt;
 }
+
+.element-placement {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.marker {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-color: red;
+  position: absolute;
+  transform: rotate(45deg);
+  top: 51px;
+  left: 91px;
+}
+

@@ -124,6 +124,17 @@
                 <td>Facing</td>
                 <td><input class="app-input" type="number" placeholder="0°" id="facing-rotation" step="5" oninput="updateRotation()"></td>
               </tr>
+              <tr>
+                <td>Mode</td>
+                <td colspan="3">
+                  <select class="app-input" style="width:10em;">
+                    <option>No Transition</option>
+                    <option selected>Linear</option>
+                    <option>Ease in</option>
+                    <option>Ease out</option>
+                  </select>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -141,6 +152,9 @@
           </svg>
         </div>
         <div class="dynamic-editor-container">
+          <div class="element-placement">
+            <div class="marker"></div>
+          </div>
           <table class="dynamic-editor">
             <tbody>
               <tr class="dynamic-ruler" id="dynamic-ruler">
@@ -153,9 +167,6 @@
               <tr id="dynamic-animations">
                 <td class="dynamic-editor-label" style="position:sticky; left:0;">Animations</td>
               </tr>
-              <div class="element-placement">
-                <div class="marker">a</div>
-              </div>
             </tbody>
           </table>
         </div>
