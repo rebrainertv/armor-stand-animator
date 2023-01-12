@@ -15,7 +15,7 @@ let lastGeneratedTimestamp = -1;
 function generateEditorTimestamps(amount){
   for(let i = 0; i < amount; i++){
     let element = document.createElement("td");
-    element.innerHTML = "<span style='width:60px; display: inline-block;'>" + (lastGeneratedTimestamp + 1).toString().toMMSS() + "</span>";
+    element.innerHTML = "<span style='width:129px; display: inline-block;'>" + (lastGeneratedTimestamp + 1).toString().toMMSS() + "</span>";
     lastGeneratedTimestamp++;
     
     let empty1 = document.createElement("td");
@@ -28,7 +28,7 @@ function generateEditorTimestamps(amount){
 }
 
 generateEditorTimestamps(1)
-generateEditorTimestamps(190)
+generateEditorTimestamps(60)
 
 //Render rotation values
 function updateRotation(){

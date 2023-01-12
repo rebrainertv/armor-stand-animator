@@ -207,6 +207,10 @@ header > span.context-label:hover .context-menu {
   width: 105px;
 }
 
+.dynamic-editor td:not(.dynamic-ruler td):not(.dynamic-editor-label) {
+  background: repeating-conic-gradient(#504f4f 0% 25%, #6e6e6e 0% 50%) 50% / 26px 32px;
+}
+
 .app-input {
   width: 100px;
   border: 1px solid var(--input-border);
