@@ -29,3 +29,9 @@ function generateEditorTimestamps(amount){
 
 generateEditorTimestamps(1)
 generateEditorTimestamps(190)
+
+//Render rotation values
+function applyRotation(){
+  
+  bones[0].rotation.x = 4;
+}
