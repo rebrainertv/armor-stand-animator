@@ -31,7 +31,32 @@ generateEditorTimestamps(1)
 generateEditorTimestamps(190)
 
 //Render rotation values
-function applyRotation(){
+function updateRotation(){
+  function getRadians(degrees){
+    if(!degrees) return 0;
+    var pi = Math.PI;
+    return degrees * (pi/180);
+  }
   
-  bones[0].rotation.x = 4;
+  bones[3].rotation.x = getRadians(parseFloat(document.getElementById("facing-head-x").value));
+  bones[3].rotation.y = getRadians(parseFloat(document.getElementById("facing-head-y").value));
+  bones[3].rotation.z = getRadians(parseFloat(document.getElementById("facing-head-z").value));
+  bones[4].rotation.x = getRadians(parseFloat(document.getElementById("facing-leftarm-x").value));
+  bones[4].rotation.y = getRadians(parseFloat(document.getElementById("facing-leftarm-y").value));
+  bones[4].rotation.z = getRadians(parseFloat(document.getElementById("facing-leftarm-z").value));
+  bones[6].rotation.x = getRadians(parseFloat(document.getElementById("facing-rightarm-x").value));
+  bones[6].rotation.y = getRadians(parseFloat(document.getElementById("facing-rightarm-y").value));
+  bones[6].rotation.z = getRadians(parseFloat(document.getElementById("facing-rightarm-z").value));
+  bones[2].rotation.x = getRadians(parseFloat(document.getElementById("facing-chest-x").value));
+  bones[2].rotation.y = getRadians(parseFloat(document.getElementById("facing-chest-y").value));
+  bones[2].rotation.z = getRadians(parseFloat(document.getElementById("facing-chest-z").value));
+  bones[5].rotation.x = getRadians(parseFloat(document.getElementById("facing-leftleg-x").value));
+  bones[5].rotation.y = getRadians(parseFloat(document.getElementById("facing-leftleg-y").value));
+  bones[5].rotation.z = getRadians(parseFloat(document.getElementById("facing-leftleg-z").value));
+  bones[7].rotation.x = getRadians(parseFloat(document.getElementById("facing-rightleg-x").value));
+  bones[7].rotation.y = getRadians(parseFloat(document.getElementById("facing-rightleg-y").value));
+  bones[7].rotation.z = getRadians(parseFloat(document.getElementById("facing-rightleg-z").value));
+  window.gltf.scene.children[0].rotation.y = getRadians(parseFloat(document.getElementById("facing-rotation").value));
+  
+  render();
 }

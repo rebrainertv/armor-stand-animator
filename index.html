@@ -84,43 +84,43 @@
             <tbody>
               <tr>
                 <td>Head</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[3].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[3].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[3].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-head-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-head-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-head-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Left Arm</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[4].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[4].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[4].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftarm-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftarm-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftarm-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Right Arm</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[6].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[6].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[6].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightarm-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightarm-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightarm-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Chest</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[2].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[2].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[2].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-chest-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-chest-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-chest-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Left Leg</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[5].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[5].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[5].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftleg-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftleg-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-leftleg-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Right Leg</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[7].rotation.x = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[7].rotation.y = this.value; render();" step="0.01"></td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="bones[7].rotation.z = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightleg-x" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightleg-y" step="5" oninput="updateRotation()"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rightleg-z" step="5" oninput="updateRotation()"></td>
               </tr>
               <tr>
                 <td>Facing</td>
-                <td><input class="app-input" type="number" placeholder="0°" oninput="window.gltf.scene.children[0].rotation.y = this.value; render();" step="0.01"></td>
+                <td><input class="app-input" type="number" placeholder="0°" id="facing-rotation" step="5" oninput="updateRotation()"></td>
               </tr>
             </tbody>
           </table>
