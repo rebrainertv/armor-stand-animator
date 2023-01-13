@@ -99,18 +99,26 @@ function dragElement(elmnt) {
     // set the element's new position:
     //elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     
-    let leftValue = (elmnt.offsetLeft - pos1);
-    if(leftValue < 0){
-      pos1 = 0;
-      leftValue = 0;
-    } 
+    let leftValue = (elmnt.offsetLeft - pos1);   
     
-    elmnt.style.left = leftValue + "px";
+    //Snap to 13x13 grid
+    //leftValue = Math.round(leftValue / 13) * 13
+    
+    if(leftValue < 0){
+      elmnt.style.left = "0px";
+      closeDragElement();
+    } else {
+      elmnt.style.left = leftValue + "px";
+    }
   }
 
   function closeDragElement() {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
+    
+    //Autocorrect to 13x13 grid
+    elmnt.style.left = (Math.round(elmnt.offsetLeft / 13) * 13) + "px";
+    Math.round(leftValue / 13) * 13
   }
 }
