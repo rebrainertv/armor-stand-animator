@@ -193,6 +193,7 @@ header > span.context-label:hover .context-menu {
 
 .dynamic-ruler td {
   height: 10px;
+  border-bottom: 1px solid black;
 }
 
 .dynamic-editor td:not(.dynamic-editor-label) {
@@ -224,7 +225,7 @@ header > span.context-label:hover .context-menu {
 .element-placement {
   position: absolute;
   top: 24px;
-  left: 73px;
+  left: 93px;
 }
 
 .marker {
