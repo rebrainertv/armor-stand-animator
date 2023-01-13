@@ -233,6 +233,7 @@ header > span.context-label:hover .context-menu {
   width: 14px;
   height: 14px;
   position: absolute;
+  left: 45px;
 }
 
 .marker.animations {
