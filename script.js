@@ -280,7 +280,7 @@ function deleteMarker(){
 
 //Project data
 var markerdata = [
-  //{timestamp: 0, type: 'event', event: '/command'},
+  //{timestamp: 0, type: 'command', event: '/command'},
   //{timestamp: 2, type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
   
   //"Timestamp" measures the amount of ticks from animation start that the item triggers
@@ -295,29 +295,56 @@ function compileFrames(){
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
   for(let marker of markerdata){
-    if(marker.type === 'event'){
+    if(marker.disabled){
+      //Skip deleted markers
+      break;
+    } 
+    if(marker.type === 'command'){
       rawdata.push(marker);
     } else {
       for(let bonename of Object.keys(marker.pose)){
         let bonedata = marker.pose[bonename];
         for(let i = 0; i < bonedata.length; i++){
+          if(bonedata[i] === false) break;
           let value = {
-            tick: 0,
-            value: 0
+            tick: marker.timestamp,
+            value: bonedata[i]
           };
-
-          let object = {
-            "start": {
-              tick: 4,
-              value: 0
-            },
-            "end": false,
-            "bonename": bonename,
-            "axis": 0, //0 for x, 1 for y, 2 for z
-            "mode": marker.mode
-          };
+          
+          //Search through the already made data to see if a matching object already exists
+          var foundobject = false;
+          for(let searchdata of rawdata){
+            if(searchdata.bonename === bonename && searchdata.axis === i){
+              foundobject = true;
+              if(searchdata.end === false){
+                //Append this value to the searchdata instead of creating a new object
+                searchdata.end = value;
+              } else {
+                //Create an new object, but make its end point the current object's start point
+                rawdata.push({
+                  "start": searchdata.end,
+                  "end": value,
+                  "bonename": bonename,
+                  "axis": i, //0 for x, 1 for y, 2 for z
+                  "mode": marker.mode
+                });
+              }
+            }
+          }
+          
+          if(!foundobject){
+            //Create a totally new object
+            rawdata.push({
+              "start": value,
+              "end": false,
+              "bonename": bonename,
+              "axis": i, //0 for x, 1 for y, 2 for z
+              "mode": marker.mode
+            });
+          }
         }
       }
     }
   }
+  console.log(rawdata)
 }
