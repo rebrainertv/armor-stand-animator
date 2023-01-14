@@ -425,41 +425,60 @@ function compileFrames(){
 let animationInterval = false;
 
 function stopAnimation(){
+  let button = document.getElementById("playButton");
+  button.innerHTML = '<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />';
+  
   clearInterval(animationInterval);
   animationInterval = false;
 }
 
 function playAnimation(){
   //Stop animation if it is already playing
-  stopAnimation();
+  if(animationInterval){
+    stopAnimation();
+    return;
+  }
   
   //First, compile frames
   compileFrames();
   
-  //Reset pose
-      updateVisualRotation({ 
-          pose: {
-            "Head": [false, false, false],
-            "LeftArm": [false, false, false],
-            "RightArm": [false, false, false],
-            "Chest": [false, false, false],
-            "LeftLeg": [false, false, false],
-            "RightLeg": [false, false, false],
-            rotations: [false, false]
-          },
-          timestamp: (entry.start.tick + i)
-        });
+  //Reset pose to defaults
+  updateVisualRotation({ 
+    pose: {
+      "Head": [0, 0, 0],
+      "LeftArm": [0, 0, 0],
+      "RightArm": [0, 0, 0],
+      "Chest": [0, 0, 0],
+      "LeftLeg": [0, 0, 0],
+      "RightLeg": [0, 0, 0],
+      rotations: [0, 0]
+    }
+  });
+  //Set pose to first frame
+  updateVisualRotation(framedata[0]);
+  
+  //Reset scroll of playback editor
+  document.querySelector(".dynamic-editor-container").scrollLeft = 0;
   
   //Set interval
   animationInterval = setInterval(animate, 50);
   
+  //Change play button
+  let button = document.getElementById("playButton");
+  button.innerHTML = '<path fill="currentColor" d="M18,18H6V6H18V18Z" />';
+  
   let currentFrame = 0;
+  let scrollPosition = 0;
   function animate(){
-
     updateVisualRotation(framedata[currentFrame]);
+    currentFrame++;
     if(currentFrame > framedata.length-1){
       stopAnimation()
     }
+    
+    //Scroll editor
+    scrollPosition += framepixelratio;
+    document.querySelector(".dynamic-editor-container").scrollLeft = (Math.floor(scrollPosition))
   }
 }
 
