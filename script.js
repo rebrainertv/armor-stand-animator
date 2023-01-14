@@ -360,6 +360,8 @@ function compileFrames(){
     }
   }
   
+  console.log(rawdata)
+  
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
@@ -370,8 +372,6 @@ function compileFrames(){
       let valuestart = entry.start.value; //The x-intercept
       let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
       let valueincrement = (valuedifference / framespan); //How much to increment the value per frame
-      
-      console.log(entry, {framespan, valuedifference, valueincrement});
       
       for(let i = 0; i < framespan+1; i++){
         let frame = { 
@@ -393,8 +393,6 @@ function compileFrames(){
     
     rawframegroups.push(framegroup);
   }
-  
-  console.log(rawframegroups)
   
   //Merge framegroups to make single frames list
   let frames = [];
