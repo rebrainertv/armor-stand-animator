@@ -508,11 +508,22 @@ function exportToFunction(){
   for(let frame of framedata){
     let posedata = frame.pose;
     let rotationdata = frame.pose.rotation;
-    delete frame.pose.rotation; //Separate pose and rotation
-    for(let bonename of Object.keys(frame.pose)){
-      let bonedata = frame.pose[bonename];
-      if(bonedata)
+    
+    let pose = [];
+    
+    for(let bonename of Object.keys(posedata)){
+      let bonedata = posedata[bonename];
+      if(bonename !== 'rotations' && bonedata.join(".") !== 'false.false.false'){
+        let poseentry = bonename + ":[";
+        poseentry += (bonedata[0] !== false ? bonedata[0] : 0) + "f,";
+        poseentry += (bonedata[1] !== false ? bonedata[1] : 0) + "f,";
+        poseentry += (bonedata[2] !== false ? bonedata[2] : 0) + "f";
+        poseentry += "]";
+        pose.push(poseentry)
+      }
     }
+    
+    console.log(pose)
     
     filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
   }
