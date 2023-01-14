@@ -135,6 +135,15 @@ function dragElement(elmnt) {
 }
 
 function createMarker(type){
+  if(type == 'animations'){
+    //{timestamp: 0, type: 'event', event: '/command'},
+  //{timestamp: 2, type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
+  } else if(type == 'events'){
+    
+  } else {
+    return;
+  }
+  
   let marker = document.createElement("div");
   marker.classList = ["marker"];
   marker.classList.toggle(type, true);
@@ -148,6 +157,8 @@ function createMarker(type){
   marker.onclick = selectMarker;
   
   document.querySelector(".element-placement").appendChild(marker);
+  
+  
   
   selectMarker({target: marker})
 }
@@ -172,6 +183,9 @@ createMarker('animations')
 
 //Project data
 var markerdata = [
-  //{type: 'event', event: '/command'},
-  //{type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
+  //{timestamp: 0, type: 'event', event: '/command'},
+  //{timestamp: 2, type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
+  
+  //"Timestamp" measures the amount of ticks from animation start that the item triggers
 ];
+
