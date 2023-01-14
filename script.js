@@ -38,7 +38,7 @@ generateEditorTimestamps(60)
 //Render rotation values
 function updateVisualRotation(data){
   function getRadians(degrees){
-    if(!degrees) return 0;
+    if(!degreesinPlayback) return 0;
     var pi = Math.PI;
     return degrees * (pi/180);
   }
@@ -470,7 +470,16 @@ function playAnimation(){
   let currentFrame = 0;
   let scrollPosition = 0;
   function animate(){
-    updateVisualRotation(framedata[currentFrame]);
+    //Find the frame that matches the timestamp marking
+    function getFrame(timestamp){
+      for(let potentialframe of framedata){
+        if(potentialframe.timestamp === timestamp) return potentialframe;
+      }
+      //As a fallback, consider `timestamp` the index
+      return framedata[timestamp];
+    }
+    
+    updateVisualRotation(getFrame(currentFrame));
     currentFrame++;
     if(currentFrame > framedata.length-1){
       stopAnimation()
