@@ -96,6 +96,15 @@ function dragElement(elmnt) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
+    
+    if(e.clientX > document.body.clientWidth - 20){
+      document.querySelector(".dynamic-editor-container").scrollLeft += 10;
+      pos1 -= 10;
+    } else if(e.clientX < 110 && elmnt.offsetLeft > 0){
+      document.querySelector(".dynamic-editor-container").scrollLeft -= 10;
+      pos1 += 10;
+    }
+    
     // set the element's new position:
     //elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     
@@ -119,6 +128,5 @@ function dragElement(elmnt) {
     
     //Autocorrect to 13x13 grid
     elmnt.style.left = (Math.round(elmnt.offsetLeft / 13) * 13) + "px";
-    Math.round(leftValue / 13) * 13
   }
 }
