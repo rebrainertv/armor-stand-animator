@@ -212,6 +212,7 @@ header > span.context-label:hover .context-menu {
   text-align: center;
   font-family: Helvetica;
   width: 105px;
+  z-index: 3;
 }
 
 .dynamic-editor td:not(.dynamic-ruler td):not(.dynamic-editor-label) {
@@ -240,6 +241,7 @@ header > span.context-label:hover .context-menu {
   position: absolute;
   left: 0px;
   cursor: e-resize;
+  z-index: 2;
 }
 
 .marker.animations {
@@ -252,4 +254,14 @@ header > span.context-label:hover .context-menu {
   background-color: limegreen;
   border-radius: 100%;
   top: 25px;
+}
+
+.cursor {
+  height: 153px;
+  width: 16px;
+  background-color: #2e2eff61;
+  position: fixed;
+  z-index: 1;
+  left: 222px;
+  display: inline-block;
 }

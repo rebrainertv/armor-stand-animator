@@ -115,6 +115,7 @@ function dragElement(elmnt) {
     
     if(leftValue < 0){
       elmnt.style.left = "0px";
+      document.querySelector(".dynamic-editor-container").scrollLeft = 0;
       closeDragElement();
     } else {
       elmnt.style.left = leftValue + "px";

@@ -80,7 +80,7 @@
         </div>
       </div><!--
    --><div class="app-right">
-        <div class="app-right-inner animate-screen">
+        <div class="app-right-inner animate-screen" style="display:none;">
           <h1>Animate</h1>
           <br>
           <table style="margin:auto;">
@@ -139,7 +139,7 @@
             </tbody>
           </table>
         </div>
-        <div class="app-right-inner event-screen">
+        <div class="app-right-inner event-screen" style="display:none;">
           <h1>Event</h1>
           <table style="margin:auto;">
             <tbody>
@@ -148,7 +148,8 @@
               </tr>
               <tr>
                 <td>
-                  <textarea class="app-input" style="width: 32vw; height: 100px; font-size: 10pt; resize: none;" placeholder="/command"></textarea>
+                  <textarea class="app-input" style="width: 32vw; height: 100px; font-size: 10pt; resize: none;" placeholder="/command"></textarea><br>
+                  The command will be executed as whoever is running the function at the selected timestamp.
                 </td>
               </tr>
             </tbody>
@@ -168,6 +169,7 @@
           </svg>
         </div>
         <div class="dynamic-editor-container">
+          <div class="cursor"></div>
           <div class="element-placement">
             <div class="marker animations"></div>
             <div class="marker events"></div>
