@@ -419,6 +419,48 @@ function compileFrames(){
   }
   
   framedata = frames;
+  return frames;
+}
+
+let animationInterval = false;
+
+function stopAnimation(){
+  clearInterval(animationInterval);
+  animationInterval = false;
+}
+
+function playAnimation(){
+  //Stop animation if it is already playing
+  stopAnimation();
+  
+  //First, compile frames
+  compileFrames();
+  
+  //Reset pose
+      updateVisualRotation({ 
+          pose: {
+            "Head": [false, false, false],
+            "LeftArm": [false, false, false],
+            "RightArm": [false, false, false],
+            "Chest": [false, false, false],
+            "LeftLeg": [false, false, false],
+            "RightLeg": [false, false, false],
+            rotations: [false, false]
+          },
+          timestamp: (entry.start.tick + i)
+        });
+  
+  //Set interval
+  animationInterval = setInterval(animate, 50);
+  
+  let currentFrame = 0;
+  function animate(){
+
+    updateVisualRotation(framedata[currentFrame]);
+    if(currentFrame > framedata.length-1){
+      stopAnimation()
+    }
+  }
 }
 
 //TODO: playback capabilities
