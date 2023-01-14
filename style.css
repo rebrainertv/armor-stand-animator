@@ -136,6 +136,7 @@ header > span.context-label:hover .context-menu {
   vertical-align: top;
   color: white;
   font-size: 15pt;
+  overflow: auto;
 }
 
 .app-right-inner {
@@ -260,8 +261,9 @@ header > span.context-label:hover .context-menu {
   height: 153px;
   width: 16px;
   background-color: #2e2eff61;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 222px;
+  top:0;
   display: inline-block;
 }

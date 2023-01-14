@@ -66,8 +66,8 @@ function updateRotation(){
   render();
 }
 
-// Make the DIV element draggable:
-Array.from(document.querySelectorAll(".marker")).forEach((el) => {dragElement(el);})
+// Make the already placed markers draggable
+//Array.from(document.querySelectorAll(".marker")).forEach((el) => {dragElement(el);})
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -147,3 +147,10 @@ function createMarker(type){
   
   document.querySelector(".element-placement").appendChild(marker);
 }
+
+function selectMarker(){
+  Array.from(document.querySelectorAll(""))
+}
+
+createMarker('animations')
+createMarker('events')
