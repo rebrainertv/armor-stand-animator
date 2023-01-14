@@ -66,26 +66,26 @@ function updateVisualRotation(data){
   render();
 }
 
-function updateRotation(){
-  document.getElementById("facing-head-x").value;
-  document.getElementById("facing-head-y").value;
-  document.getElementById("facing-head-z").value;
-  document.getElementById("facing-leftarm-x").value;
-  document.getElementById("facing-leftarm-y").value;
-  document.getElementById("facing-leftarm-z").value;
-  document.getElementById("facing-rightarm-x").value;
-  document.getElementById("facing-rightarm-y").value;
-  document.getElementById("facing-rightarm-z").value;
-  document.getElementById("facing-chest-x").value;
-  document.getElementById("facing-chest-y").value;
-  document.getElementById("facing-chest-z").value;
-  document.getElementById("facing-leftleg-x").value;
-  document.getElementById("facing-leftleg-y").value;
-  document.getElementById("facing-leftleg-z").value;
-  document.getElementById("facing-rightleg-x").value;
-  document.getElementById("facing-rightleg-y").value;
-  document.getElementById("facing-rightleg-z").value;
-  document.getElementById("facing-rotation").value;
+function updateRotation(){  
+  selectedMarker.pose.Head[0] = parseFloat(document.getElementById("facing-head-x").value) || false;
+  selectedMarker.pose.Head[1] = parseFloat(document.getElementById("facing-head-y").value) || false;
+  selectedMarker.pose.Head[2] = parseFloat(document.getElementById("facing-head-z").value) || false;
+  selectedMarker.pose.LeftArm[0] = parseFloat(document.getElementById("facing-leftarm-x").value) || false;
+  selectedMarker.pose.LeftArm[1] = parseFloat(document.getElementById("facing-leftarm-y").value) || false;
+  selectedMarker.pose.LeftArm[2] = parseFloat(document.getElementById("facing-leftarm-z").value) || false;
+  selectedMarker.pose.RightArm[0] = parseFloat(document.getElementById("facing-rightarm-x").value) || false;
+  selectedMarker.pose.RightArm[1] = parseFloat(document.getElementById("facing-rightarm-y").value) || false;
+  selectedMarker.pose.RightArm[2] = parseFloat(document.getElementById("facing-rightarm-z").value) || false;
+  selectedMarker.pose.Chest[0] = parseFloat(document.getElementById("facing-chest-x").value) || false;
+  selectedMarker.pose.Chest[1] = parseFloat(document.getElementById("facing-chest-y").value) || false;
+  selectedMarker.pose.Chest[2] = parseFloat(document.getElementById("facing-chest-z").value) || false;
+  selectedMarker.pose.LeftLeg[0] = parseFloat(document.getElementById("facing-leftleg-x").value) || false;
+  selectedMarker.pose.LeftLeg[1] = parseFloat(document.getElementById("facing-leftleg-y").value) || false;
+  selectedMarker.pose.LeftLeg[2] = parseFloat(document.getElementById("facing-leftleg-z").value) || false;
+  selectedMarker.pose.RightLeg[0] = parseFloat(document.getElementById("facing-rightleg-x").value) || false;
+  selectedMarker.pose.RightLeg[1] = parseFloat(document.getElementById("facing-rightleg-y").value) || false;
+  selectedMarker.pose.RightLeg[2] = parseFloat(document.getElementById("facing-rightleg-z").value) || false;
+  selectedMarker.rotations[0] = parseFloat(document.getElementById("facing-rotation").value) || false; 
 }
 
 // Make the already placed markers draggable
@@ -152,7 +152,11 @@ function dragElement(elmnt) {
     document.onmousemove = null;
     
     //Autocorrect to 13x13 grid
-    elmnt.style.left = (Math.round(elmnt.offsetLeft / 13) * 13) + "px";
+    let leftamount = (Math.round(elmnt.offsetLeft / 13) * 13);
+    let tick = (leftamount / 13) * 2;
+    elmnt.style.left = leftamount + "px";
+    
+    markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;    
   }
 }
 
@@ -164,14 +168,14 @@ function createMarker(type){
       {
         timestamp: tick, 
         type: 'keyframe', 
-        rotations: [0, 0], 
+        rotations: [false, false], 
         pose: {
-          Head: [],
-          LeftArm: [],
-          RightArm: [],
-          Chest: [],
-          LeftLeg: [],
-          RightLeg: []
+          Head: [false, false, false],
+          LeftArm: [false, false, false],
+          RightArm: [false, false, false],
+          Chest: [false, false, false],
+          LeftLeg: [false, false, false],
+          RightLeg: [false, false, false]
         },
         mode: 'linear'
       }
@@ -185,6 +189,7 @@ function createMarker(type){
   let marker = document.createElement("div");
   marker.classList = ["marker"];
   marker.classList.toggle(type, true);
+  marker.setAttribute("index", markerdata.length-1)
   
   //Make the marker draggable
   dragElement(marker);
@@ -199,6 +204,8 @@ function createMarker(type){
   selectMarker({target: marker})
 }
 
+var selectedMarker = false;
+
 function selectMarker(ev){
   let el = ev.target;
   Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
@@ -211,7 +218,8 @@ function selectMarker(ev){
     unel.style.display = "none";
   })
   
-  document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset"
+  document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
+  selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
 }
 
 //Project data
