@@ -119,6 +119,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-y").value = parseFloat(selectedMarker.pose.RightLeg[1]) || '';
     document.getElementById("facing-rightleg-z").value = parseFloat(selectedMarker.pose.RightLeg[2]) || '';
     document.getElementById("facing-rotation").value = parseFloat(selectedMarker.rotations[0]) || '';
+    document.getElementById("marker-mode").value = selectedMarker.mode;
     if(window.bones) updateVisualRotation(selectedMarker);
   } else {
     document.getElementById("event-command").value = selectedMarker.event;
@@ -289,6 +290,34 @@ createMarker('events')
 createMarker('animations')
 
 //Compile frames
+var framedata = [];
 function compileFrames(){
-  
+  var rawdata = [];
+  //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
+  for(let marker of markerdata){
+    if(marker.type === 'event'){
+      rawdata.push(marker);
+    } else {
+      for(let bonename of Object.keys(marker.pose)){
+        let bonedata = marker.pose[bonename];
+        for(let i = 0; i < bonedata.length; i++){
+          let value = {
+            tick: 0,
+            value: 0
+          };
+
+          let object = {
+            "start": {
+              tick: 4,
+              value: 0
+            },
+            "end": false,
+            "bonename": bonename,
+            "axis": 0, //0 for x, 1 for y, 2 for z
+            "mode": marker.mode
+          };
+        }
+      }
+    }
+  }
 }
