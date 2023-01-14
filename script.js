@@ -169,3 +169,9 @@ function selectMarker(ev){
 
 createMarker('events')
 createMarker('animations')
+
+//Project data
+var markerdata = [
+  //{type: 'event', event: '/command'},
+  //{type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
+];
