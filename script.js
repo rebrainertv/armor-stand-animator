@@ -256,7 +256,6 @@ function deselectMarker(){
   })
   selectedMarker = false;
   
-  let el = ev.target;
   Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
     unel.classList.toggle("selected", false)
   })
@@ -271,6 +270,7 @@ function deleteMarker(){
   markerel.parentNode.removeChild(markerel);
   
   deselectMarker()
+  document.querySelector(".project-screen").style.display = "unset";
 }
 
 //Project data

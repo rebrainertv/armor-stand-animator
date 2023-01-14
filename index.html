@@ -34,7 +34,7 @@
           <li>New</li>
           <li>Load Project</li>
           <li>Save Project</li>
-          <li>Export to Function</li>
+          <li>Export</li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -42,6 +42,7 @@
         <ul class="context-menu">
           <li>Half time</li>
           <li>Double time</li>
+          <li>Merge all touching markers</li>
           <li>Erase all markers</li>
           <li>Erase all event markers</li>
           <li>Erase all animation markers</li>
@@ -51,7 +52,9 @@
         Add
         <ul class="context-menu">
           <li>Event marker at specific position</li>
+          <li>Event marker at cursor</li>
           <li>Animation marker at specific position</li>
+          <li>Animation marker at cursor</li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -177,6 +180,25 @@
             </tbody>
           </table>
         </div>
+        <div class="app-right-inner screen project-screen" style="display:none;">
+          <h1>Project Settings</h1>
+          <table style="margin:auto;">
+            <tbody>
+              <tr>
+                <td>Variable Name</td>
+                <td><input></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <label><input type="checkbox" style="height: 30px;"> Loop</label>
+                </td>
+              </tr>
+              <tr>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="app-bottom">
         <div class="bottom-bar">
@@ -201,7 +223,7 @@
           <div class="dynamic-editor-container">
             <div class="element-placement">
             </div>
-            <table class="dynamic-editor" onclick="deselectMarker()">
+            <table class="dynamic-editor" onclick="deselectMarker(); document.querySelector('.project-screen').style.display = 'unset';">
               <tbody>
                 <tr class="dynamic-ruler" id="dynamic-ruler">
                   <td style="position:sticky; left:0; background-color:var(--app-inner-background); border-right: none;"></td>
