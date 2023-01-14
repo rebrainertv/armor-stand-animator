@@ -80,6 +80,9 @@ header {
   user-select: none;
   background-color: var(--topbar-background);
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 header > span.context-label {
