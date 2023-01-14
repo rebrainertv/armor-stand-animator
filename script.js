@@ -133,3 +133,17 @@ function dragElement(elmnt) {
     elmnt.style.left = (Math.round(elmnt.offsetLeft / 13) * 13) + "px";
   }
 }
+
+function createMarker(type){
+  let marker = document.createElement("div");
+  marker.classList = ["marker"];
+  marker.classList.toggle(type, true);
+  
+  //Make the marker draggable
+  dragElement(marker);
+  
+  //Move the marker to the current cursor position
+  marker.style.left = document.querySelector(".dynamic-editor-container").scrollLeft + "px";
+  
+  document.querySelector(".element-placement").appendChild(marker);
+}
