@@ -157,10 +157,12 @@ function dragElement(elmnt) {
 }
 
 function createMarker(type){
+  let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / 13) * 13);
+  let tick = (leftamount / 13) * 2;
   if(type == 'animations'){
     markerdata.push(
       {
-        timestamp: 2, 
+        timestamp: tick, 
         type: 'keyframe', 
         rotations: [0, 0], 
         pose: {
@@ -175,7 +177,7 @@ function createMarker(type){
       }
     );
   } else if(type == 'events'){
-    markerdata.push({timestamp: 0, type: 'command', event: '/command'});
+    markerdata.push({timestamp: tick, type: 'command', event: '/command'});
   } else {
     return;
   }
@@ -188,7 +190,7 @@ function createMarker(type){
   dragElement(marker);
   
   //Move the marker to the current cursor position
-  marker.style.left = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / 13) * 13) + "px";
+  marker.style.left = leftamount + "px";
   
   marker.onclick = selectMarker;
   
