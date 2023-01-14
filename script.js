@@ -304,7 +304,7 @@ function compileFrames(){
     } else {
       for(let bonename of Object.keys(marker.pose)){
         let bonedata = marker.pose[bonename];
-        for(let i = 0; i < bonedata.length; i++){
+        for(let i = 0; i < bonedata.length; i++){ //TODO: facing rotation data
           if(bonedata[i] === false) continue;
           let value = {
             tick: marker.timestamp,
@@ -351,10 +351,35 @@ function compileFrames(){
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
-    if(marker.end === false) continue;
-    if(marker.mode === 'linear'){
-      let framespan = marker.start.tick - marker.end.tick;
-      let valuedifference = marker.start.value - marker.end.value;
+    let framegroup = [];
+    if(entry.end === false) continue;
+    if(entry.mode === 'linear'){
+      let framespan = entry.end.tick - entry.start.tick; //How long the movement lasts. Should be a positive int
+      let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
+      let valueincrement = (valuedifference / framespan); //How much to increment the value per frame
+      
+      console.log(entry, {framespan, valuedifference, valueincrement});
+      
+      for(let i = 0; i < framespan; i++){
+        let frame = { 
+          pose: {
+            "Head": [false, false, false],
+            "LeftArm": [false, false, false],
+            "RightArm": [false, false, false],
+            "Chest": [false, false, false],
+            "LeftLeg": [false, false, false],
+            "RightLeg": [false, false, false]
+          },
+          rotations: [false, false],
+          timestamp: (entry.start.tick + i)
+        };
+        frame[entry.bonename][entry.axis] = (valueincrement * i);
+        framegroup.push(frame);
+      }
     }
+    
+    rawframegroups.push(framegroup);
   }
+  
+  console.log(rawframegroups);
 }
