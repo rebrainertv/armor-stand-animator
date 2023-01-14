@@ -10,6 +10,9 @@ String.prototype.toMMSS = function () {
   return /*hours + ':'*/ + minutes + ':' + seconds;
 }
 
+var framepixelratio = 6.5;
+var framepixelmultiplier = 1;
+
 let lastGeneratedTimestamp = -1;
 
 function generateEditorTimestamps(amount){
@@ -86,8 +89,9 @@ function updateRotation(){
   selectedMarker.pose.RightLeg[1] = parseFloat(document.getElementById("facing-rightleg-y").value) || false;
   selectedMarker.pose.RightLeg[2] = parseFloat(document.getElementById("facing-rightleg-z").value) || false;
   selectedMarker.rotations[0] = parseFloat(document.getElementById("facing-rotation").value) || false; 
+  selectedMarker.mode = document.getElementById("marker-mode").value; 
   
-  updateVisualRotation(selectedMarker);
+  if(window.bones) updateVisualRotation(selectedMarker);
 }
 
 function updateEvent(){
@@ -115,7 +119,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-y").value = parseFloat(selectedMarker.pose.RightLeg[1]) || '';
     document.getElementById("facing-rightleg-z").value = parseFloat(selectedMarker.pose.RightLeg[2]) || '';
     document.getElementById("facing-rotation").value = parseFloat(selectedMarker.rotations[0]) || '';
-    updateVisualRotation(selectedMarker);
+    if(window.bones) updateVisualRotation(selectedMarker);
   } else {
     document.getElementById("event-command").value = selectedMarker.event;
   }
@@ -185,17 +189,17 @@ function dragElement(elmnt) {
     document.onmousemove = null;
     
     //Autocorrect to 13x13 grid
-    let leftamount = (Math.round(elmnt.offsetLeft / 13) * 13);
-    let tick = (leftamount / 13) * 2;
+    let leftamount = (Math.round(elmnt.offsetLeft / framepixelratio) * framepixelratio);
+    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
     elmnt.style.left = leftamount + "px";
     
-    markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;    
+    markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;
   }
 }
 
-function createMarker(type){
-  let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / 13) * 13);
-  let tick = (leftamount / 13) * 2;
+function createMarker(type, location = false){
+  let leftamount = location || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+  let tick = (leftamount / framepixelratio) * framepixelmultiplier;
   if(type == 'animations'){
     markerdata.push(
       {
@@ -283,3 +287,8 @@ var markerdata = [
 
 createMarker('events')
 createMarker('animations')
+
+//Compile frames
+function compileFrames(){
+  
+}
