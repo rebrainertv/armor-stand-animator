@@ -33,7 +33,7 @@ generateEditorTimestamps(1)
 generateEditorTimestamps(60)
 
 //Render rotation values
-function updateRotation(){
+function updateVisualRotation(data){
   function getRadians(degrees){
     if(!degrees) return 0;
     var pi = Math.PI;
@@ -64,6 +64,28 @@ function updateRotation(){
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
   
   render();
+}
+
+function updateRotation(){
+  document.getElementById("facing-head-x").value;
+  document.getElementById("facing-head-y").value;
+  document.getElementById("facing-head-z").value;
+  document.getElementById("facing-leftarm-x").value;
+  document.getElementById("facing-leftarm-y").value;
+  document.getElementById("facing-leftarm-z").value;
+  document.getElementById("facing-rightarm-x").value;
+  document.getElementById("facing-rightarm-y").value;
+  document.getElementById("facing-rightarm-z").value;
+  document.getElementById("facing-chest-x").value;
+  document.getElementById("facing-chest-y").value;
+  document.getElementById("facing-chest-z").value;
+  document.getElementById("facing-leftleg-x").value;
+  document.getElementById("facing-leftleg-y").value;
+  document.getElementById("facing-leftleg-z").value;
+  document.getElementById("facing-rightleg-x").value;
+  document.getElementById("facing-rightleg-y").value;
+  document.getElementById("facing-rightleg-z").value;
+  document.getElementById("facing-rotation").value;
 }
 
 // Make the already placed markers draggable
@@ -136,10 +158,24 @@ function dragElement(elmnt) {
 
 function createMarker(type){
   if(type == 'animations'){
-    markerdata.push({timestamp: 2, type: 'keyframe', rotations: [0, 0], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'});
-    
+    markerdata.push(
+      {
+        timestamp: 2, 
+        type: 'keyframe', 
+        rotations: [0, 0], 
+        pose: {
+          Head: [],
+          LeftArm: [],
+          RightArm: [],
+          Chest: [],
+          LeftLeg: [],
+          RightLeg: []
+        },
+        mode: 'linear'
+      }
+    );
   } else if(type == 'events'){
-    markerdata.push({timestamp: 0, type: 'event', event: '/command'});
+    markerdata.push({timestamp: 0, type: 'command', event: '/command'});
   } else {
     return;
   }
@@ -157,8 +193,6 @@ function createMarker(type){
   marker.onclick = selectMarker;
   
   document.querySelector(".element-placement").appendChild(marker);
-  
-  
   
   selectMarker({target: marker})
 }
