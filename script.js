@@ -143,14 +143,29 @@ function createMarker(type){
   dragElement(marker);
   
   //Move the marker to the current cursor position
-  marker.style.left = document.querySelector(".dynamic-editor-container").scrollLeft + "px";
+  marker.style.left = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / 13) * 13) + "px";
+  
+  marker.onclick = selectMarker;
   
   document.querySelector(".element-placement").appendChild(marker);
+  
+  selectMarker({target: marker})
 }
 
-function selectMarker(){
-  Array.from(document.querySelectorAll(""))
+function selectMarker(ev){
+  let el = ev.target;
+  Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
+    unel.classList.toggle("selected", false)
+  })
+  
+  el.classList.toggle("selected", true);
+  
+  Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+    unel.style.display = "none";
+  })
+  
+  document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset"
 }
 
-createMarker('animations')
 createMarker('events')
+createMarker('animations')

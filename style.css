@@ -243,6 +243,12 @@ header > span.context-label:hover .context-menu {
   left: 0px;
   cursor: e-resize;
   z-index: 2;
+  opacity: 0.65;
+}
+
+.marker.selected {
+  opacity: 1;
+  outline: 1px solid white;
 }
 
 .marker.animations {
