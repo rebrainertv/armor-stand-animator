@@ -510,20 +510,25 @@ function exportToFunction(){
     let rotationdata = frame.pose.rotation;
     
     let pose = [];
+    let rotation = false;
     
     for(let bonename of Object.keys(posedata)){
       let bonedata = posedata[bonename];
       if(bonename !== 'rotations' && bonedata.join(".") !== 'false.false.false'){
-        let poseentry = bonename + ":[";
-        poseentry += (bonedata[0] !== false ? bonedata[0] : 0) + "f,";
-        poseentry += (bonedata[1] !== false ? bonedata[1] : 0) + "f,";
+        let poseentry = bonename + ": [";
+        poseentry += (bonedata[0] !== false ? bonedata[0] : 0) + "f, ";
+        poseentry += (bonedata[1] !== false ? bonedata[1] : 0) + "f, ";
         poseentry += (bonedata[2] !== false ? bonedata[2] : 0) + "f";
         poseentry += "]";
         pose.push(poseentry)
       }
     }
     
-    console.log(pose)
+    if(rotationdata[0] !== false){
+      rotation = rotationdata[0] + 'f,0f';
+    }
+    
+    let nbt = "{" + (pose.length > 0 ? pose.join(",") : '')
     
     filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
   }
