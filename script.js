@@ -354,8 +354,6 @@ function compileFrames(){
     }
   }
   
-  console.log(rawdata);
-  
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
@@ -399,10 +397,28 @@ function compileFrames(){
     for(let frame of framegroup){
       let timestamp = frame.timestamp;
       //Find an appropriate frame to merge into
-      let 
+      let acceptableframe = false;
+      for(let potentialframe of frames){
+        if(potentialframe.timestamp === timestamp) acceptableframe = potentialframe;
+      }
+      
+      if(acceptableframe){
+        //Merge the frame properties
+        for(let bonename of Object.keys(acceptableframe.pose)){
+          for(let i = 0; i < acceptableframe.pose[bonename].length; i++){
+            if(acceptableframe.pose[bonename][i] === false && frame.pose[bonename][i] !== false){
+              acceptableframe.pose[bonename][i] = frame.pose[bonename][i];
+            }
+          }
+        }
+      } else {
+        //Just directly add this frame to the frames list
+        frames.push(frame);
+      }
     }
   }
   
-  console.log(frames)
-  //TODO: playback capabilities
+  framedata = frames;
 }
+
+//TODO: playback capabilities
