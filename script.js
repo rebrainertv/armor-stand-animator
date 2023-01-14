@@ -306,7 +306,7 @@ function compileFrames(){
       continue;
     } 
     if(marker.type === 'command'){
-      rawdata.push(marker);
+      //rawdata.push(marker);
     } else {
       for(let bonename of Object.keys(marker.pose)){
         let bonedata = marker.pose[bonename];
