@@ -25,6 +25,8 @@ function generateEditorTimestamps(amount){
     document.getElementById("dynamic-events").appendChild(empty1);
     document.getElementById("dynamic-animations").appendChild(empty2);
   }
+  
+  document.querySelector(".end-spacer").parentNode.appendChild(document.querySelector(".end-spacer"));
 }
 
 generateEditorTimestamps(1)
