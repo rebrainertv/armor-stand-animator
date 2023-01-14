@@ -214,7 +214,7 @@ function createMarker(type){
       }
     );
   } else if(type == 'events'){
-    markerdata.push({timestamp: tick, type: 'command', event: '/command'});
+    markerdata.push({timestamp: tick, type: 'command', event: ''});
   } else {
     return;
   }
