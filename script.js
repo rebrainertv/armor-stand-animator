@@ -36,9 +36,15 @@ generateEditorTimestamps(1)
 generateEditorTimestamps(60)
 
 //Render rotation values
-function updateVisualRotation(data){
+function updateVisualRotation(data, inPlayback = false){
   function getRadians(degrees){
-    if(!degreesinPlayback) return 0;
+    if(!degrees){
+      if(inPlayback){
+        return false; //Keep current rotation
+      } else {
+        return 0; //Reset rotation
+      }
+    } 
     var pi = Math.PI;
     return degrees * (pi/180);
   }
@@ -479,7 +485,7 @@ function playAnimation(){
       return framedata[timestamp];
     }
     
-    updateVisualRotation(getFrame(currentFrame));
+    updateVisualRotation(getFrame(currentFrame), true);
     currentFrame++;
     if(currentFrame > framedata.length-1){
       stopAnimation()
