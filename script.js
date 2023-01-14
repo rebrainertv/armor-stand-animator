@@ -43,25 +43,25 @@ function updateVisualRotation(data){
     return degrees * (pi/180);
   }
   
-  bones[3].rotation.x = getRadians(data.pose.Head[0]) || bones[3].rotation.x;
-  bones[3].rotation.y = getRadians(data.pose.Head[1]) || bones[3].rotation.y;
-  bones[3].rotation.z = getRadians(data.pose.Head[2]) || bones[3].rotation.z;
-  bones[4].rotation.x = getRadians(data.pose.LeftArm[0]) || bones[4].rotation.x;
-  bones[4].rotation.y = getRadians(data.pose.LeftArm[1]) || bones[4].rotation.y;
-  bones[4].rotation.z = getRadians(data.pose.LeftArm[2]) || bones[4].rotation.z;
-  bones[6].rotation.x = getRadians(data.pose.RightArm[0]) || bones[6].rotation.x;
-  bones[6].rotation.y = getRadians(data.pose.RightArm[1]) || bones[6].rotation.y;
-  bones[6].rotation.z = getRadians(data.pose.RightArm[2]) || bones[6].rotation.z;
-  bones[2].rotation.x = getRadians(data.pose.Chest[0]) || bones[2].rotation.x;
-  bones[2].rotation.y = getRadians(data.pose.Chest[1]) || bones[2].rotation.y;
-  bones[2].rotation.z = getRadians(data.pose.Chest[2]) || bones[2].rotation.z;
-  bones[5].rotation.x = getRadians(data.pose.LeftLeg[0]) || bones[5].rotation.x;
-  bones[5].rotation.y = getRadians(data.pose.LeftLeg[1]) || bones[5].rotation.y;
-  bones[5].rotation.z = getRadians(data.pose.LeftLeg[2]) || bones[5].rotation.z;
-  bones[7].rotation.x = getRadians(data.pose.RightLeg[0]) || bones[7].rotation.x;
-  bones[7].rotation.y = getRadians(data.pose.RightLeg[1]) || bones[7].rotation.y;
-  bones[7].rotation.z = getRadians(data.pose.RightLeg[2]) || bones[7].rotation.z;
-  window.gltf.scene.children[0].rotation.y = getRadians(data.rotations[0]) || window.gltf.scene.children[0].rotation.y;
+  bones[3].rotation.x = (getRadians(data.pose.Head[0]) !== false ? getRadians(data.pose.Head[0]) : bones[3].rotation.x);
+  bones[3].rotation.y = (getRadians(data.pose.Head[1]) !== false ? getRadians(data.pose.Head[1]) : bones[3].rotation.y);
+  bones[3].rotation.z = (getRadians(data.pose.Head[2]) !== false ? getRadians(data.pose.Head[2]) : bones[3].rotation.z);
+  bones[4].rotation.x = (getRadians(data.pose.LeftArm[0]) !== false ? getRadians(data.pose.LeftArm[0]) : bones[4].rotation.x);
+  bones[4].rotation.y = (getRadians(data.pose.LeftArm[1]) !== false ? getRadians(data.pose.LeftArm[1]) : bones[4].rotation.y);
+  bones[4].rotation.z = (getRadians(data.pose.LeftArm[2]) !== false ? getRadians(data.pose.LeftArm[2]) : bones[4].rotation.z);
+  bones[6].rotation.x = (getRadians(data.pose.RightArm[0]) !== false ? getRadians(data.pose.RightArm[0]) : bones[6].rotation.x);
+  bones[6].rotation.y = (getRadians(data.pose.RightArm[1]) !== false ? getRadians(data.pose.RightArm[1]) : bones[6].rotation.y);
+  bones[6].rotation.z = (getRadians(data.pose.RightArm[2]) !== false ? getRadians(data.pose.RightArm[2]) : bones[6].rotation.z);
+  bones[2].rotation.x = (getRadians(data.pose.Chest[0]) !== false ? getRadians(data.pose.Chest[0]) : bones[2].rotation.x);
+  bones[2].rotation.y = (getRadians(data.pose.Chest[1]) !== false ? getRadians(data.pose.Chest[1]) : bones[2].rotation.y);
+  bones[2].rotation.z = (getRadians(data.pose.Chest[2]) !== false ? getRadians(data.pose.Chest[2]) : bones[2].rotation.z);
+  bones[5].rotation.x = (getRadians(data.pose.LeftLeg[0]) !== false ? getRadians(data.pose.LeftLeg[0]) : bones[5].rotation.x);
+  bones[5].rotation.y = (getRadians(data.pose.LeftLeg[1]) !== false ? getRadians(data.pose.LeftLeg[1]) : bones[5].rotation.y);
+  bones[5].rotation.z = (getRadians(data.pose.LeftLeg[2]) !== false ? getRadians(data.pose.LeftLeg[2]) : bones[5].rotation.z);
+  bones[7].rotation.x = (getRadians(data.pose.RightLeg[0]) !== false ? getRadians(data.pose.RightLeg[0]) : bones[7].rotation.x);
+  bones[7].rotation.y = (getRadians(data.pose.RightLeg[1]) !== false ? getRadians(data.pose.RightLeg[1]) : bones[7].rotation.y);
+  bones[7].rotation.z = (getRadians(data.pose.RightLeg[2]) !== false ? getRadians(data.pose.RightLeg[2]) : bones[7].rotation.z);
+  window.gltf.scene.children[0].rotation.y = (getRadians(data.rotations[0]) !== false ? getRadians(data.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   
   //Offset baseplate rotation
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
@@ -70,25 +70,25 @@ function updateVisualRotation(data){
 }
 
 function updateRotation(){  
-  selectedMarker.pose.Head[0] = parseFloat(document.getElementById("facing-head-x").value) || false;
-  selectedMarker.pose.Head[1] = parseFloat(document.getElementById("facing-head-y").value) || false;
-  selectedMarker.pose.Head[2] = parseFloat(document.getElementById("facing-head-z").value) || false;
-  selectedMarker.pose.LeftArm[0] = parseFloat(document.getElementById("facing-leftarm-x").value) || false;
-  selectedMarker.pose.LeftArm[1] = parseFloat(document.getElementById("facing-leftarm-y").value) || false;
-  selectedMarker.pose.LeftArm[2] = parseFloat(document.getElementById("facing-leftarm-z").value) || false;
-  selectedMarker.pose.RightArm[0] = parseFloat(document.getElementById("facing-rightarm-x").value) || false;
-  selectedMarker.pose.RightArm[1] = parseFloat(document.getElementById("facing-rightarm-y").value) || false;
-  selectedMarker.pose.RightArm[2] = parseFloat(document.getElementById("facing-rightarm-z").value) || false;
-  selectedMarker.pose.Chest[0] = parseFloat(document.getElementById("facing-chest-x").value) || false;
-  selectedMarker.pose.Chest[1] = parseFloat(document.getElementById("facing-chest-y").value) || false;
-  selectedMarker.pose.Chest[2] = parseFloat(document.getElementById("facing-chest-z").value) || false;
-  selectedMarker.pose.LeftLeg[0] = parseFloat(document.getElementById("facing-leftleg-x").value) || false;
-  selectedMarker.pose.LeftLeg[1] = parseFloat(document.getElementById("facing-leftleg-y").value) || false;
-  selectedMarker.pose.LeftLeg[2] = parseFloat(document.getElementById("facing-leftleg-z").value) || false;
-  selectedMarker.pose.RightLeg[0] = parseFloat(document.getElementById("facing-rightleg-x").value) || false;
-  selectedMarker.pose.RightLeg[1] = parseFloat(document.getElementById("facing-rightleg-y").value) || false;
-  selectedMarker.pose.RightLeg[2] = parseFloat(document.getElementById("facing-rightleg-z").value) || false;
-  selectedMarker.rotations[0] = parseFloat(document.getElementById("facing-rotation").value) || false; 
+  selectedMarker.pose.Head[0] = (parseFloat(document.getElementById("facing-head-x").value) !== NaN ? parseFloat(document.getElementById("facing-head-x").value) : false);
+  selectedMarker.pose.Head[1] = (parseFloat(document.getElementById("facing-head-y").value) !== NaN ? parseFloat(document.getElementById("facing-head-y").value) : false);
+  selectedMarker.pose.Head[2] = (parseFloat(document.getElementById("facing-head-z").value) !== NaN ? parseFloat(document.getElementById("facing-head-z").value) : false);
+  selectedMarker.pose.LeftArm[0] = (parseFloat(document.getElementById("facing-leftarm-x").value) !== NaN ? parseFloat(document.getElementById("facing-leftarm-x").value) : false);
+  selectedMarker.pose.LeftArm[1] = (parseFloat(document.getElementById("facing-leftarm-y").value) !== NaN ? parseFloat(document.getElementById("facing-leftarm-y").value) : false);
+  selectedMarker.pose.LeftArm[2] = (parseFloat(document.getElementById("facing-leftarm-z").value) !== NaN ? parseFloat(document.getElementById("facing-leftarm-z").value) : false);
+  selectedMarker.pose.RightArm[0] = (parseFloat(document.getElementById("facing-rightarm-x").value) !== NaN ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
+  selectedMarker.pose.RightArm[1] = (parseFloat(document.getElementById("facing-rightarm-y").value) !== NaN ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
+  selectedMarker.pose.RightArm[2] = (parseFloat(document.getElementById("facing-rightarm-z").value) !== NaN ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
+  selectedMarker.pose.Chest[0] = (parseFloat(document.getElementById("facing-chest-x").value) !== NaN ? parseFloat(document.getElementById("facing-chest-x").value) : false);
+  selectedMarker.pose.Chest[1] = (parseFloat(document.getElementById("facing-chest-y").value) !== NaN ? parseFloat(document.getElementById("facing-chest-y").value) : false);
+  selectedMarker.pose.Chest[2] = (parseFloat(document.getElementById("facing-chest-z").value) !== NaN ? parseFloat(document.getElementById("facing-chest-z").value) : false);
+  selectedMarker.pose.LeftLeg[0] = (parseFloat(document.getElementById("facing-leftleg-x").value) !== NaN ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
+  selectedMarker.pose.LeftLeg[1] = (parseFloat(document.getElementById("facing-leftleg-y").value) !== NaN ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
+  selectedMarker.pose.LeftLeg[2] = (parseFloat(document.getElementById("facing-leftleg-z").value) !== NaN ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
+  selectedMarker.pose.RightLeg[0] = (parseFloat(document.getElementById("facing-rightleg-x").value) !== NaN ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
+  selectedMarker.pose.RightLeg[1] = (parseFloat(document.getElementById("facing-rightleg-y").value) !== NaN ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
+  selectedMarker.pose.RightLeg[2] = (parseFloat(document.getElementById("facing-rightleg-z").value) !== NaN ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
+  selectedMarker.rotations[0] = (parseFloat(document.getElementById("facing-rotation").value) !== NaN ? parseFloat(document.getElementById("facing-rotation").value) : false);
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
   if(window.bones) updateVisualRotation(selectedMarker);
@@ -100,25 +100,25 @@ function updateEvent(){
 
 function renderValues(){
   if(selectedMarker.type === 'keyframe'){
-    document.getElementById("facing-head-x").value = parseFloat(selectedMarker.pose.Head[0]) || '';
-    document.getElementById("facing-head-y").value = parseFloat(selectedMarker.pose.Head[1]) || '';
-    document.getElementById("facing-head-z").value = parseFloat(selectedMarker.pose.Head[2]) || '';
-    document.getElementById("facing-leftarm-x").value = parseFloat(selectedMarker.pose.LeftArm[0]) || '';
-    document.getElementById("facing-leftarm-y").value = parseFloat(selectedMarker.pose.LeftArm[1]) || '';
-    document.getElementById("facing-leftarm-z").value = parseFloat(selectedMarker.pose.LeftArm[2]) || '';
-    document.getElementById("facing-rightarm-x").value = parseFloat(selectedMarker.pose.RightArm[0]) || '';
-    document.getElementById("facing-rightarm-y").value = parseFloat(selectedMarker.pose.RightArm[1]) || '';
-    document.getElementById("facing-rightarm-z").value = parseFloat(selectedMarker.pose.RightArm[2]) || '';
-    document.getElementById("facing-chest-x").value = parseFloat(selectedMarker.pose.Chest[0]) || '';
-    document.getElementById("facing-chest-y").value = parseFloat(selectedMarker.pose.Chest[1]) || '';
-    document.getElementById("facing-chest-z").value = parseFloat(selectedMarker.pose.Chest[2]) || '';
-    document.getElementById("facing-leftleg-x").value = parseFloat(selectedMarker.pose.LeftLeg[0]) || '';
-    document.getElementById("facing-leftleg-y").value = parseFloat(selectedMarker.pose.LeftLeg[1]) || '';
-    document.getElementById("facing-leftleg-z").value = parseFloat(selectedMarker.pose.LeftLeg[2]) || '';
-    document.getElementById("facing-rightleg-x").value = parseFloat(selectedMarker.pose.RightLeg[0]) || '';
-    document.getElementById("facing-rightleg-y").value = parseFloat(selectedMarker.pose.RightLeg[1]) || '';
-    document.getElementById("facing-rightleg-z").value = parseFloat(selectedMarker.pose.RightLeg[2]) || '';
-    document.getElementById("facing-rotation").value = parseFloat(selectedMarker.rotations[0]) || '';
+    document.getElementById("facing-head-x").value = (selectedMarker.pose.Head[0] !== false ? parseFloat(selectedMarker.pose.Head[0]) : '');
+    document.getElementById("facing-head-y").value = (selectedMarker.pose.Head[1] !== false ? parseFloat(selectedMarker.pose.Head[1]) : '');
+    document.getElementById("facing-head-z").value = (selectedMarker.pose.Head[2] !== false ? parseFloat(selectedMarker.pose.Head[2]) : '');
+    document.getElementById("facing-leftarm-x").value = (selectedMarker.pose.LeftArm[0] !== false ? parseFloat(selectedMarker.pose.LeftArm[0]) : '');
+    document.getElementById("facing-leftarm-y").value = (selectedMarker.pose.LeftArm[1] !== false ? parseFloat(selectedMarker.pose.LeftArm[1]) : '');
+    document.getElementById("facing-leftarm-z").value = (selectedMarker.pose.LeftArm[2] !== false ? parseFloat(selectedMarker.pose.LeftArm[2]) : '');
+    document.getElementById("facing-rightarm-x").value = (selectedMarker.pose.RightArm[0] !== false ? parseFloat(selectedMarker.pose.RightArm[0]) : '');
+    document.getElementById("facing-rightarm-y").value = (selectedMarker.pose.RightArm[1] !== false ? parseFloat(selectedMarker.pose.RightArm[1]) : '');
+    document.getElementById("facing-rightarm-z").value = (selectedMarker.pose.RightArm[2] !== false ? parseFloat(selectedMarker.pose.RightArm[2]) : '');
+    document.getElementById("facing-chest-x").value = (selectedMarker.pose.Chest[0] !== false ? parseFloat(selectedMarker.pose.Chest[0]) : '');
+    document.getElementById("facing-chest-y").value = (selectedMarker.pose.Chest[1] !== false ? parseFloat(selectedMarker.pose.Chest[1]) : '');
+    document.getElementById("facing-chest-z").value = (selectedMarker.pose.Chest[2] !== false ? parseFloat(selectedMarker.pose.Chest[2]) : '');
+    document.getElementById("facing-leftleg-x").value = (selectedMarker.pose.LeftLeg[0] !== false ? parseFloat(selectedMarker.pose.LeftLeg[0]) : '');
+    document.getElementById("facing-leftleg-y").value = (selectedMarker.pose.LeftLeg[1] !== false ? parseFloat(selectedMarker.pose.LeftLeg[1]) : '');
+    document.getElementById("facing-leftleg-z").value = (selectedMarker.pose.LeftLeg[2] !== false ? parseFloat(selectedMarker.pose.LeftLeg[2]) : '');
+    document.getElementById("facing-rightleg-x").value = (selectedMarker.pose.RightLeg[0] !== false ? parseFloat(selectedMarker.pose.RightLeg[0]) : '');
+    document.getElementById("facing-rightleg-y").value = (selectedMarker.pose.RightLeg[1] !== false ? parseFloat(selectedMarker.pose.RightLeg[1]) : '');
+    document.getElementById("facing-rightleg-z").value = (selectedMarker.pose.RightLeg[2] !== false ? parseFloat(selectedMarker.pose.RightLeg[2]) : '');
+    document.getElementById("facing-rotation").value = (selectedMarker.rotations[0] !== false ? parseFloat(selectedMarker.rotations[0]) : '');
     document.getElementById("marker-mode").value = selectedMarker.mode;
     if(window.bones) updateVisualRotation(selectedMarker);
   } else {
