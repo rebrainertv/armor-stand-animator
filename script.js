@@ -392,6 +392,17 @@ function compileFrames(){
   
   console.log(rawframegroups)
   
-  //TODO: merge framegroups to make single frames list
+  //Merge framegroups to make single frames list
+  let frames = [];
+  for(let framegroup of rawframegroups){
+    //Sort through each frame. If it coincides with another frame, merge the two with the second one taking priority
+    for(let frame of framegroup){
+      let timestamp = frame.timestamp;
+      //Find an appropriate frame to merge into
+      let 
+    }
+  }
+  
+  console.log(frames)
   //TODO: playback capabilities
 }
