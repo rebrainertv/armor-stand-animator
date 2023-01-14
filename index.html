@@ -40,9 +40,18 @@
    --><span class="context-label">
         Edit
         <ul class="context-menu">
+          <li>Half time</li>
+          <li>Double time</li>
           <li>Erase all markers</li>
           <li>Erase all event markers</li>
           <li>Erase all animation markers</li>
+        </ul>
+      </span><!--
+   --><span class="context-label">
+        Add
+        <ul class="context-menu">
+          <li>Event marker at specific position</li>
+          <li>Animation marker at specific position</li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -192,7 +201,7 @@
           <div class="dynamic-editor-container">
             <div class="element-placement">
             </div>
-            <table class="dynamic-editor">
+            <table class="dynamic-editor" onclick="deselectMarker()">
               <tbody>
                 <tr class="dynamic-ruler" id="dynamic-ruler">
                   <td style="position:sticky; left:0; background-color:var(--app-inner-background); border-right: none;"></td>

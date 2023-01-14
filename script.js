@@ -241,33 +241,36 @@ var selectedMarker = false;
 
 function selectMarker(ev){
   let el = ev.target;
-  Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
-    unel.classList.toggle("selected", false)
-  })
+  deselectMarker()
   
   el.classList.toggle("selected", true);
-  
-  Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
-    unel.style.display = "none";
-  })
   
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
   selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
   renderValues()
 }
 
-function deleteMarker(){
-  //Doesn't truly delete the marker data, disables it
+function deselectMarker(){
   Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
     unel.style.display = "none";
   })
+  selectedMarker = false;
+  
+  let el = ev.target;
+  Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
+    unel.classList.toggle("selected", false)
+  })
+}
+
+function deleteMarker(){
+  //Doesn't truly delete the marker data, disables it
+  selectedMarker.disabled = true;
   
   //Remove the marker element
   let markerel = document.querySelector(".marker.selected");
   markerel.parentNode.removeChild(markerel);
   
-  selectedMarker.disabled = true;
-  selectedMarker = false;
+  deselectMarker()
 }
 
 //Project data
