@@ -94,30 +94,31 @@ function updateEvent(){
   selectedMarker.event = document.getElementById("event-command").value;
 }
 
-function renderValues(){  
-  document.getElementById("facing-head-x").value = selectedMarker.pose.Head[0] = parseFloat() || false;
-  document.getElementById("facing-head-y").value = selectedMarker.pose.Head[1] = parseFloat() || false;
-  document.getElementById("facing-head-z").value = selectedMarker.pose.Head[2] = parseFloat() || false;
-  document.getElementById("facing-leftarm-x").value = selectedMarker.pose.LeftArm[0] = parseFloat() || false;
-  document.getElementById("facing-leftarm-y").value = selectedMarker.pose.LeftArm[1] = parseFloat() || false;
-  document.getElementById("facing-leftarm-z").value = selectedMarker.pose.LeftArm[2] = parseFloat() || false;
-  document.getElementById("facing-rightarm-x").value = selectedMarker.pose.RightArm[0] = parseFloat() || false;
-  document.getElementById("facing-rightarm-y").value = selectedMarker.pose.RightArm[1] = parseFloat() || false;
-  document.getElementById("facing-rightarm-z").value = selectedMarker.pose.RightArm[2] = parseFloat() || false;
-  document.getElementById("facing-chest-x").value = selectedMarker.pose.Chest[0] = parseFloat() || false;
-  document.getElementById("facing-chest-y").value = selectedMarker.pose.Chest[1] = parseFloat() || false;
-  document.getElementById("facing-chest-z").value = selectedMarker.pose.Chest[2] = parseFloat() || false;
-  document.getElementById("facing-leftleg-x").value = selectedMarker.pose.LeftLeg[0] = parseFloat() || false;
-  document.getElementById("facing-leftleg-y").value = selectedMarker.pose.LeftLeg[1] = parseFloat() || false;
-  document.getElementById("facing-leftleg-z").value = selectedMarker.pose.LeftLeg[2] = parseFloat() || false;
-  document.getElementById("facing-rightleg-x").value = selectedMarker.pose.RightLeg[0] = parseFloat() || false;
-  document.getElementById("facing-rightleg-y").value = selectedMarker.pose.RightLeg[1] = parseFloat() || false;
-  document.getElementById("facing-rightleg-z").value = selectedMarker.pose.RightLeg[2] = parseFloat() || false;
-  document.getElementById("facing-rotation").value = selectedMarker.rotations[0] = parseFloat() || false; 
-  
-  updateVisualRotation(selectedMarker);
-
-  document.getElementById("event-command").value = selectedMarker.event = ;
+function renderValues(){
+  if(selectedMarker.type === 'keyframe'){
+    document.getElementById("facing-head-x").value = parseFloat(selectedMarker.pose.Head[0]) || '';
+    document.getElementById("facing-head-y").value = parseFloat(selectedMarker.pose.Head[1]) || '';
+    document.getElementById("facing-head-z").value = parseFloat(selectedMarker.pose.Head[2]) || '';
+    document.getElementById("facing-leftarm-x").value = parseFloat(selectedMarker.pose.LeftArm[0]) || '';
+    document.getElementById("facing-leftarm-y").value = parseFloat(selectedMarker.pose.LeftArm[1]) || '';
+    document.getElementById("facing-leftarm-z").value = parseFloat(selectedMarker.pose.LeftArm[2]) || '';
+    document.getElementById("facing-rightarm-x").value = parseFloat(selectedMarker.pose.RightArm[0]) || '';
+    document.getElementById("facing-rightarm-y").value = parseFloat(selectedMarker.pose.RightArm[1]) || '';
+    document.getElementById("facing-rightarm-z").value = parseFloat(selectedMarker.pose.RightArm[2]) || '';
+    document.getElementById("facing-chest-x").value = parseFloat(selectedMarker.pose.Chest[0]) || '';
+    document.getElementById("facing-chest-y").value = parseFloat(selectedMarker.pose.Chest[1]) || '';
+    document.getElementById("facing-chest-z").value = parseFloat(selectedMarker.pose.Chest[2]) || '';
+    document.getElementById("facing-leftleg-x").value = parseFloat(selectedMarker.pose.LeftLeg[0]) || '';
+    document.getElementById("facing-leftleg-y").value = parseFloat(selectedMarker.pose.LeftLeg[1]) || '';
+    document.getElementById("facing-leftleg-z").value = parseFloat(selectedMarker.pose.LeftLeg[2]) || '';
+    document.getElementById("facing-rightleg-x").value = parseFloat(selectedMarker.pose.RightLeg[0]) || '';
+    document.getElementById("facing-rightleg-y").value = parseFloat(selectedMarker.pose.RightLeg[1]) || '';
+    document.getElementById("facing-rightleg-z").value = parseFloat(selectedMarker.pose.RightLeg[2]) || '';
+    document.getElementById("facing-rotation").value = parseFloat(selectedMarker.rotations[0]) || '';
+    updateVisualRotation(selectedMarker);
+  } else {
+    document.getElementById("event-command").value = selectedMarker.event;
+  }
 }
 
 // Make the already placed markers draggable
@@ -252,6 +253,7 @@ function selectMarker(ev){
   
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
   selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
+  renderValues()
 }
 
 function deleteMarker(){
