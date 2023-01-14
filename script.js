@@ -40,25 +40,25 @@ function updateVisualRotation(data){
     return degrees * (pi/180);
   }
   
-  bones[3].rotation.x = getRadians(parseFloat(document.getElementById("facing-head-x").value));
-  bones[3].rotation.y = getRadians(parseFloat(document.getElementById("facing-head-y").value));
-  bones[3].rotation.z = getRadians(parseFloat(document.getElementById("facing-head-z").value));
-  bones[4].rotation.x = getRadians(parseFloat(document.getElementById("facing-leftarm-x").value));
-  bones[4].rotation.y = getRadians(parseFloat(document.getElementById("facing-leftarm-y").value));
-  bones[4].rotation.z = getRadians(parseFloat(document.getElementById("facing-leftarm-z").value));
-  bones[6].rotation.x = getRadians(parseFloat(document.getElementById("facing-rightarm-x").value));
-  bones[6].rotation.y = getRadians(parseFloat(document.getElementById("facing-rightarm-y").value));
-  bones[6].rotation.z = getRadians(parseFloat(document.getElementById("facing-rightarm-z").value));
-  bones[2].rotation.x = getRadians(parseFloat(document.getElementById("facing-chest-x").value));
-  bones[2].rotation.y = getRadians(parseFloat(document.getElementById("facing-chest-y").value));
-  bones[2].rotation.z = getRadians(parseFloat(document.getElementById("facing-chest-z").value));
-  bones[5].rotation.x = getRadians(parseFloat(document.getElementById("facing-leftleg-x").value));
-  bones[5].rotation.y = getRadians(parseFloat(document.getElementById("facing-leftleg-y").value));
-  bones[5].rotation.z = getRadians(parseFloat(document.getElementById("facing-leftleg-z").value));
-  bones[7].rotation.x = getRadians(parseFloat(document.getElementById("facing-rightleg-x").value));
-  bones[7].rotation.y = getRadians(parseFloat(document.getElementById("facing-rightleg-y").value));
-  bones[7].rotation.z = getRadians(parseFloat(document.getElementById("facing-rightleg-z").value));
-  window.gltf.scene.children[0].rotation.y = getRadians(parseFloat(document.getElementById("facing-rotation").value));
+  bones[3].rotation.x = getRadians(data.pose.Head[0]);
+  bones[3].rotation.y = getRadians(data.pose.Head[1]);
+  bones[3].rotation.z = getRadians(data.pose.Head[2]);
+  bones[4].rotation.x = getRadians(data.pose.LeftArm[0]);
+  bones[4].rotation.y = getRadians(data.pose.LeftArm[1]);
+  bones[4].rotation.z = getRadians(data.pose.LeftArm[2]);
+  bones[6].rotation.x = getRadians(data.pose.RightArm[0]);
+  bones[6].rotation.y = getRadians(data.pose.RightArm[1]);
+  bones[6].rotation.z = getRadians(data.pose.RightArm[2]);
+  bones[2].rotation.x = getRadians(data.pose.Chest[0]);
+  bones[2].rotation.y = getRadians(data.pose.Chest[1]);
+  bones[2].rotation.z = getRadians(data.pose.Chest[2]);
+  bones[5].rotation.x = getRadians(data.pose.LeftLeg[0]);
+  bones[5].rotation.y = getRadians(data.pose.LeftLeg[1]);
+  bones[5].rotation.z = getRadians(data.pose.LeftLeg[2]);
+  bones[7].rotation.x = getRadians(data.pose.RightLeg[0]);
+  bones[7].rotation.y = getRadians(data.pose.RightLeg[1]);
+  bones[7].rotation.z = getRadians(data.pose.RightLeg[2]);
+  window.gltf.scene.children[0].rotation.y = getRadians(data.rotations[0]);
   
   //Offset baseplate rotation
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
@@ -86,6 +86,12 @@ function updateRotation(){
   selectedMarker.pose.RightLeg[1] = parseFloat(document.getElementById("facing-rightleg-y").value) || false;
   selectedMarker.pose.RightLeg[2] = parseFloat(document.getElementById("facing-rightleg-z").value) || false;
   selectedMarker.rotations[0] = parseFloat(document.getElementById("facing-rotation").value) || false; 
+  
+  updateVisualRotation(selectedMarker);
+}
+
+function updateEvent(){
+  selectedMarker.event = document.getElementById("event-command").value;
 }
 
 // Make the already placed markers draggable
@@ -220,6 +226,20 @@ function selectMarker(ev){
   
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
   selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
+}
+
+function deleteMarker(){
+  //Doesn't truly delete the marker data, disables it
+  Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+    unel.style.display = "none";
+  })
+  
+  //Remove the marker element
+  let markerel = document.querySelector(".marker.selected");
+  markerel.parentNode.removeChild(markerel);
+  
+  selectedMarker.disabled = true;
+  selectedMarker = false;
 }
 
 //Project data
