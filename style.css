@@ -173,7 +173,7 @@ header > span.context-label:hover .context-menu {
 }
 
 .dynamic-editor-container {
-  height: calc(100% - 40px);
+  height: 100%;
   overflow-x: scroll;
   position: relative;
   user-select: none;
