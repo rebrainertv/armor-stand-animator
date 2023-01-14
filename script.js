@@ -61,7 +61,7 @@ function updateVisualRotation(data){
   bones[7].rotation.x = (getRadians(data.pose.RightLeg[0]) !== false ? getRadians(data.pose.RightLeg[0]) : bones[7].rotation.x);
   bones[7].rotation.y = (getRadians(data.pose.RightLeg[1]) !== false ? getRadians(data.pose.RightLeg[1]) : bones[7].rotation.y);
   bones[7].rotation.z = (getRadians(data.pose.RightLeg[2]) !== false ? getRadians(data.pose.RightLeg[2]) : bones[7].rotation.z);
-  window.gltf.scene.children[0].rotation.y = (getRadians(data.rotations[0]) !== false ? getRadians(data.rotations[0]) : window.gltf.scene.children[0].rotation.y);
+  window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   
   //Offset baseplate rotation
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
@@ -88,7 +88,7 @@ function updateRotation(){
   selectedMarker.pose.RightLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-x").value)) ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
   selectedMarker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
   selectedMarker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
-  selectedMarker.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
+  selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
   if(window.bones) updateVisualRotation(selectedMarker);
@@ -118,7 +118,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-x").value = (selectedMarker.pose.RightLeg[0] !== false ? parseFloat(selectedMarker.pose.RightLeg[0]) : '');
     document.getElementById("facing-rightleg-y").value = (selectedMarker.pose.RightLeg[1] !== false ? parseFloat(selectedMarker.pose.RightLeg[1]) : '');
     document.getElementById("facing-rightleg-z").value = (selectedMarker.pose.RightLeg[2] !== false ? parseFloat(selectedMarker.pose.RightLeg[2]) : '');
-    document.getElementById("facing-rotation").value = (selectedMarker.rotations[0] !== false ? parseFloat(selectedMarker.rotations[0]) : '');
+    document.getElementById("facing-rotation").value = (selectedMarker.pose.rotations[0] !== false ? parseFloat(selectedMarker.pose.rotations[0]) : '');
     document.getElementById("marker-mode").value = selectedMarker.mode;
     if(window.bones) updateVisualRotation(selectedMarker);
   } else {
@@ -205,15 +205,15 @@ function createMarker(type, location = false){
     markerdata.push(
       {
         timestamp: tick, 
-        type: 'keyframe', 
-        rotations: [false, false], 
+        type: 'keyframe',
         pose: {
           Head: [false, false, false],
           LeftArm: [false, false, false],
           RightArm: [false, false, false],
           Chest: [false, false, false],
           LeftLeg: [false, false, false],
-          RightLeg: [false, false, false]
+          RightLeg: [false, false, false],
+          rotations: [false, false]
         },
         mode: 'linear'
       }
@@ -375,9 +375,9 @@ function compileFrames(){
             "RightArm": [false, false, false],
             "Chest": [false, false, false],
             "LeftLeg": [false, false, false],
-            "RightLeg": [false, false, false]
+            "RightLeg": [false, false, false],
+            rotations: [false, false]
           },
-          rotations: [false, false],
           timestamp: (entry.start.tick + i)
         };
         frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
