@@ -495,4 +495,25 @@ function playAnimation(){
   }
 }
 
-//TODO: playback capabilities
+function exportToFunction(){
+  //Compile frames
+  compileFrames();
+  
+  let scoreboardname = document.getElementById("scoreboardname").value;
+  
+  //TODO: events
+  let filedata = [
+    "scoreboard objectives add " + scoreboardname + " dummy"
+  ];
+  for(let frame of framedata){
+    let posedata = frame.pose;
+    let rotationdata = frame.pose.rotation;
+    delete frame.pose.rotation; //Separate pose and rotation
+    for(let bonename of Object.keys(frame.pose)){
+      let bonedata = frame.pose[bonename];
+      if(bonedata)
+    }
+    
+    filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
+  }
+}
