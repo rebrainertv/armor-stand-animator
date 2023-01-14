@@ -38,7 +38,7 @@ generateEditorTimestamps(60)
 //Render rotation values
 function updateVisualRotation(data, inPlayback = false){
   function getRadians(degrees){
-    if(!degrees){
+    if(degrees === false){
       if(inPlayback){
         return false; //Keep current rotation
       } else {
