@@ -136,10 +136,10 @@ function dragElement(elmnt) {
 
 function createMarker(type){
   if(type == 'animations'){
-    //{timestamp: 0, type: 'event', event: '/command'},
-  //{timestamp: 2, type: 'keyframe', rotations: [y, x], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'}
-  } else if(type == 'events'){
+    markerdata.push({timestamp: 2, type: 'keyframe', rotations: [0, 0], pose: {Head: [], LeftArm: [], RightArm: [], Chest: [], LeftLeg: [], RightLeg: []}, mode: 'linear'});
     
+  } else if(type == 'events'){
+    markerdata.push({timestamp: 0, type: 'event', event: '/command'});
   } else {
     return;
   }
@@ -178,9 +178,6 @@ function selectMarker(ev){
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset"
 }
 
-createMarker('events')
-createMarker('animations')
-
 //Project data
 var markerdata = [
   //{timestamp: 0, type: 'event', event: '/command'},
@@ -189,3 +186,5 @@ var markerdata = [
   //"Timestamp" measures the amount of ticks from animation start that the item triggers
 ];
 
+createMarker('events')
+createMarker('animations')
