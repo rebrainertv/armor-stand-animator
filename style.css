@@ -287,3 +287,10 @@ header > span.context-label:hover .context-menu {
 .deletebutton:hover {
   filter: drop-shadow(2px 2px 6px white)
 }
+
+.drag-selection {
+  background-color: #0074ff30;
+  position: absolute;
+  z-index: 5;
+  border: 2px dashed #0074ff;
+}

@@ -35,7 +35,7 @@
           <li>New</li>
           <li>Load Project</li>
           <li>Save Project</li>
-          <li>Export</li>
+          <li onclick="exportToFunction()">Export</li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -222,8 +222,8 @@
         <div style="height: calc(100% - 40px); position: relative;">
           <div class="cursor"></div>
           <div class="dynamic-editor-container">
-            <div class="element-placement">
-            </div>
+            <div class="drag-selection"></div>
+            <div class="element-placement"></div>
             <table class="dynamic-editor" onclick="deselectMarker(); document.querySelector('.project-screen').style.display = 'unset';">
               <tbody>
                 <tr class="dynamic-ruler" id="dynamic-ruler">

@@ -497,6 +497,26 @@ function playAnimation(){
   }
 }
 
+//Mutiselect in editor
+let editor = document.querySelector(".dynamic-editor");
+editor.addEventListener("mousedown", function(e){
+  //Capture current position
+  let mousex = e.clientX;
+  let mousey = e.clientY;
+  
+  function move(){
+    
+  }
+  
+  function up(){
+    editor.addEventListener("mouseup", up);
+  }
+  
+  editor.addEventListener("mousemove", move);
+  editor.addEventListener("mouseup", up);
+  console.log(e)
+})
+
 function exportToFunction(){
   //Compile frames
   compileFrames();
