@@ -518,9 +518,9 @@ function exportToFunction(){
         let x = (bonedata[0] !== false ? bonedata[0] : 0);
         let y = (bonedata[1] !== false ? bonedata[1] : 0);
         let z = (bonedata[2] !== false ? bonedata[2] : 0);
-        if(x < 0) x = 360 - x;
+        /*if(x < 0) x = 360 - x;
         if(y < 0) y = 360 - y;
-        if(z < 0) z = 360 - z;
+        if(z < 0) z = 360 - z;*/
         
         let poseentry = bonename + ": [";
         poseentry += x + "f, ";
