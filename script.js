@@ -352,33 +352,34 @@ var markerdata = [
   //"Timestamp" measures the amount of ticks from animation start that the item triggers
 ];
 
+function bubbleSort(arr){
+  let n = arr.length;
+  arr = JSON.parse(JSON.stringify(arr));
+  function swap(arr, xp, yp){
+    var temp = arr[xp];
+    arr[xp] = arr[yp];
+    arr[yp] = temp;
+  }
+
+  for (let i = 0; i < n-1; i++) {
+    for (let j = 0; j < n-i-1; j++){
+      if (arr[j].timestamp > arr[j+1].timestamp){
+        swap(arr,j,j+1);
+      }
+    }
+  }
+
+  return arr;
+}
+
 createMarker('events')
 createMarker('animations')
 
 //Compile frames
 var framedata = [];
 function compileFrames(){
-  //First, sort each frame in chronological order
-  function bubbleSort(arr){
-    let n = arr.length;
-    function swap(arr, xp, yp){
-      var temp = arr[xp];
-      arr[xp] = arr[yp];
-      arr[yp] = temp;
-    }
-    
-    for (let i = 0; i < n-1; i++) {
-      for (let j = 0; j < n-i-1; j++){
-        if (arr[j].timestamp > arr[j+1].timestamp){
-          swap(arr,j,j+1);
-        }
-      }
-    }
-    
-    return arr;
-  }
-  
-  let sortedmarkerdata = bubbleSort(JSON.parse(JSON.stringify(markerdata)));
+  //First, sort each frame in chronological order  
+  let sortedmarkerdata = bubbleSort(markerdata);
   
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
@@ -437,8 +438,6 @@ function compileFrames(){
       }
     }
   }
-  
-  console.log(rawdata)
   
   //Create frame groups from each raw object
   var rawframegroups = [];
@@ -638,6 +637,48 @@ editor.addEventListener("mousedown", function(e){
   editor.addEventListener("mousemove", move);
   selectbox.addEventListener("mousemove", move);
   document.addEventListener("mouseup", up);
+})
+
+function saveProject(){
+  //Sort marker data in the list
+  let sortedmarkerdata = bubbleSort(markerdata);
+  
+  //Remove all disabled entries
+  for(let i = 0; i < sortedmarkerdata.length; i++){
+    if(sortedmarkerdata[i].disabled){
+      sortedmarkerdata.splice(i, 1);
+      i--;
+    }
+  }
+  
+  let filedata = {
+    format_version: 0,
+    markerdata: sortedmarkerdata,
+    settings: {
+      scoreboard_name: 'example_animation',
+      loop: true
+    },
+    view: {
+      baseplate: true,
+      small: false
+    }
+  };
+  
+  saveAs(new File([JSON.stringify(filedata)], prompt("What do you want your filename to be?", "myanimation") + '.mcanimation'))
+}
+
+function loadProject(){
+  
+}
+
+document.getElementById("project-upload").addEventListener("change", function(e){
+  let file = this.files[0];
+  let reader = new FileReader();
+  reader.onload = function(e){
+    console.log(e.target.result);
+  }
+  
+  reader.readAsText(file);
 })
 
 function exportToFunction(){

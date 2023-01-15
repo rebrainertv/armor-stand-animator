@@ -33,8 +33,9 @@
         File
         <ul class="context-menu">
           <li>New</li>
-          <li>Load Project</li>
-          <li>Save Project</li>
+          <label style="display: list-item;" for="project-upload">Load Project</label>
+          <input type="file" style="display: none;" accept=".mcanimation" id="project-upload">
+          <li onclick="saveProject()">Save Project</li>
           <li onclick="exportToFunction()">Export</li>
         </ul>
       </span><!--

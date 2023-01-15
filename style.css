@@ -114,11 +114,12 @@ header > span.context-label:hover .context-menu {
   display: inline-block;
 }
 
-.context-menu li {
+.context-menu li, label {
   padding: 2px 7px;
+  cursor: pointer;
 }
 
-.context-menu li:hover {
+.context-menu li:hover, label:hover {
   background-color: var(--home-background);
   /*color: black;*/
 }
