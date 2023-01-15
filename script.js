@@ -358,6 +358,9 @@ createMarker('animations')
 //Compile frames
 var framedata = [];
 function compileFrames(){
+  //First, sort each frame in chronological order
+  for(let )  
+  
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
   for(let marker of markerdata){
