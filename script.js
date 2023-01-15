@@ -792,5 +792,12 @@ function exportToFunction(){
     filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
   }
   
+  //Get event markers, finally
+  for(let marker of markerdata){
+    if(marker.type === 'command'){
+      filedata.push("execute if entity @e[scores={"+ scoreboardname +"="+ marker.timestamp +"},limit=1] run " + marker.event)
+    }
+  }
+  
   saveAs(new File([filedata.join("\n")], prompt("What do you want your filename to be?", "myanimation") +'.mcfunction'))
 }
