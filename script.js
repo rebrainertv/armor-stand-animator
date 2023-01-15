@@ -146,6 +146,9 @@ function dragElement(elmnt) {
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
+    
+    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt});
+    
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
@@ -171,11 +174,12 @@ function dragElement(elmnt) {
     // set the element's new position:
     //elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     
-    let leftValue = (elmnt.offsetLeft - pos1);   
+    //let leftValue = (elmnt.offsetLeft - pos1);   
     
     //Snap to 13x13 grid
     //leftValue = Math.round(leftValue / 13) * 13
     
+    /*
     if(leftValue < 0){
       Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = "0px";}) 
       document.querySelector(".dynamic-editor-container").scrollLeft = 0;
@@ -183,7 +187,19 @@ function dragElement(elmnt) {
     } else {
       Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftValue + "px";}) 
       //elmnt.style.left = leftValue + "px";
-    }
+    }*/
+    
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {
+      let leftValue = (selel.offsetLeft - pos1);
+      if(leftValue < 0){
+        selel.style.left = "0px";
+        document.querySelector(".dynamic-editor-container").scrollLeft = 0;
+        closeDragElement();
+      } else {
+        selel.style.left = leftValue + "px";
+        //elmnt.style.left = leftValue + "px";
+      }
+    })
   }
 
   function closeDragElement() {
@@ -192,17 +208,26 @@ function dragElement(elmnt) {
     document.onmousemove = null;
     
     //Autocorrect to 13x13 grid
-    let leftamount = (Math.round(elmnt.offsetLeft / framepixelratio) * framepixelratio);
+    /*let leftamount = (Math.round(elmnt.offsetLeft / framepixelratio) * framepixelratio);
     let tick = (leftamount / framepixelratio) * framepixelmultiplier;
     Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftamount + "px";})
     //elmnt.style.left = leftamount + "px";
     
     Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;})
     //markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;
+    */
+    
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {
+      let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
+      let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+      selel.style.left = leftamount + "px";
+
+      markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
+    })
   }
 }
 
-function createMarker(type, location = false){
+function createMarker(type, location = false, doselect = ture){
   let leftamount = location * framepixelratio || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
   if(typeof type === 'string'){
@@ -232,7 +257,7 @@ function createMarker(type, location = false){
     type = JSON.parse(JSON.stringify(type));
     type.timestamp = tick;
     markerdata.push(type)
-    type = type.type;
+    type = {'keyframe': 'animations', 'command': 'events'}[type.type];
   } else {
     return;
   }
