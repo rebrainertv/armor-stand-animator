@@ -359,15 +359,30 @@ createMarker('animations')
 var framedata = [];
 function compileFrames(){
   //First, sort each frame in chronological order
-  let sortedframedata = [];
-  for(let i = 0; i < framedata.length; i++){
-    //Iteration
+  function bubbleSort(arr){
+    let n = arr.length;
+    function swap(arr, xp, yp){
+      var temp = arr[xp];
+      arr[xp] = arr[yp];
+      arr[yp] = temp;
+    }
     
-  }  
+    for (let i = 0; i < n-1; i++) {
+      for (let j = 0; j < n-i-1; j++){
+        if (arr[j].timestamp > arr[j+1].timestamp){
+          swap(arr,j,j+1);
+        }
+      }
+    }
+    
+    return arr;
+  }
+  
+  let sortedmarkerdata = bubbleSort(JSON.parse(JSON.stringify(markerdata)));
   
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
-  for(let marker of markerdata){
+  for(let marker of sortedmarkerdata){
     if(marker.disabled){
       //Skip deleted markers
       continue;
