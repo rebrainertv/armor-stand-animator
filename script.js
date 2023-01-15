@@ -137,13 +137,6 @@ function renderValues(){
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
 
   function dragMouseDown(e) {
     e = e || window.event;
@@ -500,6 +493,9 @@ function playAnimation(){
 //Mutiselect in editor
 let editor = document.querySelector(".dynamic-editor");
 editor.addEventListener("mousedown", function(e){
+  deselectMarker();
+  document.querySelector('.project-screen').style.display = 'unset';
+  
   //Capture current position
   let bounding = document.querySelector(".dynamic-editor").getBoundingClientRect()
   let mousex = e.clientX - bounding.x;
@@ -534,7 +530,18 @@ editor.addEventListener("mousedown", function(e){
     }
     
     //Add the selection class to everything the mouse passes over
-    console.log(selectbox.getBoundingRectClient())
+    let selectbounds = selectbox.getBoundingClientRect();
+    Array.from(document.querySelectorAll(".marker")).forEach((el) => {
+      let fromx = selectbounds.x;
+      let fromy = selectbounds.y;
+      let tox = fromx + selectbounds.width;
+      let toy = fromy + selectbounds.height;
+      
+      let elbounds = el.getBoundingClientRect();
+      if(elbounds.x > fromx && elbounds.y > fromy && elbounds.x < tox && elbounds.y < toy){
+        el.classList.toggle("selected", true);
+      }
+    })
   }
   
   function up(){
