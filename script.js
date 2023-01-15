@@ -326,7 +326,7 @@ function compileFrames(){
           //Search through the already made data to see if a matching object already exists
           var foundobject = false;
           for(let searchdata of rawdata){
-            if(searchdata.bonename === bonename && searchdata.axis === i){
+            if(searchdata.bonename === bonename && searchdata.axis === i && !searchdata.startDiscovered){
               foundobject = true;
               if(searchdata.end === false){
                 //Append this value to the searchdata instead of creating a new object
@@ -340,6 +340,8 @@ function compileFrames(){
                   "axis": i, //0 for x, 1 for y, 2 for z
                   "mode": marker.mode
                 });
+                //Add the startDiscovered flag so that it can't be found as a starting point again
+                searchdata.startDiscovered = true;
               }
               break;
             }
@@ -499,7 +501,7 @@ function exportToFunction(){
   //Compile frames
   compileFrames();
   
-  let scoreboardname = document.getElementById("scoreboardname").value;
+  let scoreboardname = 'example_animation'//document.getElementById("scoreboardname").value;
   
   //TODO: events
   let filedata = [
@@ -540,5 +542,5 @@ function exportToFunction(){
     filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
   }
   
-  console.log(filedata)
+  saveAs(new File([filedata.join("\n")], 'animation.mcfunction'))
 }

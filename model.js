@@ -19,6 +19,7 @@ function init() {
 
   camera = new THREE.PerspectiveCamera( 45, previewContainer.clientWidth / previewContainer.clientHeight, 0.25, 20 );
   camera.position.set( 0, 0.9, -3 );
+  camera.rotation.set( -Math.PI, 0, -Math.PI );
   
   window.camera = camera;
   window.render = render;
@@ -90,7 +91,7 @@ function init() {
   controls.addEventListener( 'change', render ); // use if there is no animation loop
   controls.minDistance = 2;
   controls.maxDistance = 50;
-  controls.target.set( 0, 10, - 0.2 );
+  controls.target.set( 0, 0.9, 3 );
   controls.update();*/
 
   window.addEventListener( 'resize', onWindowResize );
