@@ -293,5 +293,6 @@ header > span.context-label:hover .context-menu {
   background-color: #0074ff30;
   position: absolute;
   z-index: 5;
-  border: 2px dashed #0074ff;
+  border: 1px solid #0074ff;
+  border-radius: 3px;
 }

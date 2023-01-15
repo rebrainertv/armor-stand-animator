@@ -508,20 +508,41 @@ editor.addEventListener("mousedown", function(e){
   let selectbox = document.querySelector(".drag-selection");
   selectbox.style.left = mousex + "px";
   selectbox.style.top = mousey + "px";
-  selectbox.style.width = newmousex + "px";
-    selectbox.style.height = newmousey + "px";
+  selectbox.style.width = "0px";
+  selectbox.style.height = "0px";
+  selectbox.style.display = "inline-block";
   
   function move(newevent){
-    let newmousex = (newevent.clientX - bounding.x) - mousex;
-    let newmousey = (newevent.clientY - bounding.y) - mousey;
-    selectbox.style.width = newmousex + "px";
-    selectbox.style.height = newmousey + "px";
+    let newmousex = (newevent.clientX - bounding.x);
+    let newmousey = (newevent.clientY - bounding.y);
+    
+    let width = newmousex - mousex;
+    let height = newmousey - mousey;
+    
+    if(newmousex > mousex){
+      selectbox.style.width = width + "px";
+    } else {
+      selectbox.style.left = newmousex + "px";
+      selectbox.style.width = (mousex - newmousex) + "px";
+    }
+    
+    if(newmousey > mousey){
+      selectbox.style.height = height + "px";
+    } else {
+      selectbox.style.top = newmousey + "px";
+      selectbox.style.height = (mousey - newmousey) + "px";
+    }
+    
+    //Add the selection class to everything the mouse passes over
+    console.log(selectbox.getBoundingRectClient())
   }
   
   function up(){
     selectbox.removeEventListener("mousemove", move);
     editor.removeEventListener("mousemove", move);
     document.removeEventListener("mouseup", up);
+    
+    selectbox.style.display = "none";
   }
   
   editor.addEventListener("mousemove", move);
