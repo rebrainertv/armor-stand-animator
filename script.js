@@ -137,6 +137,8 @@ function renderValues(){
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  
+  elmnt.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
     e = e || window.event;
@@ -175,10 +177,11 @@ function dragElement(elmnt) {
     //leftValue = Math.round(leftValue / 13) * 13
     
     if(leftValue < 0){
-      elmnt.style.left = "0px";
+      Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = "0px";}) 
       document.querySelector(".dynamic-editor-container").scrollLeft = 0;
       closeDragElement();
     } else {
+      Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftValue + "px";}) 
       elmnt.style.left = leftValue + "px";
     }
   }
