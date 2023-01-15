@@ -667,25 +667,50 @@ function saveProject(){
   saveAs(new File([JSON.stringify(filedata)], prompt("What do you want your filename to be?", "myanimation") + '.mcanimation'))
 }
 
-function loadProject(){
-  
+function loadProject(data){
+  switch (data.format_version) {
+    case 0: {
+      //Default format version
+      
+      //Wipe current project
+      eraseMarkers()
+      recreateMarkers(data.markerdata)
+      
+      //Set scoreboard name
+      document.getElementById("scoreboardname").value = data.settings.scoreboard_name;
+      
+      break;
+    }
+    default: {
+      alert("This doesn't appear to be a valid animation file (invalid format verison).")
+      break;
+    }
+  }
 }
 
 document.getElementById("project-upload").addEventListener("change", function(e){
   let file = this.files[0];
   let reader = new FileReader();
   reader.onload = function(e){
-    console.log(e.target.result);
+    try {
+      loadProject(JSON.parse(e.target.result))
+    } catch(e) {
+      alert("This doesn't appear to be a valid animation file. Are you sure the file was generated with this website?");
+    }
   }
   
   reader.readAsText(file);
 })
 
 function exportToFunction(){
+  if(document.getElementById("scoreboardname").value == ''){
+    document.getElementById("scoreboardname").value = prompt("What do you want to call your scoreboard?", "example_animation");
+  }
+  
   //Compile frames
   compileFrames();
   
-  let scoreboardname = 'example_animation'//document.getElementById("scoreboardname").value;
+  let scoreboardname = document.getElementById("scoreboardname").value;
   
   //TODO: events
   let filedata = [
@@ -726,5 +751,5 @@ function exportToFunction(){
     filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
   }
   
-  saveAs(new File([filedata.join("\n")], 'animation.mcfunction'))
+  saveAs(new File([filedata.join("\n")], prompt("What do you want your filename to be?", "myanimation") +'.mcfunction'))
 }
