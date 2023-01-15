@@ -227,7 +227,7 @@ function dragElement(elmnt) {
   }
 }
 
-function createMarker(type, location = false, doselect = ture){
+function createMarker(type, location = false, doselect = true){
   let leftamount = location * framepixelratio || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
   if(typeof type === 'string'){
@@ -281,7 +281,9 @@ function createMarker(type, location = false, doselect = ture){
   
   document.querySelector(".element-placement").appendChild(marker);
   
-  selectMarker({target: marker})
+  if(doselect) selectMarker({target: marker})
+  
+  return marker;
 }
 
 var selectedMarker = false;
@@ -317,21 +319,29 @@ document.addEventListener("keydown", function(e){
     //Duplicate all selected markers
     Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
       let index = parseFloat(el.getAttribute("index"));
-      createMarker(markerdata[index], markerdata[index].timestamp + 1)
+      let marker = createMarker(markerdata[index], markerdata[index].timestamp + 1, false);
+      el.classList.toggle("selected", false);
+      marker.classList.toggle("selected", true);
     })
   }
 })
 
 function deleteMarker(){
   //Doesn't truly delete the marker data, disables it
-  selectedMarker.disabled = true;
+  //selectedMarker.disabled = true;
   
-  //Remove the marker element
-  let markerel = document.querySelector(".marker.selected");
-  markerel.parentNode.removeChild(markerel);
+  //Remove the selected marker elements
+  //let markerel = document.querySelector(".marker.selected");
+  //markerel.parentNode.removeChild(markerel);
   
-  deselectMarker()
-  document.querySelector(".project-screen").style.display = "unset";
+  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+    let index = parseFloat(el.getAttribute("index"));
+    markerdata[index].disabled = true;
+    el.parentNode.removeChild(el);
+  })
+  
+  //deselectMarker()
+  //document.querySelector(".project-screen").style.display = "unset";
 }
 
 //Project data
