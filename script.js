@@ -501,20 +501,32 @@ function playAnimation(){
 let editor = document.querySelector(".dynamic-editor");
 editor.addEventListener("mousedown", function(e){
   //Capture current position
-  let mousex = e.clientX;
-  let mousey = e.clientY;
+  let bounding = document.querySelector(".dynamic-editor").getBoundingClientRect()
+  let mousex = e.clientX - bounding.x;
+  let mousey = e.clientY - bounding.y;
   
-  function move(){
-    
+  let selectbox = document.querySelector(".drag-selection");
+  selectbox.style.left = mousex + "px";
+  selectbox.style.top = mousey + "px";
+  selectbox.style.width = newmousex + "px";
+    selectbox.style.height = newmousey + "px";
+  
+  function move(newevent){
+    let newmousex = (newevent.clientX - bounding.x) - mousex;
+    let newmousey = (newevent.clientY - bounding.y) - mousey;
+    selectbox.style.width = newmousex + "px";
+    selectbox.style.height = newmousey + "px";
   }
   
   function up(){
-    editor.addEventListener("mouseup", up);
+    selectbox.removeEventListener("mousemove", move);
+    editor.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", up);
   }
   
   editor.addEventListener("mousemove", move);
-  editor.addEventListener("mouseup", up);
-  console.log(e)
+  selectbox.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", up);
 })
 
 function exportToFunction(){
