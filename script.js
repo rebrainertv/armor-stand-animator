@@ -58,9 +58,9 @@ function updateVisualRotation(data, inPlayback = false){
   bones[6].rotation.x = (getRadians(data.pose.RightArm[0]) !== false ? getRadians(data.pose.RightArm[0]) : bones[6].rotation.x);
   bones[6].rotation.y = (getRadians(data.pose.RightArm[1]) !== false ? getRadians(data.pose.RightArm[1]) : bones[6].rotation.y);
   bones[6].rotation.z = (getRadians(data.pose.RightArm[2]) !== false ? getRadians(data.pose.RightArm[2]) : bones[6].rotation.z);
-  bones[2].rotation.x = (getRadians(data.pose.Chest[0]) !== false ? getRadians(data.pose.Chest[0]) : bones[2].rotation.x);
-  bones[2].rotation.y = (getRadians(data.pose.Chest[1]) !== false ? getRadians(data.pose.Chest[1]) : bones[2].rotation.y);
-  bones[2].rotation.z = (getRadians(data.pose.Chest[2]) !== false ? getRadians(data.pose.Chest[2]) : bones[2].rotation.z);
+  bones[2].rotation.x = (getRadians(data.pose.Body[0]) !== false ? getRadians(data.pose.Body[0]) : bones[2].rotation.x);
+  bones[2].rotation.y = (getRadians(data.pose.Body[1]) !== false ? getRadians(data.pose.Body[1]) : bones[2].rotation.y);
+  bones[2].rotation.z = (getRadians(data.pose.Body[2]) !== false ? getRadians(data.pose.Body[2]) : bones[2].rotation.z);
   bones[5].rotation.x = (getRadians(data.pose.LeftLeg[0]) !== false ? getRadians(data.pose.LeftLeg[0]) : bones[5].rotation.x);
   bones[5].rotation.y = (getRadians(data.pose.LeftLeg[1]) !== false ? getRadians(data.pose.LeftLeg[1]) : bones[5].rotation.y);
   bones[5].rotation.z = (getRadians(data.pose.LeftLeg[2]) !== false ? getRadians(data.pose.LeftLeg[2]) : bones[5].rotation.z);
@@ -85,9 +85,9 @@ function updateRotation(){
   selectedMarker.pose.RightArm[0] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-x").value)) ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
   selectedMarker.pose.RightArm[1] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-y").value)) ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
   selectedMarker.pose.RightArm[2] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-z").value)) ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
-  selectedMarker.pose.Chest[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
-  selectedMarker.pose.Chest[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
-  selectedMarker.pose.Chest[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
+  selectedMarker.pose.Body[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
+  selectedMarker.pose.Body[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
+  selectedMarker.pose.Body[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
   selectedMarker.pose.LeftLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-x").value)) ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
   selectedMarker.pose.LeftLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-y").value)) ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
   selectedMarker.pose.LeftLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-z").value)) ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
@@ -115,9 +115,9 @@ function renderValues(){
     document.getElementById("facing-rightarm-x").value = (selectedMarker.pose.RightArm[0] !== false ? parseFloat(selectedMarker.pose.RightArm[0]) : '');
     document.getElementById("facing-rightarm-y").value = (selectedMarker.pose.RightArm[1] !== false ? parseFloat(selectedMarker.pose.RightArm[1]) : '');
     document.getElementById("facing-rightarm-z").value = (selectedMarker.pose.RightArm[2] !== false ? parseFloat(selectedMarker.pose.RightArm[2]) : '');
-    document.getElementById("facing-chest-x").value = (selectedMarker.pose.Chest[0] !== false ? parseFloat(selectedMarker.pose.Chest[0]) : '');
-    document.getElementById("facing-chest-y").value = (selectedMarker.pose.Chest[1] !== false ? parseFloat(selectedMarker.pose.Chest[1]) : '');
-    document.getElementById("facing-chest-z").value = (selectedMarker.pose.Chest[2] !== false ? parseFloat(selectedMarker.pose.Chest[2]) : '');
+    document.getElementById("facing-chest-x").value = (selectedMarker.pose.Body[0] !== false ? parseFloat(selectedMarker.pose.Body[0]) : '');
+    document.getElementById("facing-chest-y").value = (selectedMarker.pose.Body[1] !== false ? parseFloat(selectedMarker.pose.Body[1]) : '');
+    document.getElementById("facing-chest-z").value = (selectedMarker.pose.Body[2] !== false ? parseFloat(selectedMarker.pose.Body[2]) : '');
     document.getElementById("facing-leftleg-x").value = (selectedMarker.pose.LeftLeg[0] !== false ? parseFloat(selectedMarker.pose.LeftLeg[0]) : '');
     document.getElementById("facing-leftleg-y").value = (selectedMarker.pose.LeftLeg[1] !== false ? parseFloat(selectedMarker.pose.LeftLeg[1]) : '');
     document.getElementById("facing-leftleg-z").value = (selectedMarker.pose.LeftLeg[2] !== false ? parseFloat(selectedMarker.pose.LeftLeg[2]) : '');
@@ -240,7 +240,7 @@ function createMarker(type, location = false, doselect = true){
             Head: [false, false, false],
             LeftArm: [false, false, false],
             RightArm: [false, false, false],
-            Chest: [false, false, false],
+            Body: [false, false, false],
             LeftLeg: [false, false, false],
             RightLeg: [false, false, false],
             rotations: [false, false]
@@ -456,7 +456,7 @@ function compileFrames(){
             "Head": [false, false, false],
             "LeftArm": [false, false, false],
             "RightArm": [false, false, false],
-            "Chest": [false, false, false],
+            "Body": [false, false, false],
             "LeftLeg": [false, false, false],
             "RightLeg": [false, false, false],
             rotations: [false, false]
@@ -529,7 +529,7 @@ function playAnimation(){
       "Head": [0, 0, 0],
       "LeftArm": [0, 0, 0],
       "RightArm": [0, 0, 0],
-      "Chest": [0, 0, 0],
+      "Body": [0, 0, 0],
       "LeftLeg": [0, 0, 0],
       "RightLeg": [0, 0, 0],
       rotations: [0, 0]
@@ -652,7 +652,7 @@ function saveProject(){
   }
   
   let filedata = {
-    format_version: 0,
+    format_version: 1,
     markerdata: sortedmarkerdata,
     settings: {
       scoreboard_name: 'example_animation',
@@ -668,11 +668,27 @@ function saveProject(){
 }
 
 function loadProject(data){
+  let reloadproject = false;
+  console.log(data)
   switch (data.format_version) {
     case 0: {
+      //The only difference between this and format verison 1 is that Body rotation is incorrectly labelled Chest.
+      for(let marker of markerdata){
+        if(marker.type == 'keyframe' && marker.pose.Chest){
+          marker.pose.Body = marker.pose.Chest;
+          delete marker.pose.Chest;
+        }
+      }
+      
+      data.format_version = 1;
+      reloadproject = true;
+      break;
+    }
+    case 1: {
       //Default format version
       
       //Wipe current project
+      markerdata = []
       eraseMarkers()
       recreateMarkers(data.markerdata)
       
@@ -686,6 +702,7 @@ function loadProject(data){
       break;
     }
   }
+  if(reloadproject) loadProject(data)
 }
 
 document.getElementById("project-upload").addEventListener("change", function(e){
@@ -696,6 +713,7 @@ document.getElementById("project-upload").addEventListener("change", function(e)
       loadProject(JSON.parse(e.target.result))
     } catch(e) {
       alert("This doesn't appear to be a valid animation file. Are you sure the file was generated with this website?");
+      console.error(e)
     }
   }
   
