@@ -317,11 +317,21 @@ document.addEventListener("keydown", function(e){
   if(e.key == 'd' && e.ctrlKey){
     e.preventDefault();
     //Duplicate all selected markers
-    Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+    let markerlist = document.querySelectorAll(".marker.selected")
+    Array.from(markerlist).forEach((el) => {
       let index = parseFloat(el.getAttribute("index"));
       let marker = createMarker(markerdata[index], markerdata[index].timestamp + 1, false);
       el.classList.toggle("selected", false);
-      marker.classList.toggle("selected", true);
+      
+      if(markerlist.length > 1){
+        marker.classList.toggle("selected", true);
+        Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+          unel.style.display = "none";
+        })
+        document.querySelector(".project-screen").style.display = "unset";
+      } else {
+        selectMarker({target: marker})
+      }
     })
   }
 })
