@@ -182,7 +182,7 @@ function dragElement(elmnt) {
       closeDragElement();
     } else {
       Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftValue + "px";}) 
-      elmnt.style.left = leftValue + "px";
+      //elmnt.style.left = leftValue + "px";
     }
   }
 
@@ -194,34 +194,45 @@ function dragElement(elmnt) {
     //Autocorrect to 13x13 grid
     let leftamount = (Math.round(elmnt.offsetLeft / framepixelratio) * framepixelratio);
     let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-    elmnt.style.left = leftamount + "px";
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftamount + "px";})
+    //elmnt.style.left = leftamount + "px";
     
-    markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;})
+    //markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;
   }
 }
 
 function createMarker(type, location = false){
-  let leftamount = location || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+  let leftamount = location * framepixelratio || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-  if(type == 'animations'){
-    markerdata.push(
-      {
-        timestamp: tick, 
-        type: 'keyframe',
-        pose: {
-          Head: [false, false, false],
-          LeftArm: [false, false, false],
-          RightArm: [false, false, false],
-          Chest: [false, false, false],
-          LeftLeg: [false, false, false],
-          RightLeg: [false, false, false],
-          rotations: [false, false]
-        },
-        mode: 'linear'
-      }
-    );
-  } else if(type == 'events'){
-    markerdata.push({timestamp: tick, type: 'command', event: ''});
+  if(typeof type === 'string'){
+    if(type == 'animations'){
+      markerdata.push(
+        {
+          timestamp: tick, 
+          type: 'keyframe',
+          pose: {
+            Head: [false, false, false],
+            LeftArm: [false, false, false],
+            RightArm: [false, false, false],
+            Chest: [false, false, false],
+            LeftLeg: [false, false, false],
+            RightLeg: [false, false, false],
+            rotations: [false, false]
+          },
+          mode: 'linear'
+        }
+      );
+    } else if(type == 'events'){
+      markerdata.push({timestamp: tick, type: 'command', event: ''});
+    } else {
+      return;
+    }
+  } else if(typeof type === 'object'){
+    type = JSON.parse(JSON.stringify(type));
+    type.timestamp = tick;
+    markerdata.push(type)
+    type = type.type;
   } else {
     return;
   }
@@ -237,7 +248,11 @@ function createMarker(type, location = false){
   //Move the marker to the current cursor position
   marker.style.left = leftamount + "px";
   
-  marker.onclick = selectMarker;
+  marker.onclick = /*function(){
+    if(document.querySelectorAll(".marker.selected").length < 2){
+      selectMarker();
+    }
+  }*/selectMarker;
   
   document.querySelector(".element-placement").appendChild(marker);
   
@@ -271,6 +286,14 @@ function deselectMarker(){
 document.addEventListener("keydown", function(e){
   if(e.key == 'Delete'){
     deleteMarker()
+  }
+  if(e.key == 'd' && e.ctrlKey){
+    e.preventDefault();
+    //Duplicate all selected markers
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+      let index = parseFloat(el.getAttribute("index"));
+      createMarker(markerdata[index], markerdata[index].timestamp + 1)
+    })
   }
 })
 
