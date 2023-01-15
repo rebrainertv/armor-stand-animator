@@ -49,22 +49,22 @@ function updateVisualRotation(data, inPlayback = false){
     return degrees * (pi/180);
   }
   
-  bones[3].rotation.x = (getRadians(data.pose.Head[0]) !== false ? getRadians(data.pose.Head[0]) : bones[3].rotation.x);
+  bones[3].rotation.x = (getRadians(data.pose.Head[0]) !== false ? getRadians(data.pose.Head[0]) : bones[3].rotation.x) * -1;
   bones[3].rotation.y = (getRadians(data.pose.Head[1]) !== false ? getRadians(data.pose.Head[1]) : bones[3].rotation.y);
   bones[3].rotation.z = (getRadians(data.pose.Head[2]) !== false ? getRadians(data.pose.Head[2]) : bones[3].rotation.z);
-  bones[4].rotation.x = (getRadians(data.pose.LeftArm[0]) !== false ? getRadians(data.pose.LeftArm[0]) : bones[4].rotation.x);
+  bones[4].rotation.x = (getRadians(data.pose.LeftArm[0]) !== false ? getRadians(data.pose.LeftArm[0]) : bones[4].rotation.x) * -1;
   bones[4].rotation.y = (getRadians(data.pose.LeftArm[1]) !== false ? getRadians(data.pose.LeftArm[1]) : bones[4].rotation.y);
   bones[4].rotation.z = (getRadians(data.pose.LeftArm[2]) !== false ? getRadians(data.pose.LeftArm[2]) : bones[4].rotation.z);
-  bones[6].rotation.x = (getRadians(data.pose.RightArm[0]) !== false ? getRadians(data.pose.RightArm[0]) : bones[6].rotation.x);
+  bones[6].rotation.x = (getRadians(data.pose.RightArm[0]) !== false ? getRadians(data.pose.RightArm[0]) : bones[6].rotation.x) * -1;
   bones[6].rotation.y = (getRadians(data.pose.RightArm[1]) !== false ? getRadians(data.pose.RightArm[1]) : bones[6].rotation.y);
   bones[6].rotation.z = (getRadians(data.pose.RightArm[2]) !== false ? getRadians(data.pose.RightArm[2]) : bones[6].rotation.z);
-  bones[2].rotation.x = (getRadians(data.pose.Body[0]) !== false ? getRadians(data.pose.Body[0]) : bones[2].rotation.x);
+  bones[2].rotation.x = (getRadians(data.pose.Body[0]) !== false ? getRadians(data.pose.Body[0]) : bones[2].rotation.x) * -1;
   bones[2].rotation.y = (getRadians(data.pose.Body[1]) !== false ? getRadians(data.pose.Body[1]) : bones[2].rotation.y);
   bones[2].rotation.z = (getRadians(data.pose.Body[2]) !== false ? getRadians(data.pose.Body[2]) : bones[2].rotation.z);
-  bones[5].rotation.x = (getRadians(data.pose.LeftLeg[0]) !== false ? getRadians(data.pose.LeftLeg[0]) : bones[5].rotation.x);
+  bones[5].rotation.x = (getRadians(data.pose.LeftLeg[0]) !== false ? getRadians(data.pose.LeftLeg[0]) : bones[5].rotation.x) * -1;
   bones[5].rotation.y = (getRadians(data.pose.LeftLeg[1]) !== false ? getRadians(data.pose.LeftLeg[1]) : bones[5].rotation.y);
   bones[5].rotation.z = (getRadians(data.pose.LeftLeg[2]) !== false ? getRadians(data.pose.LeftLeg[2]) : bones[5].rotation.z);
-  bones[7].rotation.x = (getRadians(data.pose.RightLeg[0]) !== false ? getRadians(data.pose.RightLeg[0]) : bones[7].rotation.x);
+  bones[7].rotation.x = (getRadians(data.pose.RightLeg[0]) !== false ? getRadians(data.pose.RightLeg[0]) : bones[7].rotation.x) * -1;
   bones[7].rotation.y = (getRadians(data.pose.RightLeg[1]) !== false ? getRadians(data.pose.RightLeg[1]) : bones[7].rotation.y);
   bones[7].rotation.z = (getRadians(data.pose.RightLeg[2]) !== false ? getRadians(data.pose.RightLeg[2]) : bones[7].rotation.z);
   window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
@@ -672,11 +672,23 @@ function loadProject(data){
   console.log(data)
   switch (data.format_version) {
     case 0: {
-      //The only difference between this and format verison 1 is that Body rotation is incorrectly labelled Chest.
-      for(let marker of markerdata){
+      /* Differences between 0 and 1:
+        - 'Body' rotation is incorrectly labelled 'Chest'
+        - All x axies are reversed 
+      */
+      for(let marker of data.markerdata){
+        //Correct "chest" to "body"
         if(marker.type == 'keyframe' && marker.pose.Chest){
           marker.pose.Body = marker.pose.Chest;
           delete marker.pose.Chest;
+        }
+        
+        //Reverse x axies
+        for(let bonename of Object.keys(marker.pose)){
+          if(bonename !== "rotations"){
+            let bonedata = marker.pose[bonename];
+            bonedata[0] = (bonedata[0] * -1);
+          }
         }
       }
       
@@ -713,7 +725,6 @@ document.getElementById("project-upload").addEventListener("change", function(e)
       loadProject(JSON.parse(e.target.result))
     } catch(e) {
       alert("This doesn't appear to be a valid animation file. Are you sure the file was generated with this website?");
-      console.error(e)
     }
   }
   
