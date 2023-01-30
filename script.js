@@ -453,6 +453,8 @@ function compileFrames(){
     }
   }
   
+  console.log(rawdata)
+  
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
@@ -480,7 +482,9 @@ function compileFrames(){
       if(entry.mode == 'linear'){
         frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
       } else if(entry.mode == 'ease'){
-        frame.pose[entry.bonename][entry.axis] = Math.sin((((valueincrement*i)- ((framespan*i) / 2)) / (framespan*i)) * Math.PI) * ((framespan*i) / 2) + ((framespan*i) / 2) + valuestart;
+        frame.pose[entry.bonename][entry.axis] = 
+          Math.sin((((valueincrement*i) - ((framespan*valueincrement) / 2)) / (framespan*valueincrement)) * Math.PI) 
+          * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
       }
       
       framegroup.push(frame);
