@@ -79,6 +79,32 @@ function updateVisualRotation(data, inPlayback = false){
   render();
 }
 
+let viewBasePlate = true;
+let viewSmall = false;
+
+function toggleBasePlate(){
+  viewBasePlate = !viewBasePlate;
+  bones[0].visible = viewBasePlate;
+  document.getElementById("baseplate-checkmark").style.visibility = (viewBasePlate ? 'visible' : 'hidden')
+  render();
+}
+
+function toggleSmall(){
+  viewSmall = !viewSmall;
+  //bones[0].visible = viewBasePlate;
+  document.getElementById("viewsmall-checkmark").style.visibility = (viewBasePlate ? 'visible' : 'hidden')
+  
+  if(viewSmall){
+    bones[3].scale.set(1.25, 1.25, 1.25);
+    camera.position.set(0, 0.9, -5);
+  } else {
+    bones[3].scale.set(1, 1, 1);
+    camera.position.set(0, 0.9, -3);
+  }
+  
+  render();
+}
+
 function updateRotation(){  
   selectedMarker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
   selectedMarker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
@@ -489,7 +515,7 @@ function compileFrames(){
         frame.pose[entry.bonename][entry.axis] = output;
       }
       
-      console.log({framespan, valuestart, valuedifference, valueincrement, value: frame.pose[entry.bonename][entry.axis]})
+      //console.log({framespan, valuestart, valuedifference, valueincrement, value: frame.pose[entry.bonename][entry.axis]})
       
       framegroup.push(frame);
     }
