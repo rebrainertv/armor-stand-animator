@@ -482,10 +482,14 @@ function compileFrames(){
       if(entry.mode == 'linear'){
         frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
       } else if(entry.mode == 'ease'){
-        frame.pose[entry.bonename][entry.axis] = 
+        let output = 
           Math.sin((((valueincrement*i) - ((framespan*valueincrement) / 2)) / (framespan*valueincrement)) * Math.PI) 
           * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
+        if(isNaN(output)) output = valuestart;
+        frame.pose[entry.bonename][entry.axis] = output;
       }
+      
+      console.log({framespan, valuestart, valuedifference, valueincrement, value: frame.pose[entry.bonename][entry.axis]})
       
       framegroup.push(frame);
     }
