@@ -458,28 +458,31 @@ function compileFrames(){
   for(let entry of rawdata){
     let framegroup = [];
     if(entry.end === false) continue;
-    if(entry.mode === 'linear'){
-      let framespan = entry.end.tick - entry.start.tick; //How long the movement lasts. Should be a positive int
-      let valuestart = entry.start.value; //The x-intercept
-      let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
-      let valueincrement = (valuedifference / framespan); //How much to increment the value per frame
-      
-      for(let i = 0; i < framespan+1; i++){
-        let frame = { 
-          pose: {
-            "Head": [false, false, false],
-            "LeftArm": [false, false, false],
-            "RightArm": [false, false, false],
-            "Body": [false, false, false],
-            "LeftLeg": [false, false, false],
-            "RightLeg": [false, false, false],
-            rotations: [false, false]
-          },
-          timestamp: (entry.start.tick + i)
-        };
+    let framespan = entry.end.tick - entry.start.tick; //How long the movement lasts. Should be a positive int
+    let valuestart = entry.start.value; //The x-intercept
+    let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
+    let valueincrement = (valuedifference / framespan); //How much to increment the value per frame
+
+    for(let i = 0; i < framespan+1; i++){
+      let frame = { 
+        pose: {
+          "Head": [false, false, false],
+          "LeftArm": [false, false, false],
+          "RightArm": [false, false, false],
+          "Body": [false, false, false],
+          "LeftLeg": [false, false, false],
+          "RightLeg": [false, false, false],
+          rotations: [false, false]
+        },
+        timestamp: (entry.start.tick + i)
+      };
+      if(entry.mode == 'linear'){
         frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
-        framegroup.push(frame);
+      } else if(entry.mode == 'ease'){
+        frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart;
       }
+      
+      framegroup.push(frame);
     }
     
     rawframegroups.push(framegroup);
