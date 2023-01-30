@@ -45,6 +45,8 @@
         <ul class="context-menu">
           <li>Half time</li>
           <li>Double time</li>
+          <li onclick="duplicateMarker()">Duplicate markers</li>
+          <li>Delete markers</li>
           <li>Merge all touching markers</li>
           <li>Erase all markers</li>
           <li>Erase all event markers</li>
@@ -55,9 +57,9 @@
         Add
         <ul class="context-menu">
           <li>Event marker at specific position</li>
-          <li>Event marker at cursor</li>
+          <li onclikc="createMarker('events')">Event marker at cursor</li>
           <li>Animation marker at specific position</li>
-          <li>Animation marker at cursor</li>
+          <li onclikc="createMarker('animations')">Animation marker at cursor</li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -67,13 +69,13 @@
             <svg style="height: 14px;" viewbox="0 0 24 24" id="baseplate-checkmark">
               <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
             </svg>
-            Toggle Base Plate
+            Show Base Plate
           </li>
           <li onclick="toggleSmall()">
             <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="viewsmall-checkmark">
               <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
             </svg>
-            Toggle Small
+            Small Model
           </li>
         </ul>
       </span><!--

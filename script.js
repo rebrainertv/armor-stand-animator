@@ -92,11 +92,11 @@ function toggleBasePlate(){
 function toggleSmall(){
   viewSmall = !viewSmall;
   //bones[0].visible = viewBasePlate;
-  document.getElementById("viewsmall-checkmark").style.visibility = (viewBasePlate ? 'visible' : 'hidden')
+  document.getElementById("viewsmall-checkmark").style.visibility = (viewSmall ? 'visible' : 'hidden')
   
   if(viewSmall){
     bones[3].scale.set(1.25, 1.25, 1.25);
-    camera.position.set(0, 0.9, -5);
+    camera.position.set(0, 1.6, -5);
   } else {
     bones[3].scale.set(1, 1, 1);
     camera.position.set(0, 0.9, -3);
@@ -347,22 +347,7 @@ document.addEventListener("keydown", function(e){
   if(e.key == 'd' && e.ctrlKey){
     e.preventDefault();
     //Duplicate all selected markers
-    let markerlist = document.querySelectorAll(".marker.selected")
-    Array.from(markerlist).forEach((el) => {
-      let index = parseFloat(el.getAttribute("index"));
-      let marker = createMarker(markerdata[index], markerdata[index].timestamp + 1, false);
-      el.classList.toggle("selected", false);
-      
-      if(markerlist.length > 1){
-        marker.classList.toggle("selected", true);
-        Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
-          unel.style.display = "none";
-        })
-        document.querySelector(".project-screen").style.display = "unset";
-      } else {
-        selectMarker({target: marker})
-      }
-    })
+    duplicateMarker()
   }
 })
 
@@ -382,6 +367,25 @@ function deleteMarker(){
   
   //deselectMarker()
   //document.querySelector(".project-screen").style.display = "unset";
+}
+
+function duplicateMarker(){
+  let markerlist = document.querySelectorAll(".marker.selected")
+  Array.from(markerlist).forEach((el) => {
+    let index = parseFloat(el.getAttribute("index"));
+    let marker = createMarker(markerdata[index], markerdata[index].timestamp + 1, false);
+    el.classList.toggle("selected", false);
+
+    if(markerlist.length > 1){
+      marker.classList.toggle("selected", true);
+      Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+        unel.style.display = "none";
+      })
+      document.querySelector(".project-screen").style.display = "unset";
+    } else {
+      selectMarker({target: marker})
+    }
+  })
 }
 
 //Project data

@@ -1,0 +1,5 @@
+- Fix frame transitions not properly identifying the animation mode
+- Half time and double time
+- When multiselecting, unselect everything the box isn't touching
+- Documentation and about pages
+- General top menu functionality
