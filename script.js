@@ -476,10 +476,11 @@ function compileFrames(){
         },
         timestamp: (entry.start.tick + i)
       };
+      //Math explained in a graph at https://www.desmos.com/calculator/g9ebbbosyh
       if(entry.mode == 'linear'){
         frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
       } else if(entry.mode == 'ease'){
-        frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart;
+        frame.pose[entry.bonename][entry.axis] = Math.sin((((valueincrement*i)- ((framespan*i) / 2)) / (framespan*i)) * Math.PI) * ((framespan*i) / 2) + ((framespan*i) / 2) + valuestart;
       }
       
       framegroup.push(frame);
