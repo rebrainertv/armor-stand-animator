@@ -203,24 +203,6 @@ function dragElement(elmnt) {
       pos1 += 10;
     }
     
-    // set the element's new position:
-    //elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    
-    //let leftValue = (elmnt.offsetLeft - pos1);   
-    
-    //Snap to 13x13 grid
-    //leftValue = Math.round(leftValue / 13) * 13
-    
-    /*
-    if(leftValue < 0){
-      Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = "0px";}) 
-      document.querySelector(".dynamic-editor-container").scrollLeft = 0;
-      closeDragElement();
-    } else {
-      Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftValue + "px";}) 
-      //elmnt.style.left = leftValue + "px";
-    }*/
-    
     Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {
       let leftValue = (selel.offsetLeft - pos1);
       if(leftValue < 0){
@@ -238,16 +220,6 @@ function dragElement(elmnt) {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
-    
-    //Autocorrect to 13x13 grid
-    /*let leftamount = (Math.round(elmnt.offsetLeft / framepixelratio) * framepixelratio);
-    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {selel.style.left = leftamount + "px";})
-    //elmnt.style.left = leftamount + "px";
-    
-    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;})
-    //markerdata[parseFloat(elmnt.getAttribute("index"))].timestamp = tick;
-    */
     
     Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {
       let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
@@ -355,20 +327,12 @@ document.addEventListener("keydown", function(e){
 
 function deleteMarker(){
   //Doesn't truly delete the marker data, disables it
-  //selectedMarker.disabled = true;
-  
-  //Remove the selected marker elements
-  //let markerel = document.querySelector(".marker.selected");
-  //markerel.parentNode.removeChild(markerel);
   
   Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
     let index = parseFloat(el.getAttribute("index"));
     markerdata[index].disabled = true;
     el.parentNode.removeChild(el);
   })
-  
-  //deselectMarker()
-  //document.querySelector(".project-screen").style.display = "unset";
 }
 
 function duplicateMarker(){
@@ -683,6 +647,8 @@ editor.addEventListener("mousedown", function(e){
       let elbounds = el.getBoundingClientRect();
       if(elbounds.x > fromx && elbounds.y > fromy && elbounds.x < tox && elbounds.y < toy){
         el.classList.toggle("selected", true);
+      } else {
+        el.classList.toggle("selected", false);
       }
     })
   }
