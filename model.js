@@ -87,12 +87,12 @@ function init() {
   renderer.outputEncoding = THREE.sRGBEncoding;
   previewContainer.appendChild( renderer.domElement );
 
-  /*const controls = new OrbitControls( camera, renderer.domElement );
+  const controls = new OrbitControls( camera, renderer.domElement );
   controls.addEventListener( 'change', render ); // use if there is no animation loop
   controls.minDistance = 2;
   controls.maxDistance = 50;
-  controls.target.set( 0, 0.9, 3 );
-  controls.update();*/
+  controls.target.set( 0, 1, 0 );
+  controls.update();
 
   window.addEventListener( 'resize', onWindowResize );
 
