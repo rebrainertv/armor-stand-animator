@@ -49,7 +49,7 @@ function updateVisualRotation(data, inPlayback = false){
     return degrees * (pi/180);
   }
   
-  let xmodifier = -1;
+  let xmodifier = 1;
   let ymodifier = -1;
   let zmodifier = 1;
   
@@ -711,7 +711,7 @@ function saveProject(){
   }
   
   let filedata = {
-    format_version: 1,
+    format_version: 2,
     markerdata: sortedmarkerdata,
     settings: {
       scoreboard_name: 'example_animation',
@@ -747,7 +747,7 @@ function loadProject(data){
           if(bonename !== "rotations"){
             let bonedata = marker.pose[bonename];
             for(let i = 0; i < bonedata.length; i++){
-              bonedata[i] = (bonedata[i] * -1);
+              if(bonedata[i]) bonedata[i] = (bonedata[i] * -1);
             }
           }
         }
@@ -758,6 +758,25 @@ function loadProject(data){
       break;
     }
     case 1: {
+      /* Differences between 0 and 1:
+        - X axis is reversed again, this was incorrect
+      */
+      
+      for(let marker of data.markerdata){
+        //Reverse x axies
+        for(let bonename of Object.keys(marker.pose)){
+          if(bonename !== "rotations"){
+            let bonedata = marker.pose[bonename];
+            if(bonedata[0]) bonedata[0] = (bonedata[0] * -1);
+          }
+        }
+      }
+      
+      data.format_version = 2;
+      reloadproject = true;
+      break;
+    }
+    case 2: {
       //Default format version
       
       //Wipe current project
@@ -786,6 +805,7 @@ document.getElementById("project-upload").addEventListener("change", function(e)
       loadProject(JSON.parse(e.target.result))
     } catch(e) {
       alert("This doesn't appear to be a valid animation file. Are you sure the file was generated with this website?");
+      console.log(e)
     }
   }
   
