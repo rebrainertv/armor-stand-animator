@@ -15,6 +15,8 @@ let previewContainer = document.getElementById("preview-container");
 init();
 render();
 
+window.THREE = THREE;
+
 function init() {
 
   camera = new THREE.PerspectiveCamera( 45, previewContainer.clientWidth / previewContainer.clientHeight, 0.25, 20 );
