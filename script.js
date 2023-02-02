@@ -725,7 +725,7 @@ function loadProject(data){
       reloadproject = true;
       break;
     }
-    case 1: {
+    case /*1*/'disabled': {
       /* Differences between 0 and 1:
         - X axis is reversed again, this was incorrect
       */
@@ -744,7 +744,7 @@ function loadProject(data){
       reloadproject = true;
       break;
     }
-    case 2: {
+    case /*2*/1: {
       //Default format version
       
       //Wipe current project
