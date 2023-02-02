@@ -36,7 +36,7 @@ generateEditorTimestamps(1)
 generateEditorTimestamps(60)
 
 //Render rotation values
-function updateVisualRotation(data, inPlayback = false){
+function updateVisualRotationOld(data, inPlayback = false){
   function getRadians(degrees){
     if(degrees === false){
       if(inPlayback){
@@ -81,11 +81,45 @@ function updateVisualRotation(data, inPlayback = false){
   render();
 }
 
+function updateVisualRotation(data, inPlayback = false){
+  function getRadians(degrees){
+    if(degrees === false){
+      if(inPlayback){
+        return false; //Keep current rotation
+      } else {
+        return 0; //Reset rotation
+      }
+    } 
+    var pi = Math.PI;
+    return degrees * (pi/180);
+  }
+  function getEulerFromPoseEntry(poseEntry, defaultValue){
+    return new THREE.Euler(
+      (getRadians(poseEntry[0]) !== false ? getRadians(poseEntry[0]) : defaultValue.x),
+      (getRadians(poseEntry[1]) !== false ? getRadians(poseEntry[1]) : defaultValue.y),
+      (getRadians(poseEntry[2]) !== false ? getRadians(poseEntry[2]) : defaultValue.z)
+    );
+  }
+  
+  setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, bones[3].rotation));
+  setRotation(bones[4], getEulerFromPoseEntry(data.pose.LeftArm, bones[4].rotation));
+  setRotation(bones[6], getEulerFromPoseEntry(data.pose.RightArm, bones[6].rotation));
+  setRotation(bones[2], getEulerFromPoseEntry(data.pose.Body, bones[2].rotation));
+  setRotation(bones[6], getEulerFromPoseEntry(data.pose.LeftLeg, bones[5].rotation));
+  setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, bones[7].rotation));
+  
+  window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
+  //Offset baseplate rotation
+  bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
+  
+  render();
+}
+
 let DEG2RAD = (Math.PI / 180);
 function setRotation(mesh, rotation){
-	rotateAroundWorldAxis(mesh, new THREE.Vector3(1,0,0), rotation.x * DEG2RAD, true);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(1,0,0), -rotation.x * DEG2RAD, true);
 	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,1,0), -rotation.y * DEG2RAD, false);
-	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,0,1), -rotation.z * DEG2RAD, false);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,0,1), rotation.z * DEG2RAD, false);
 }
 
 // From here: http://stackoverflow.com/a/11124197/1456971
