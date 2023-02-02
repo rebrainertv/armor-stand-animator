@@ -81,6 +81,24 @@ function updateVisualRotation(data, inPlayback = false){
   render();
 }
 
+let DEG2RAD = (Math.PI / 180);
+function setRotation(mesh, rotation){
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(1,0,0), rotation.x * DEG2RAD, true);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,1,0), -rotation.y * DEG2RAD, false);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,0,1), -rotation.z * DEG2RAD, false);
+}
+
+// From here: http://stackoverflow.com/a/11124197/1456971
+// Rotate an object around an arbitrary axis in world space
+function rotateAroundWorldAxis(object, axis, radians, reset) {
+  let rotWorldMatrix = new THREE.Matrix4();
+  rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
+  if(!reset)
+    rotWorldMatrix.multiply(object.matrix);        // pre-multiply
+  object.matrix = rotWorldMatrix;
+  object.rotation.setFromRotationMatrix(object.matrix);
+}
+
 let viewBasePlate = true;
 let viewSmall = false;
 
