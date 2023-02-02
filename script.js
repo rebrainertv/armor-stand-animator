@@ -37,6 +37,7 @@ generateEditorTimestamps(60)
 
 //Render rotation values
 function updateVisualRotationOld(data, inPlayback = false){
+  //Finnicky rotation script that is discontinued
   function getRadians(degrees){
     if(degrees === false){
       if(inPlayback){
@@ -82,22 +83,21 @@ function updateVisualRotationOld(data, inPlayback = false){
 }
 
 function updateVisualRotation(data, inPlayback = false){
-  function getRadians(degrees){
+  function getValue(degrees){
     if(degrees === false){
       if(inPlayback){
         return false; //Keep current rotation
       } else {
         return 0; //Reset rotation
       }
-    } 
-    var pi = Math.PI;
-    return degrees * (pi/180);
+    }
+    return degrees;
   }
   function getEulerFromPoseEntry(poseEntry, defaultValue){
     return new THREE.Euler(
-      (getRadians(poseEntry[0]) !== false ? getRadians(poseEntry[0]) : defaultValue.x),
-      (getRadians(poseEntry[1]) !== false ? getRadians(poseEntry[1]) : defaultValue.y),
-      (getRadians(poseEntry[2]) !== false ? getRadians(poseEntry[2]) : defaultValue.z)
+      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) : defaultValue.x),
+      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) : defaultValue.y),
+      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) : defaultValue.z)
     );
   }
   
@@ -108,7 +108,7 @@ function updateVisualRotation(data, inPlayback = false){
   setRotation(bones[6], getEulerFromPoseEntry(data.pose.LeftLeg, bones[5].rotation));
   setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, bones[7].rotation));
   
-  window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
+  window.gltf.scene.children[0].rotation.y = (getValue(data.pose.rotations[0]) !== false ? getValue(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   //Offset baseplate rotation
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
   
