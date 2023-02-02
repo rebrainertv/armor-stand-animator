@@ -51,7 +51,7 @@ function updateVisualRotation(data, inPlayback = false){
   
   //{-108, 3.14, -160} ingame = [-108, 108, -160] online ???
   
-  let xmodifier = 1;
+  let xmodifier = -1;
   let ymodifier = -1;
   let zmodifier = 1;
   
