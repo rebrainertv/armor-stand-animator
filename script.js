@@ -518,13 +518,12 @@ function compileFrames(){
   var rawframegroups = [];
   for(let entry of rawdata){
     let framegroup = [];
-    //if(entry.end === false) continue;
     let framespan = entry.end.tick - entry.start.tick; //How long the movement lasts. Should be a positive int
     let valuestart = entry.start.value; //The x-intercept
     let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
     let valueincrement = (valuedifference / framespan); //How much to increment the value per frame
 
-    for(let i = 0; i < framespan+1; i++){
+    if(entry.end === false){ //If no end point for this rotation action was found, create one frame with the start data and then nothing.
       let frame = { 
         pose: {
           "Head": [false, false, false],
@@ -535,22 +534,37 @@ function compileFrames(){
           "RightLeg": [false, false, false],
           rotations: [false, false]
         },
-        timestamp: (entry.start.tick + i)
+        timestamp: (entry.start.tick)
       };
-      //Math explained in a graph at https://www.desmos.com/calculator/g9ebbbosyh
-      if(entry.mode == 'linear'){
-        frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
-      } else if(entry.mode == 'ease'){
-        let output = 
-          Math.sin((((valueincrement*i) - ((framespan*valueincrement) / 2)) / (framespan*valueincrement)) * Math.PI) 
-          * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
-        if(isNaN(output)) output = valuestart;
-        frame.pose[entry.bonename][entry.axis] = output;
+      frame.pose[entry.bonename][entry.axis] = entry.start.value;
+      framegroup.push(frame)
+    } else {
+      for(let i = 0; i < framespan+1; i++){
+        let frame = { 
+          pose: {
+            "Head": [false, false, false],
+            "LeftArm": [false, false, false],
+            "RightArm": [false, false, false],
+            "Body": [false, false, false],
+            "LeftLeg": [false, false, false],
+            "RightLeg": [false, false, false],
+            rotations: [false, false]
+          },
+          timestamp: (entry.start.tick + i)
+        };
+        //Math explained in a graph at https://www.desmos.com/calculator/g9ebbbosyh
+        if(entry.mode == 'linear'){
+          frame.pose[entry.bonename][entry.axis] = (valueincrement * i) + valuestart; //Linear relation
+        } else if(entry.mode == 'ease'){
+          let output = 
+            Math.sin((((valueincrement*i) - ((framespan*valueincrement) / 2)) / (framespan*valueincrement)) * Math.PI) 
+            * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
+          if(isNaN(output)) output = valuestart;
+          frame.pose[entry.bonename][entry.axis] = output;
+        }
+
+        framegroup.push(frame);
       }
-      
-      //console.log({framespan, valuestart, valuedifference, valueincrement, value: frame.pose[entry.bonename][entry.axis]})
-      
-      framegroup.push(frame);
     }
     
     rawframegroups.push(framegroup);
