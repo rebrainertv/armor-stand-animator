@@ -512,11 +512,13 @@ function compileFrames(){
     }
   }
   
+  console.log(rawdata);
+  
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
     let framegroup = [];
-    if(entry.end === false) continue;
+    //if(entry.end === false) continue;
     let framespan = entry.end.tick - entry.start.tick; //How long the movement lasts. Should be a positive int
     let valuestart = entry.start.value; //The x-intercept
     let valuedifference = entry.end.value - entry.start.value; //The difference between the two values. Should be a positive number
@@ -786,26 +788,15 @@ function loadProject(data){
       reloadproject = true;
       break;
     }
-    case /*1*/'disabled': {
+    case 1: {
       /* Differences between 0 and 1:
-        - X axis is reversed again, this was incorrect
+        - None
       */
-      
-      for(let marker of data.markerdata){
-        //Reverse x axies
-        for(let bonename of Object.keys(marker.pose)){
-          if(bonename !== "rotations"){
-            let bonedata = marker.pose[bonename];
-            if(bonedata[0]) bonedata[0] = (bonedata[0] * -1);
-          }
-        }
-      }
-      
       data.format_version = 2;
       reloadproject = true;
       break;
     }
-    case /*2*/1: {
+    case 2: {
       //Default format version
       
       //Wipe current project
