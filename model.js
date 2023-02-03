@@ -91,8 +91,8 @@ function init() {
 
   const controls = new OrbitControls( camera, renderer.domElement );
   controls.addEventListener( 'change', render ); // use if there is no animation loop
-  controls.minDistance = 2;
-  controls.maxDistance = 50;
+  controls.minDistance = 3;
+  controls.maxDistance = 8;
   controls.target.set( 0, 1, 0 );
   controls.update();
 

@@ -83,15 +83,26 @@ function updateVisualRotationOld(data, inPlayback = false){
 }
 
 function updateVisualRotation(data, inPlayback = false){
-  function getValue(degrees){
-    if(degrees === false){
+  function getValue(radians){
+    if(radians === false){
       if(inPlayback){
         return false; //Keep current rotation
       } else {
         return 0; //Reset rotation
       }
     }
-    return degrees;
+    return radians;
+  }
+  function getRadians(degrees){
+    if(degrees === false){
+      if(inPlayback){
+        return false; //Keep current rotation
+      } else {
+        return 0; //Reset rotation
+      }
+    } 
+    var pi = Math.PI;
+    return degrees * (pi/180);
   }
   function getEulerFromPoseEntry(poseEntry, defaultValue){
     return new THREE.Euler(
@@ -105,10 +116,10 @@ function updateVisualRotation(data, inPlayback = false){
   setRotation(bones[4], getEulerFromPoseEntry(data.pose.LeftArm, bones[4].rotation));
   setRotation(bones[6], getEulerFromPoseEntry(data.pose.RightArm, bones[6].rotation));
   setRotation(bones[2], getEulerFromPoseEntry(data.pose.Body, bones[2].rotation));
-  setRotation(bones[6], getEulerFromPoseEntry(data.pose.LeftLeg, bones[5].rotation));
+  setRotation(bones[5], getEulerFromPoseEntry(data.pose.LeftLeg, bones[5].rotation));
   setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, bones[7].rotation));
   
-  window.gltf.scene.children[0].rotation.y = (getValue(data.pose.rotations[0]) !== false ? getValue(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
+  window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   //Offset baseplate rotation
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
   
