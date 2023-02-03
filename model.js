@@ -81,7 +81,7 @@ function init() {
   } );
   
 
-  renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+  renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( previewContainer.clientWidth, previewContainer.clientHeight );
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
