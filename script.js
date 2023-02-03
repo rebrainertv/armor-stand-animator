@@ -105,11 +105,13 @@ function updateVisualRotation(data, inPlayback = false){
     return degrees * (pi/180);
   }
   function getEulerFromPoseEntry(poseEntry, defaultValue){
-    return new THREE.Euler(
-      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) : defaultValue.x),
-      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) : defaultValue.y),
-      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) : defaultValue.z)
+    let RAD2DEG = (180 / Math.PI);
+    let euler = new THREE.Euler(
+      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) : defaultValue.x * -RAD2DEG),
+      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) : defaultValue.y * -RAD2DEG),
+      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) : defaultValue.z * RAD2DEG)
     );
+    return euler;
   }
   
   setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, bones[3].rotation));
