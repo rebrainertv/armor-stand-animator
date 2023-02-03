@@ -512,8 +512,6 @@ function compileFrames(){
     }
   }
   
-  console.log(rawdata)
-  
   //Create frame groups from each raw object
   var rawframegroups = [];
   for(let entry of rawdata){
