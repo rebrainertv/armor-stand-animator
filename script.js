@@ -93,11 +93,14 @@ let currentPose = {
 };
 
 function updateVisualRotation(data, inPlayback = false){
-  function getValue(radians){
+  function getValue(radians, fallback){
     if(radians === false){
-      if(inPlayback){
-        console.log('inherited rotation')
-        return false; //Keep current rotation
+      if(inPlayback){ //Keep current rotation
+        if(fallback === false){
+          return 0;
+        } else {
+          return fallback;
+        }
       } else {
         return 0; //Reset rotation
       }
@@ -115,24 +118,30 @@ function updateVisualRotation(data, inPlayback = false){
     var pi = Math.PI;
     return degrees * (pi/180);
   }
-  function getEulerFromPoseEntry(poseEntry, defaultValue){
+  function getEulerFromPoseEntry(poseEntry, boneName){
     //let RAD2DEG = (180 / Math.PI);
     let DEG2RAD = (Math.PI / 180);
+    
+    //Update the currentPose values
+    currentPose[boneName][0] = getValue(poseEntry[0], currentPose[boneName][0]);
+    currentPose[boneName][1] = getValue(poseEntry[1], currentPose[boneName][1]);
+    currentPose[boneName][2] = getValue(poseEntry[2], currentPose[boneName][2]);
+    
     let euler = new THREE.Euler(
-      (getValue(poseEntry[0]) !== false ? (getValue(poseEntry[0]) * DEG2RAD * -1) : defaultValue.x),
-      (getValue(poseEntry[1]) !== false ? (getValue(poseEntry[1]) * DEG2RAD * -1) : defaultValue.y),
-      (getValue(poseEntry[2]) !== false ? (getValue(poseEntry[2]) * DEG2RAD * +1) : defaultValue.z) 
+      currentPose[boneName][0] * DEG2RAD * -1,
+      currentPose[boneName][1] * DEG2RAD * -1,
+      currentPose[boneName][2] * DEG2RAD * +1 
     );
     return euler;
   }
   
   //Unify the new value type (marker data) and default value type (rotation in radians)
-  setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, bones[3].rotation));
-  setRotation(bones[4], getEulerFromPoseEntry(data.pose.LeftArm, bones[4].rotation));
-  setRotation(bones[6], getEulerFromPoseEntry(data.pose.RightArm, bones[6].rotation));
-  setRotation(bones[2], getEulerFromPoseEntry(data.pose.Body, bones[2].rotation));
-  setRotation(bones[5], getEulerFromPoseEntry(data.pose.LeftLeg, bones[5].rotation));
-  setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, bones[7].rotation));
+  setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, 'Head'));
+  setRotation(bones[4], getEulerFromPoseEntry(data.pose.LeftArm, 'LeftArm'));
+  setRotation(bones[6], getEulerFromPoseEntry(data.pose.RightArm, 'RightArm'));
+  setRotation(bones[2], getEulerFromPoseEntry(data.pose.Body, 'Body'));
+  setRotation(bones[5], getEulerFromPoseEntry(data.pose.LeftLeg, 'LeftLeg'));
+  setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, 'RightLeg'));
   
   window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   //Offset baseplate rotation
