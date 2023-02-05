@@ -82,6 +82,16 @@ function updateVisualRotationOld(data, inPlayback = false){
   render();
 }
 
+let currentPose = {
+  Head: [false, false, false],
+  LeftArm: [false, false, false],
+  RightArm: [false, false, false],
+  Body: [false, false, false],
+  LeftLeg: [false, false, false],
+  RightLeg: [false, false, false],
+  rotations: [false, false]
+};
+
 function updateVisualRotation(data, inPlayback = false){
   function getValue(radians){
     if(radians === false){
