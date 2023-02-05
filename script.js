@@ -109,13 +109,14 @@ function updateVisualRotation(data, inPlayback = false){
     //let RAD2DEG = (180 / Math.PI);
     let DEG2RAD = (Math.PI / 180);
     let euler = new THREE.Euler(
-      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) * DEG2RAD * -1 : defaultValue.x),
-      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) * DEG2RAD * -1 : defaultValue.y) ,
-      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) * DEG2RAD : defaultValue.z) 
+      (getValue(poseEntry[0]) !== false ? (getValue(poseEntry[0]) * DEG2RAD * -1) : defaultValue.x),
+      (getValue(poseEntry[1]) !== false ? (getValue(poseEntry[1]) * DEG2RAD * -1) : defaultValue.y),
+      (getValue(poseEntry[2]) !== false ? (getValue(poseEntry[2]) * DEG2RAD * +1) : defaultValue.z) 
     );
     return euler;
   }
   
+  //Unify the new value type (marker data) and default value type (rotation in radians)
   setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, bones[3].rotation));
   setRotation(bones[4], getEulerFromPoseEntry(data.pose.LeftArm, bones[4].rotation));
   setRotation(bones[6], getEulerFromPoseEntry(data.pose.RightArm, bones[6].rotation));
@@ -140,6 +141,7 @@ function setRotation(mesh, rotation){
 // Rotate an object around an arbitrary axis in world space
 function rotateAroundWorldAxis(object, axis, radians, reset) {
   let rotWorldMatrix = new THREE.Matrix4();
+  if(object.rotation)
   rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
   if(!reset)
     rotWorldMatrix.multiply(object.matrix);        // pre-multiply
