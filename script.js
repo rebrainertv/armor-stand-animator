@@ -86,6 +86,7 @@ function updateVisualRotation(data, inPlayback = false){
   function getValue(radians){
     if(radians === false){
       if(inPlayback){
+        console.log('inherited rotation')
         return false; //Keep current rotation
       } else {
         return 0; //Reset rotation
@@ -105,11 +106,12 @@ function updateVisualRotation(data, inPlayback = false){
     return degrees * (pi/180);
   }
   function getEulerFromPoseEntry(poseEntry, defaultValue){
-    let RAD2DEG = (180 / Math.PI);
+    //let RAD2DEG = (180 / Math.PI);
+    let DEG2RAD = (Math.PI / 180);
     let euler = new THREE.Euler(
-      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) : defaultValue.x * -RAD2DEG),
-      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) : defaultValue.y * -RAD2DEG),
-      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) : defaultValue.z * RAD2DEG)
+      (getValue(poseEntry[0]) !== false ? getValue(poseEntry[0]) * DEG2RAD * -1 : defaultValue.x),
+      (getValue(poseEntry[1]) !== false ? getValue(poseEntry[1]) * DEG2RAD * -1 : defaultValue.y) ,
+      (getValue(poseEntry[2]) !== false ? getValue(poseEntry[2]) * DEG2RAD : defaultValue.z) 
     );
     return euler;
   }
@@ -128,11 +130,10 @@ function updateVisualRotation(data, inPlayback = false){
   render();
 }
 
-let DEG2RAD = (Math.PI / 180);
 function setRotation(mesh, rotation){
-	rotateAroundWorldAxis(mesh, new THREE.Vector3(1,0,0), -rotation.x * DEG2RAD, true);
-	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,1,0), -rotation.y * DEG2RAD, false);
-	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,0,1), rotation.z * DEG2RAD, false);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(1,0,0), rotation.x, true);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,1,0), rotation.y, false);
+	rotateAroundWorldAxis(mesh, new THREE.Vector3(0,0,1), rotation.z, false);
 }
 
 // From here: http://stackoverflow.com/a/11124197/1456971
