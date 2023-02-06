@@ -928,3 +928,10 @@ function exportToFunction(){
   
   saveAs(new File([filedata.join("\n")], prompt("What do you want your filename to be?", "myanimation") +'.mcfunction'))
 }
+
+function resetOrbit(){
+  camera.position.set( 0, 0.9, -3 );
+  camera.rotation.set( -Math.PI, 0, -Math.PI );
+  controls.target.set( 0, 1, 0 );
+  controls.update();
+}

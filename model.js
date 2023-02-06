@@ -95,6 +95,7 @@ function init() {
   controls.maxDistance = 8;
   controls.target.set( 0, 1, 0 );
   controls.update();
+  window.controls = controls;
 
   window.addEventListener( 'resize', onWindowResize );
 
