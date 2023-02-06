@@ -185,10 +185,12 @@ function toggleSmall(){
   
   if(viewSmall){
     bones[3].scale.set(1.25, 1.25, 1.25);
-    camera.position.set(0, 1.6, -5);
+    //camera.position.set(0, 1.6, -5); old method
+    gltf.scene.children[0].scale.set(0.65,0.65,0.65);
   } else {
     bones[3].scale.set(1, 1, 1);
-    camera.position.set(0, 0.9, -3);
+    //camera.position.set(0, 0.9, -3); old method
+    gltf.scene.children[0].scale.set(1,1,1);
   }
   
   render();

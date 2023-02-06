@@ -166,6 +166,7 @@ header > span.context-label:hover .context-menu {
   height: 40px;
   background-color: var(--app-inner-background);
   color: white;
+  user-select: none;
 }
 
 .bottom-button {
