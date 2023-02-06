@@ -115,7 +115,7 @@ header > span.context-label:hover .context-menu {
 }
 
 .context-menu li, label {
-  padding: 2px 7px;
+  padding: 2px 16px 2px 8px;
   cursor: pointer;
 }
 
