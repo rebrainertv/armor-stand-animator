@@ -65,12 +65,6 @@ function init() {
 
     gltf.scene.scale.set( 1.0, 1.0, 1.0 );
     
-    let model = gltf.scene;
-    /*let skeleton = new THREE.SkeletonHelper( model.children[0] );
-    skeleton.visible = false;
-    window.skeleton = skeleton;
-    window.gltf = gltf;
-    scene.add( skeleton );*/
     window.gltf = gltf;
     window.bones = gltf.scene.children[0].children;
 
