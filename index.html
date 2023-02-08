@@ -336,12 +336,21 @@
       <br>
       <div>
         Seconds:
-        <input class="app-input modal-input" placeholder="0">.<input class="app-input modal-input" placeholder="00">
+        <input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false)">
       </div>
       <div>
         Ticks:
-        <input class="app-input modal-input" placeholder="0">t
+        <input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true)">t
       </div>
+      <br>
+      <button>
+        Insert
+      </button>
     </div>
   </body>
 </html>
+<script>
+  function correctSpecific(val, isTicks){
+    
+  }
+</script>
