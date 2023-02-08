@@ -351,6 +351,23 @@
 </html>
 <script>
   function correctSpecific(val, isTicks){
+    function verifyEnds(){
+      let spl
+      if([1].length < 2){
+        document.getElementById("insert-specific-seconds").value += "0";
+      }
+    }
     
+    if(isTicks){
+      document.getElementById("insert-specific-seconds").value = val / 20;
+      verifyEnds()
+    } else {
+      val = Math.round(val * 20) / 20;
+      document.getElementById("insert-specific-ticks").value = val * 20;
+      if(val != 0){
+        document.getElementById("insert-specific-seconds").value = val;
+        verifyEnds()
+      } 
+    }
   }
 </script>
