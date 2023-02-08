@@ -315,12 +315,15 @@ header > span.context-label:hover .context-menu {
   height: 200px;
   transform: translate(-50%, -50%);
   z-index: 21;
-  background-color: var(--app-background);
+  background-color: var(--app-inner-background);
+  text-align: center;
+  color: white;
+  outline: 2px solid var(--input-background);
 }
 
 .modal .title-bar {
   width:100%;
-  background-color: var(--app-inner-background);
+  background-color: var(--app-inner-inner-background);
   border-spacing: 0;
   text-align: center;
 }
@@ -328,9 +331,16 @@ header > span.context-label:hover .context-menu {
 .modal .title-bar .close-button {
   cursor: pointer;
   user-select: none;
+  min-width: 15px;
 }
 
 .modal .title-bar .close-button:hover {
   background-color: white;
   color: black;
+}
+
+.modal-input {
+  height: unset;
+  font-size: 13pt;
+  width: 75px;
 }
