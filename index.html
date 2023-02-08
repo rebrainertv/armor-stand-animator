@@ -351,10 +351,20 @@
 </html>
 <script>
   function correctSpecific(val, isTicks){
+    //Quit if value exceeds 60 seconds
+    if(isTicks && val > 1200){
+      val = 1200;
+      document.getElementById("insert-specific-ticks").value = 1200;
+    } else if(!isTicks && val > 60){
+      val = 60;
+    }
+    
     function verifyEnds(){
-      let spl
-      if([1].length < 2){
+      let splitvalue = document.getElementById("insert-specific-seconds").value.split(".");
+      if(splitvalue.length > 1 && splitvalue[1].length < 2){
         document.getElementById("insert-specific-seconds").value += "0";
+      } else if(splitvalue.length == 1){
+        document.getElementById("insert-specific-seconds").value += ".00";
       }
     }
     
@@ -366,7 +376,6 @@
       document.getElementById("insert-specific-ticks").value = val * 20;
       if(val != 0){
         document.getElementById("insert-specific-seconds").value = val;
-        verifyEnds()
       } 
     }
   }
