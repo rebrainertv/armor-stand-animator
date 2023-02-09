@@ -430,6 +430,15 @@ function deleteMarker(){
   document.querySelector(".project-screen").style.display = "block";
 }
 
+function retimeModifierMarker(modifier){
+  let markerlist = document.querySelectorAll(".marker.selected")
+  Array.from(markerlist).forEach((el) => {
+    let index = parseFloat(el.getAttribute("index"));
+    markerdata[index].timestamp *= modifier;
+    el. 
+  })
+}
+
 function duplicateMarker(){
   let markerlist = document.querySelectorAll(".marker.selected")
   Array.from(markerlist).forEach((el) => {
