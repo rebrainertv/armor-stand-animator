@@ -422,6 +422,12 @@ function deleteMarker(){
     markerdata[index].disabled = true;
     el.parentNode.removeChild(el);
   })
+  
+  //Reset the edit screen
+  Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+    unel.style.display = "none";
+  })
+  document.querySelector(".project-screen").style.display = "block";
 }
 
 function duplicateMarker(){
