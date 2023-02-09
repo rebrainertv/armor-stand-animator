@@ -427,7 +427,7 @@ function deleteMarker(){
   Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
     unel.style.display = "none";
   })
-  document.querySelector(".project-screen").style.display = "block";
+  document.querySelector(".project-screen").style.display = "unset";
 }
 
 function retimeModifierMarker(modifier){
