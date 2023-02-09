@@ -544,7 +544,7 @@ function compileFrames(){
     }
   }
   
-  console.log(rawdata);
+  window.motiondata = rawdata;
   
   //Create frame groups from each raw object
   var rawframegroups = [];
