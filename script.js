@@ -432,10 +432,11 @@ function deleteMarker(){
 
 function retimeModifierMarker(modifier){
   let markerlist = document.querySelectorAll(".marker.selected")
+  if(markerlist.length == 0) markerlist = document.querySelectorAll(".marker")
   Array.from(markerlist).forEach((el) => {
     let index = parseFloat(el.getAttribute("index"));
-    markerdata[index].timestamp *= modifier;
-    el. 
+    markerdata[index].timestamp = Math.round(markerdata[index].timestamp * modifier);
+    el.style.left = (markerdata[index].timestamp * framepixelratio) + "px";
   })
 }
 
