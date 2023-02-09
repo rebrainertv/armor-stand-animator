@@ -937,3 +937,15 @@ function resetOrbit(){
   controls.target.set( 0, 1, 0 );
   controls.update();
 }
+
+function closeModals(){
+  document.getElementById("overlay").style.display = "none";
+  Array.from(document.getElementsByClassName("modal")).forEach((el) => {el.style.display = "none";});
+}
+
+function openInsertSpecificMarker(type){
+  document.getElementById("specific-marker-type").value = type;
+  
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("specific-marker-modal").style.display = "block";
+}

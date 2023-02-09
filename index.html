@@ -92,7 +92,7 @@
    --><span class="context-label">
         Add
         <ul class="context-menu">
-          <li>
+          <li onclick="openInsertSpecificMarker('events')">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Event marker at specific position
           </li>
@@ -100,7 +100,7 @@
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Event marker at cursor
           </li>
-          <li>
+          <li onclick="openInsertSpecificMarker('animations')">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Animation marker at specific position
           </li>
@@ -317,20 +317,20 @@
         </div>
       </div>
     </div>
-    <div class="overlay" style="display:none;"></div>
-    <div class="modal" style="display:none;">
+    <div id="overlay" class="overlay" style="display:none;"></div>
+    <div id="specific-marker-modal" class="modal" style="display:none;">
       <table class="title-bar">
         <tr>
           <td>Insert marker at specific position</td>
-          <td class="close-button">×</td>
+          <td class="close-button" onclick="closeModals()">×</td>
         </tr>
       </table>
       <br>
       <div>
         Marker type:
-        <select class="app-input modal-input" style="width:unset;text-indent: 0;">
-          <option>Animation</option>
-          <option>Event</option>
+        <select class="app-input modal-input" style="width:unset;text-indent: 0;" id="specific-marker-type">
+          <option value="animations">Animation</option>
+          <option value="events">Event</option>
         </select>
       </div>
       <br>
@@ -343,7 +343,7 @@
         <input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true)">t
       </div>
       <br>
-      <button>
+      <button onclick="createMarker(document.getElementById('specific-marker-type').value, document.getElementById('insert-specific-value)">
         Insert
       </button>
     </div>
