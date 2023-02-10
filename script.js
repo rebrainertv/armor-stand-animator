@@ -976,4 +976,6 @@ function openInsertSpecificMarker(type){
   
   document.getElementById("overlay").style.display = "block";
   document.getElementById("specific-marker-modal").style.display = "block";
+  
+  document.getElementById("insert-specific-ticks").focus()
 }
