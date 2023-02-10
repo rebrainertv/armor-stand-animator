@@ -170,12 +170,24 @@ function rotateAroundWorldAxis(object, axis, radians, reset) {
 
 let viewBasePlate = true;
 let viewSmall = false;
+let viewSilhouette;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
   bones[0].visible = viewBasePlate;
   document.getElementById("baseplate-checkmark").style.visibility = (viewBasePlate ? 'visible' : 'hidden')
   render();
+}
+
+function toggleSilhouette(){
+  viewSilhouette = !viewSilhouette;
+  if(viewSilhouette){
+    light.color = new THREE.Color( 0x000000 );
+  } else {
+    light.color = new THREE.Color( 0xb7b7b7 );
+  }
+  document.getElementById("silhouette-checkmark").style.visibility = (viewSilhouette ? 'visible' : 'hidden')
+  render()
 }
 
 function toggleSmall(){
