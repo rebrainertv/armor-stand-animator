@@ -55,6 +55,14 @@
    --><span class="context-label">
         Edit
         <ul class="context-menu">
+          <li onclick="">
+            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+            Undo
+          </li>
+          <li onclick="">
+            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+            Redo
+          </li>
           <li onclick="retimeModifierMarker(0.5)">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Half time
@@ -67,7 +75,7 @@
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Duplicate markers
           </li>
-          <li>
+          <li onclick="deleteMarker()">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Delete markers
           </li>
