@@ -946,13 +946,17 @@ function exportToFunction(){
     
     let nbt = "{" + (pose.length > 0 ? ("Pose:{" + pose.join(",") + "}") : '') + (pose.length > 0 && rotation ? ',' : '') + (rotation ? ("Rotation: [" + rotation + "]") : '') + "}";
     
-    filedata.push("data merge entity @e[scores={"+ scoreboardname +"="+ frame.timestamp +"},limit=1] "+ nbt +"")
+    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}] at @s run data merge entity @s "+ nbt +"")
   }
   
   //Get event markers, finally
   for(let marker of markerdata){
-    if(marker.type === 'command' && !marker.disabled){
-      filedata.push("execute as @e[scores={"+ scoreboardname +"="+ marker.timestamp +"}] at @s run " + marker.event)
+    if(marker.type === 'command' && !marker.disabled && marker.event.length > 3){
+      //Mutliple commands per marker
+      let commands = marker.event.split("\n");
+      for(let command of commands.length){
+        if(command.length > 3) filedata.push("execute as @e[scores={"+ scoreboardname +"="+ marker.timestamp +"}" + extraselectordata + "] at @s run " + command)
+      }
     }
   }
   
