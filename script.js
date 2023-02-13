@@ -952,7 +952,7 @@ function exportToFunction(){
   //Get event markers, finally
   for(let marker of markerdata){
     if(marker.type === 'command' && !marker.disabled){
-      filedata.push("execute if entity @e[scores={"+ scoreboardname +"="+ marker.timestamp +"},limit=1] run " + marker.event)
+      filedata.push("execute as @e[scores={"+ scoreboardname +"="+ marker.timestamp +"}] at @s run " + marker.event)
     }
   }
   
