@@ -914,6 +914,7 @@ function exportToFunction(){
   let filedata = [
     "scoreboard objectives add " + scoreboardname + " dummy"
   ];
+  let extraselectordata = "";
   for(let frame of framedata){
     let posedata = frame.pose;
     let rotationdata = frame.pose.rotations;
@@ -946,7 +947,7 @@ function exportToFunction(){
     
     let nbt = "{" + (pose.length > 0 ? ("Pose:{" + pose.join(",") + "}") : '') + (pose.length > 0 && rotation ? ',' : '') + (rotation ? ("Rotation: [" + rotation + "]") : '') + "}";
     
-    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}] at @s run data merge entity @s "+ nbt +"")
+    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run data merge entity @s "+ nbt +"")
   }
   
   //Get event markers, finally
@@ -954,7 +955,7 @@ function exportToFunction(){
     if(marker.type === 'command' && !marker.disabled && marker.event.length > 3){
       //Mutliple commands per marker
       let commands = marker.event.split("\n");
-      for(let command of commands.length){
+      for(let command of commands){
         if(command.length > 3) filedata.push("execute as @e[scores={"+ scoreboardname +"="+ marker.timestamp +"}" + extraselectordata + "] at @s run " + command)
       }
     }
