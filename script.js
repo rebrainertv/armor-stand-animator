@@ -813,8 +813,7 @@ function saveProject(){
     format_version: 2,
     markerdata: sortedmarkerdata,
     settings: {
-      scoreboard_name: 'example_animation',
-      loop: true
+      scoreboard_name: 'example_animation'
     },
     view: {
       baseplate: true,
