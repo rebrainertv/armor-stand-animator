@@ -170,7 +170,7 @@ function rotateAroundWorldAxis(object, axis, radians, reset) {
 
 let viewBasePlate = true;
 let viewSmall = false;
-let viewSilhouette;
+let viewSilhouette = false;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
@@ -797,6 +797,8 @@ editor.addEventListener("mousedown", function(e){
   document.addEventListener("mouseup", up);
 })
 
+let defaultfilename = "my_animation_project"
+
 function saveProject(){
   //Sort marker data in the list
   let sortedmarkerdata = bubbleSort(markerdata);
@@ -816,17 +818,17 @@ function saveProject(){
       scoreboard_name: 'example_animation'
     },
     view: {
-      baseplate: true,
-      small: false
+      baseplate: viewBasePlate,
+      small: viewSmall,
+      silhouette: viewSilhouette
     }
   };
   
-  saveAs(new File([JSON.stringify(filedata)], prompt("What do you want your filename to be?", "myanimation") + '.mcanimation'))
+  saveAs(new File([JSON.stringify(filedata)], prompt("What do you want your filename to be?", defaultfilename) + '.mcanimation'))
 }
 
-function loadProject(data){
+function loadProject(data, filename){
   let reloadproject = false;
-  console.log(data)
   switch (data.format_version) {
     case 0: {
       /* Differences between 0 and 1:
@@ -874,6 +876,14 @@ function loadProject(data){
       //Set scoreboard name
       document.getElementById("scoreboardname").value = data.settings.scoreboard_name;
       
+      //Configure view options
+      if(!data.view.baseplate) toggleBasePlate()
+      if(data.view.small) toggleSmall()
+      if(data.view.silhouette) toggleSilhouette()
+      
+      //Set the default project export name
+      defaultfilename = filename.replaceAll(".mcanimation", "");
+      
       break;
     }
     default: {
@@ -887,9 +897,9 @@ function loadProject(data){
 document.getElementById("project-upload").addEventListener("change", function(e){
   let file = this.files[0];
   let reader = new FileReader();
-  reader.onload = function(e){
+  reader.onload = function(f){
     try {
-      loadProject(JSON.parse(e.target.result))
+      loadProject(JSON.parse(f.target.result), file.name)
     } catch(e) {
       alert("This doesn't appear to be a valid animation file. Are you sure the file was generated with this website?");
       console.log(e)
