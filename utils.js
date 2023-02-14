@@ -9,7 +9,3 @@ function recreateMarkers(newmarkerdata){
     createMarker(marker, marker.timestamp);
   }
 }
-
-function modifyTime(modifier){
-  
-}
