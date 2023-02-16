@@ -171,6 +171,7 @@ function rotateAroundWorldAxis(object, axis, radians, reset) {
 let viewBasePlate = true;
 let viewSmall = false;
 let viewSilhouette = false;
+let previewFrames = true;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
@@ -206,6 +207,11 @@ function toggleSmall(){
   }
   
   render();
+}
+
+function toggleFramePreview(){
+  previewFrames = !previewFrames;
+  document.getElementById("framepreview-checkmark").style.visibility = (previewFrames ? 'visible' : 'hidden')
 }
 
 function updateRotation(){  
@@ -726,6 +732,24 @@ function playAnimation(){
     scrollPosition += framepixelratio;
     document.querySelector(".dynamic-editor-container").scrollLeft = (Math.floor(scrollPosition))
   }
+}
+
+function previewFrame(tickid = false){
+  let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+  let tick = tickid || (leftamount / framepixelratio) * framepixelmultiplier;
+  
+  function getFrame(timestamp){
+    for(let potentialframe of framedata){
+      if(potentialframe.timestamp === timestamp) return potentialframe;
+    }
+    //As a fallback, consider `timestamp` the index
+    //return framedata[timestamp]; BROKEN BEHAVIOR
+
+    //If no frame is found, remain blank
+    return {"pose":{"Head":[false,false,false],"LeftArm":[false,false,false],"RightArm":[false,false,false],"Body":[false,false,false],"LeftLeg":[false,false,false],"RightLeg":[false,false,false],"rotations":[false,false]},"timestamp":timestamp};
+  }
+  
+  updateVisualRotation(getFrame(tick), true);
 }
 
 //Mutiselect in editor
