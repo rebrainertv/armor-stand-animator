@@ -19,6 +19,24 @@
   border-radius: 0px;
 }
 
+.save-progress {
+  width: 100px;
+  height: 6px;
+  border: 1px solid white;
+  border-radius: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.save-progress .value {
+  width: 100px;
+  height: 100%;
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+}
+
 :root {
   /* Variable colors from sister project, MCBE Essentials */
   --lightest-background: #5c63a9;
