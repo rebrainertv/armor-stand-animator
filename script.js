@@ -237,6 +237,8 @@ function updateRotation(){
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
   if(window.bones) updateVisualRotation(selectedMarker);
+  
+  compileFrames();
 }
 
 function updateEvent(){
@@ -768,7 +770,7 @@ function previewFrame(tickid = false){
 }
 
 document.querySelector(".dynamic-editor-container").onscroll = function(){
-  if(previewFrames) previewFrame();
+  if(previewFrames && !animationInterval) previewFrame();
 }
 
 //Mutiselect in editor
@@ -866,8 +868,8 @@ function saveProject(){
       silhouette: viewSilhouette
     }
   };
-  
-  saveAs(new File([JSON.stringify(filedata)], prompt("What do you want your filename to be?", defaultfilename) + '.mcanimation'))
+  let filename = prompt("What do you want your filename to be?", defaultfilename);
+  if(filename !== null) saveAs(new File([JSON.stringify(filedata)], filename + '.mcanimation'))
 }
 
 function loadProject(data, filename){
@@ -926,6 +928,9 @@ function loadProject(data, filename){
       
       //Set the default project export name
       defaultfilename = filename.replaceAll(".mcanimation", "");
+      
+      //Compile frames for instant previewing
+      compileFrames()
       
       break;
     }
@@ -1013,7 +1018,8 @@ function exportToFunction(){
     }
   }
   
-  saveAs(new File([filedata.join("\n")], prompt("What do you want your filename to be?", "myanimation") +'.mcfunction'))
+  let filename = prompt("What do you want your filename to be?", defaultfilename);
+  if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
 }
 
 function resetOrbit(){
