@@ -430,6 +430,16 @@ document.addEventListener("keydown", function(e){
     //Duplicate all selected markers
     duplicateMarker()
   }
+  if(e.key == '.'){
+    let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+    leftamount += framepixelratio;
+    document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
+  }
+  if(e.key == ','){
+    let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+    leftamount -= framepixelratio;
+    document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
+  }
 })
 
 function deleteMarker(){
@@ -738,6 +748,11 @@ function previewFrame(tickid = false){
   let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = tickid || (leftamount / framepixelratio) * framepixelmultiplier;
   
+  //If tick is greater somehow than the animation length, set it to the animation length
+  if(tick > framedata.length-1){
+    tick = framedata.length-1;
+  }
+  
   function getFrame(timestamp){
     for(let potentialframe of framedata){
       if(potentialframe.timestamp === timestamp) return potentialframe;
@@ -750,6 +765,10 @@ function previewFrame(tickid = false){
   }
   
   updateVisualRotation(getFrame(tick), true);
+}
+
+document.querySelector(".dynamic-editor-container").onscroll = function(){
+  if(previewFrames) previewFrame();
 }
 
 //Mutiselect in editor
