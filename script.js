@@ -674,11 +674,17 @@ function compileFrames(){
   framedata = frames;
   
   //Calculate preview frame data
+  previewframedata = [];
   let simulatedframe = {"pose":{"Head":[0,0,0],"LeftArm":[0,0,0],"RightArm":[0,0,0],"Body":[0,0,0],"LeftLeg":[0,0,0],"RightLeg":[0,0,0],"rotations":[0,0]},"timestamp":0}; //If an "initial pose" feature is ever developed, this value needs to be replaced
   for(let frame of frames){
-    for(let bone of Object.keys(frame.pose){
-      
+    for(let bonename of Object.keys(frame.pose)){
+      let bone = frame.pose[bonename];
+      for(let i = 0; i < bone.length; i++){
+        if(bone[i] !== false) simulatedframe.pose[bonename][i] = bone[i];
+      }
     }
+    simulatedframe.timestamp = frame.timestamp;
+    previewframedata.push(JSON.parse(JSON.stringify(simulatedframe)));
   }
   
   return frames;
@@ -761,12 +767,12 @@ function previewFrame(tickid = false){
   let tick = tickid || (leftamount / framepixelratio) * framepixelmultiplier;
   
   //If tick is greater somehow than the animation length, set it to the animation length
-  if(tick > framedata.length-1){
-    tick = framedata.length-1;
+  if(tick > previewframedata.length-1){
+    tick = previewframedata.length-1;
   }
   
   function getFrame(timestamp){
-    for(let potentialframe of framedata){
+    for(let potentialframe of previewframedata){
       if(potentialframe.timestamp === timestamp) return potentialframe;
     }
     //As a fallback, consider `timestamp` the index
