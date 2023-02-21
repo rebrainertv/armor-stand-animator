@@ -522,6 +522,7 @@ createMarker('animations')
 
 //Compile frames
 var framedata = [];
+var previewframedata = [];
 function compileFrames(){
   //First, sort each frame in chronological order  
   let sortedmarkerdata = bubbleSort(markerdata);
@@ -671,6 +672,15 @@ function compileFrames(){
   }
   
   framedata = frames;
+  
+  //Calculate preview frame data
+  let simulatedframe = {"pose":{"Head":[0,0,0],"LeftArm":[0,0,0],"RightArm":[0,0,0],"Body":[0,0,0],"LeftLeg":[0,0,0],"RightLeg":[0,0,0],"rotations":[0,0]},"timestamp":0}; //If an "initial pose" feature is ever developed, this value needs to be replaced
+  for(let frame of frames){
+    for(let bone of Object.keys(frame.pose){
+      
+    }
+  }
+  
   return frames;
 }
 
