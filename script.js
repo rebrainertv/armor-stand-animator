@@ -919,9 +919,7 @@ function loadProject(data, filename){
       break;
     }
     case 1: {
-      /* Differences between 0 and 1:
-        - None
-      */
+      /* No differences between 0 and 1 */
       data.format_version = 2;
       reloadproject = true;
       break;
