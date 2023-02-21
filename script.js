@@ -449,7 +449,7 @@ function deleteMarker(){
   
   Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
     let index = parseFloat(el.getAttribute("index"));
-    markerdata[index].disabled = true;
+    markerdata[index].deleted = true;
     el.parentNode.removeChild(el);
   })
   
@@ -530,7 +530,7 @@ function compileFrames(){
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
   for(let marker of sortedmarkerdata){
-    if(marker.disabled){
+    if(marker.deleted){
       //Skip deleted markers
       continue;
     } 
@@ -864,16 +864,16 @@ function saveProject(){
   //Sort marker data in the list
   let sortedmarkerdata = bubbleSort(markerdata);
   
-  //Remove all disabled entries
+  //Remove all deleted entries
   for(let i = 0; i < sortedmarkerdata.length; i++){
-    if(sortedmarkerdata[i].disabled){
+    if(sortedmarkerdata[i].deleted){
       sortedmarkerdata.splice(i, 1);
       i--;
     }
   }
   
   let filedata = {
-    format_version: 2,
+    format_version: 3,
     markerdata: sortedmarkerdata,
     settings: {
       scoreboard_name: 'example_animation'
@@ -914,7 +914,7 @@ function loadProject(data, filename){
         }
       }
       
-      data.format_version = 1;
+      data.format_version = 2;
       reloadproject = true;
       break;
     }
@@ -927,6 +927,21 @@ function loadProject(data, filename){
       break;
     }
     case 2: {
+      /* Differences between 0 and 2:
+        - The "disabled" flag in markers has been renamed "deleted" to make room for the feature of disabling markers
+      */
+      for(let marker of data.markerdata){
+        if(marker.hasOwnProperty("disabled")){
+          marker.deleted = marker.disabled;
+          delete marker.disabled;
+        }
+      }
+      
+      data.format_version = 3;
+      reloadproject = true;
+      break;
+    }
+    case 3: {
       //Default format version
       
       //Wipe current project
@@ -955,7 +970,7 @@ function loadProject(data, filename){
       break;
     }
   }
-  if(reloadproject) loadProject(data)
+  if(reloadproject) loadProject(data, filename)
 }
 
 document.getElementById("project-upload").addEventListener("change", function(e){
@@ -1025,7 +1040,7 @@ function exportToFunction(){
   
   //Get event markers, finally
   for(let marker of markerdata){
-    if(marker.type === 'command' && !marker.disabled && marker.event.length > 3){
+    if(marker.type === 'command' && !marker.deleted && marker.event.length > 3){
       //Mutliple commands per marker
       let commands = marker.event.split("\n");
       for(let command of commands){
