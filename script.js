@@ -97,17 +97,22 @@ function setOpacity(object, opacity){
   render()
 }
 
-function updateVisualRotation(data, inPlayback = false, transparencies = false){
-  function getValue(radians, fallback){
+function updateVisualRotation(data, inPlayback = false, transparencies = false, previewinherits = true){
+  function getValue(radians, fallback, namedata){
     if(radians === false){
-      if(inPlayback){ //Keep current rotation
+      if(inPlayback){ //Keep current rotation but only if in playback
         if(fallback === false){
           return 0;
         } else {
           return fallback;
         }
       } else {
-        return 0; //Reset rotation
+        if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1){
+          return getRadians(previewframedata[data.timestamp].pose[namedata[0]][namedata[1]]);
+          //console.log(previewframedata, previewframedata[data.timestamp].pose[namedata[0]][namedata[1]])
+        } else {
+          return 0; //Reset rotation
+        }
       }
     }
     return radians;
@@ -128,9 +133,9 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false){
     let DEG2RAD = (Math.PI / 180);
     
     //Update the currentPose values
-    currentPose[boneName][0] = getValue(poseEntry[0], currentPose[boneName][0]);
-    currentPose[boneName][1] = getValue(poseEntry[1], currentPose[boneName][1]);
-    currentPose[boneName][2] = getValue(poseEntry[2], currentPose[boneName][2]);
+    currentPose[boneName][0] = getValue(poseEntry[0], currentPose[boneName][0], [boneName, 0]);
+    currentPose[boneName][1] = getValue(poseEntry[1], currentPose[boneName][1], [boneName, 1]);
+    currentPose[boneName][2] = getValue(poseEntry[2], currentPose[boneName][2], [boneName, 2]);
     
     let euler = new THREE.Euler(
       currentPose[boneName][0] * DEG2RAD * -1,
