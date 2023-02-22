@@ -92,6 +92,11 @@ let currentPose = {
   rotations: [false, false]
 };
 
+function setOpacity(object, opacity){
+  object.material = new THREE.MeshLambertMaterial({transparent:(opacity != 1.0), opacity, map: object.material.map})
+  render()
+}
+
 function updateVisualRotation(data, inPlayback = false){
   function getValue(radians, fallback){
     if(radians === false){
@@ -172,6 +177,7 @@ let viewBasePlate = true;
 let viewSmall = false;
 let viewSilhouette = false;
 let previewFrames = true;
+let changeHighlights = false;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
@@ -212,6 +218,11 @@ function toggleSmall(){
 function toggleFramePreview(){
   previewFrames = !previewFrames;
   document.getElementById("framepreview-checkmark").style.visibility = (previewFrames ? 'visible' : 'hidden')
+}
+
+function toggleMarkerChangeHighlights(){
+  changeHighlights = !changeHighlights;
+  document.getElementById("markerchange-checkmark").style.visibility = (changeHighlights ? 'visible' : 'hidden')
 }
 
 function updateRotation(){  
