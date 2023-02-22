@@ -97,7 +97,7 @@ function setOpacity(object, opacity){
   render()
 }
 
-function updateVisualRotation(data, inPlayback = false, transparencies = false, previewinherits = true){
+function updateVisualRotation(data, inPlayback = false, transparencies = false, previewinherits = false){
   function getValue(radians, fallback, namedata){
     if(radians === false){
       if(inPlayback){ //Keep current rotation but only if in playback
@@ -106,14 +106,14 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
         } else {
           return fallback;
         }
-      } else {
+      } /*else {
         if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1){
           return getRadians(previewframedata[data.timestamp].pose[namedata[0]][namedata[1]]);
           //console.log(previewframedata, previewframedata[data.timestamp].pose[namedata[0]][namedata[1]])
         } else {
           return 0; //Reset rotation
         }
-      }
+      }*/
     }
     return radians;
   }
@@ -144,6 +144,8 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
     );
     return euler;
   }
+  
+  if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1) previewFrame(data.timestamp)
   
   //Unify the new value type (marker data) and default value type (rotation in radians)
   setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, 'Head'));
@@ -291,7 +293,7 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
   selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
-  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights);
+  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights, true);
   
   compileFrames();
 }
@@ -322,7 +324,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-z").value = (selectedMarker.pose.RightLeg[2] !== false ? parseFloat(selectedMarker.pose.RightLeg[2]) : '');
     document.getElementById("facing-rotation").value = (selectedMarker.pose.rotations[0] !== false ? parseFloat(selectedMarker.pose.rotations[0]) : '');
     document.getElementById("marker-mode").value = selectedMarker.mode;
-    if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights);
+    if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights, true);
   } else {
     document.getElementById("event-command").value = selectedMarker.event;
   }
