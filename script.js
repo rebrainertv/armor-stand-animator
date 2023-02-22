@@ -317,7 +317,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-z").value = (selectedMarker.pose.RightLeg[2] !== false ? parseFloat(selectedMarker.pose.RightLeg[2]) : '');
     document.getElementById("facing-rotation").value = (selectedMarker.pose.rotations[0] !== false ? parseFloat(selectedMarker.pose.rotations[0]) : '');
     document.getElementById("marker-mode").value = selectedMarker.mode;
-    if(window.bones) updateVisualRotation(selectedMarker, false, true);
+    if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights);
   } else {
     document.getElementById("event-command").value = selectedMarker.event;
   }
