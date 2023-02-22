@@ -149,8 +149,10 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false){
   setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, 'RightLeg'));
   
   //Set opacities
-  let allValues = Object.values(temp1).join(",").split(",")
-  allValues.splice(18, 1)
+  let allValues = Object.values(data.pose).join(",").split(",");
+  allValues.splice(19, 1);
+  allValues.splice(18, 1);
+  if(allValues == 'false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false') transparencies = false;
   setOpacity(bones[3].children[0], (data.pose.Head.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
   setOpacity(bones[4].children[0], (data.pose.LeftArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
   setOpacity(bones[6].children[0], (data.pose.RightArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
@@ -166,6 +168,18 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false){
   bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
   
   render();
+}
+
+function resetOpacities(){
+  setOpacity(bones[3].children[0], 1);
+  setOpacity(bones[4].children[0], 1);
+  setOpacity(bones[6].children[0], 1);
+  setOpacity(bones[2].children[0], 1);
+  setOpacity(bones[2].children[1], 1);
+  setOpacity(bones[2].children[2], 1);
+  setOpacity(bones[2].children[3], 1);
+  setOpacity(bones[5].children[0], 1);
+  setOpacity(bones[7].children[0], 1);
 }
 
 function setRotation(mesh, rotation){
@@ -236,6 +250,18 @@ function toggleFramePreview(){
 function toggleMarkerChangeHighlights(){
   changeHighlights = !changeHighlights;
   document.getElementById("markerchange-checkmark").style.visibility = (changeHighlights ? 'visible' : 'hidden')
+  
+  /*if(!changeHighlights){
+    setOpacity(bones[3].children[0], (data.pose.Head.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[4].children[0], (data.pose.LeftArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[6].children[0], (data.pose.RightArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[2].children[0], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[2].children[1], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[2].children[2], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[2].children[3], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[5].children[0], (data.pose.LeftLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+    setOpacity(bones[7].children[0], (data.pose.RightLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  }*/
 }
 
 function updateRotation(){  //Updates the model's saved rotation based off the entered values in the text boxes
@@ -260,7 +286,7 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
   selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
-  if(window.bones) updateVisualRotation(selectedMarker, false, true);
+  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights);
   
   compileFrames();
 }
@@ -291,7 +317,7 @@ function renderValues(){
     document.getElementById("facing-rightleg-z").value = (selectedMarker.pose.RightLeg[2] !== false ? parseFloat(selectedMarker.pose.RightLeg[2]) : '');
     document.getElementById("facing-rotation").value = (selectedMarker.pose.rotations[0] !== false ? parseFloat(selectedMarker.pose.rotations[0]) : '');
     document.getElementById("marker-mode").value = selectedMarker.mode;
-    if(window.bones) updateVisualRotation(selectedMarker);
+    if(window.bones) updateVisualRotation(selectedMarker, false, true);
   } else {
     document.getElementById("event-command").value = selectedMarker.event;
   }
@@ -445,6 +471,8 @@ function deselectMarker(){
   Array.from(document.querySelectorAll(".marker")).forEach((unel) => {
     unel.classList.toggle("selected", false)
   })
+  
+  resetOpacities()
 }
 
 document.addEventListener("keydown", function(e){
