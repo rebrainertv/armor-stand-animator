@@ -97,7 +97,7 @@ function setOpacity(object, opacity){
   render()
 }
 
-function updateVisualRotation(data, inPlayback = false){
+function updateVisualRotation(data, inPlayback = false, transparencies = false){
   function getValue(radians, fallback){
     if(radians === false){
       if(inPlayback){ //Keep current rotation
@@ -147,6 +147,19 @@ function updateVisualRotation(data, inPlayback = false){
   setRotation(bones[2], getEulerFromPoseEntry(data.pose.Body, 'Body'));
   setRotation(bones[5], getEulerFromPoseEntry(data.pose.LeftLeg, 'LeftLeg'));
   setRotation(bones[7], getEulerFromPoseEntry(data.pose.RightLeg, 'RightLeg'));
+  
+  //Set opacities
+  let allValues = Object.values(temp1).join(",").split(",")
+  allValues.splice(18, 1)
+  setOpacity(bones[3].children[0], (data.pose.Head.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[4].children[0], (data.pose.LeftArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[6].children[0], (data.pose.RightArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[2].children[0], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[2].children[1], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[2].children[2], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[2].children[3], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[5].children[0], (data.pose.LeftLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
+  setOpacity(bones[7].children[0], (data.pose.RightLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
   
   window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
   //Offset baseplate rotation
@@ -225,7 +238,7 @@ function toggleMarkerChangeHighlights(){
   document.getElementById("markerchange-checkmark").style.visibility = (changeHighlights ? 'visible' : 'hidden')
 }
 
-function updateRotation(){  
+function updateRotation(){  //Updates the model's saved rotation based off the entered values in the text boxes
   selectedMarker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
   selectedMarker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
   selectedMarker.pose.Head[2] = (!isNaN(parseFloat(document.getElementById("facing-head-z").value)) ? parseFloat(document.getElementById("facing-head-z").value) : false);
@@ -247,7 +260,7 @@ function updateRotation(){
   selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
   selectedMarker.mode = document.getElementById("marker-mode").value; 
   
-  if(window.bones) updateVisualRotation(selectedMarker);
+  if(window.bones) updateVisualRotation(selectedMarker, false, true);
   
   compileFrames();
 }
