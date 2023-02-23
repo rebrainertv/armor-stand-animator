@@ -215,6 +215,7 @@ let viewSmall = false;
 let viewSilhouette = false;
 let previewFrames = true;
 let changeHighlights = false;
+let changePlaybackHighlights = false;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
@@ -260,18 +261,11 @@ function toggleFramePreview(){
 function toggleMarkerChangeHighlights(){
   changeHighlights = !changeHighlights;
   document.getElementById("markerchange-checkmark").style.visibility = (changeHighlights ? 'visible' : 'hidden')
-  
-  /*if(!changeHighlights){
-    setOpacity(bones[3].children[0], (data.pose.Head.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[4].children[0], (data.pose.LeftArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[6].children[0], (data.pose.RightArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[2].children[0], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[2].children[1], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[2].children[2], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[2].children[3], (data.pose.Body.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[5].children[0], (data.pose.LeftLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-    setOpacity(bones[7].children[0], (data.pose.RightLeg.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
-  }*/
+}
+
+function togglePlaybackChangeHighlights(){
+  changePlaybackHighlights = !changePlaybackHighlights;
+  document.getElementById("playbackmarkerchange-checkmark").style.visibility = (changePlaybackHighlights ? 'visible' : 'hidden')
 }
 
 function updateRotation(){  //Updates the model's saved rotation based off the entered values in the text boxes
@@ -294,11 +288,11 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
   selectedMarker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
   selectedMarker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
   selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
-  selectedMarker.mode = document.getElementById("marker-mode").value; 
-  
-  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights, true);
+  selectedMarker.mode = document.getElementById("marker-mode").value;
   
   compileFrames();
+  
+  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights, true);
 }
 
 function updateEvent(){
@@ -829,7 +823,7 @@ function playAnimation(){
       return {"pose":{"Head":[false,false,false],"LeftArm":[false,false,false],"RightArm":[false,false,false],"Body":[false,false,false],"LeftLeg":[false,false,false],"RightLeg":[false,false,false],"rotations":[false,false]},"timestamp":timestamp};
     }
     
-    updateVisualRotation(getFrame(currentFrame), true);
+    updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
     currentFrame++;
     if(currentFrame > framedata[framedata.length-1].timestamp){
       stopAnimation()
