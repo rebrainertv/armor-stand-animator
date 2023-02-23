@@ -300,7 +300,15 @@ function updateEvent(){
 }
 
 function renderValues(){
+  function renderValue(box, data, isNumber = true){
+    let value = data;
+    if(isNumber) value = (data !== false ? parseFloat(data) : '');
+    
+    box.value = value;
+  }
+  
   if(selectedMarker.type === 'keyframe'){
+    renderValue(document.getElementById("facing-head-x"), selectedMarker.pose.Head[0]);
     document.getElementById("facing-head-x").value = (selectedMarker.pose.Head[0] !== false ? parseFloat(selectedMarker.pose.Head[0]) : '');
     document.getElementById("facing-head-y").value = (selectedMarker.pose.Head[1] !== false ? parseFloat(selectedMarker.pose.Head[1]) : '');
     document.getElementById("facing-head-z").value = (selectedMarker.pose.Head[2] !== false ? parseFloat(selectedMarker.pose.Head[2]) : '');
@@ -453,7 +461,8 @@ function createMarker(type, location = false, doselect = true){
   return marker;
 }
 
-var selectedMarker = false;
+var selectedMarkers = [];
+var selectedMarker = false; //About to be deprecated
 
 function selectMarker(ev){ //Selects a single marker
   let el = ev.target;
@@ -475,12 +484,22 @@ function multiselectMarker(){ //Handles selecting multiple markers
     }
   })
   
-  if(classTypes.length === 1){ //There are markers selected, but only of one type
-    
-  } else {
-    Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
-      unel.style.display = "none";
+  Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+    unel.style.display = "none";
+  })
+  
+  if(classTypes.length === 1){ //There are markers selected and only of one type
+    //Display the appropriate screen
+    document.querySelector("."+ classTypes[0] +"-screen").style.display = "unset";
+    selectedMarkers = [];
+    Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+      selectedMarkers.push(markerdata[parseFloat(el.getAttribute("index"))]);
     })
+    
+    //Render the values based off all selected markers
+    renderValues(true)
+  } else {
+    //Can't edit all at once, so display the project screen
     document.querySelector(".project-screen").style.display = "unset";
   }
 }
