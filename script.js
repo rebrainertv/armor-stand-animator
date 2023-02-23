@@ -162,7 +162,7 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
   let allValues = Object.values(data.pose).join(",").split(",");
   allValues.splice(19, 1);
   allValues.splice(18, 1);
-  if(allValues == 'false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false') transparencies = false;
+  if(allValues == 'false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false' && transparencies != 'playback') transparencies = false;
   setOpacity(bones[3].children[0], (data.pose.Head.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
   setOpacity(bones[4].children[0], (data.pose.LeftArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
   setOpacity(bones[6].children[0], (data.pose.RightArm.join(",") == 'false,false,false' && transparencies ? 0.45 : 1))
@@ -482,7 +482,24 @@ function deselectMarker(){
     unel.classList.toggle("selected", false)
   })
   
-  if(window.bones) resetOpacities()
+  if(window.bones){
+    /*if(previewFrames && previewframedata.length > 0){
+      previewFrame()
+    } else {
+      updateVisualRotaion({
+        pose: {
+          Head: [false, false, false],
+          LeftArm: [false, false, false],
+          RightArm: [false, false, false],
+          Body: [false, false, false],
+          LeftLeg: [false, false, false],
+          RightLeg: [false, false, false],
+          rotations: [false, false]
+        }
+      })
+    }*/
+    resetOpacities()
+  } 
 }
 
 document.addEventListener("keydown", function(e){
