@@ -455,7 +455,7 @@ function createMarker(type, location = false, doselect = true){
 
 var selectedMarker = false;
 
-function selectMarker(ev){
+function selectMarker(ev){ //Selects a single marker
   let el = ev.target;
   deselectMarker()
   
@@ -466,7 +466,26 @@ function selectMarker(ev){
   renderValues()
 }
 
-function deselectMarker(){
+function multiselectMarker(){ //Handles selecting multiple markers
+  //Take inventory of all types of selected markers
+  let classTypes = [];
+  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+    for(let classtype of el.classList){
+      if(!classTypes.includes(classtype) && !['marker','selected'].includes(classtype)) classTypes.push(classtype)
+    }
+  })
+  
+  if(classTypes.length === 1){ //There are markers selected, but only of one type
+    
+  } else {
+    Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
+      unel.style.display = "none";
+    })
+    document.querySelector(".project-screen").style.display = "unset";
+  }
+}
+
+function deselectMarker(){ //Deselects all markers
   Array.from(document.querySelectorAll(".screen")).forEach((unel) => {
     unel.style.display = "none";
   })
