@@ -145,7 +145,10 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
     return euler;
   }
   
-  if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1) previewFrame(data.timestamp)
+  if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1){
+    previewFrame(data.timestamp, true);
+    inPlayback = true;
+  } 
   
   //Unify the new value type (marker data) and default value type (rotation in radians)
   setRotation(bones[3], getEulerFromPoseEntry(data.pose.Head, 'Head'));
@@ -479,7 +482,7 @@ function deselectMarker(){
     unel.classList.toggle("selected", false)
   })
   
-  resetOpacities()
+  if(window.bones) resetOpacities()
 }
 
 document.addEventListener("keydown", function(e){
