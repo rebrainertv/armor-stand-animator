@@ -145,8 +145,8 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
     return euler;
   }
   
-  if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1){
-    previewFrame(data.timestamp, true);
+  if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1 && !inPlayback){
+    previewFrame(data.timestamp);
     inPlayback = true;
   } 
   
