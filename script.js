@@ -269,35 +269,38 @@ function togglePlaybackChangeHighlights(){
 }
 
 function updateRotation(){  //Updates the model's saved rotation based off the entered values in the text boxes
-  
-  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
-    
-  })
-  
-  marker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
-  marker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
-  marker.pose.Head[2] = (!isNaN(parseFloat(document.getElementById("facing-head-z").value)) ? parseFloat(document.getElementById("facing-head-z").value) : false);
-  marker.pose.LeftArm[0] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-x").value)) ? parseFloat(document.getElementById("facing-leftarm-x").value) : false);
-  marker.pose.LeftArm[1] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-y").value)) ? parseFloat(document.getElementById("facing-leftarm-y").value) : false);
-  marker.pose.LeftArm[2] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-z").value)) ? parseFloat(document.getElementById("facing-leftarm-z").value) : false);
-  marker.pose.RightArm[0] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-x").value)) ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
-  marker.pose.RightArm[1] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-y").value)) ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
-  marker.pose.RightArm[2] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-z").value)) ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
-  marker.pose.Body[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
-  marker.pose.Body[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
-  marker.pose.Body[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
-  marker.pose.LeftLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-x").value)) ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
-  marker.pose.LeftLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-y").value)) ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
-  marker.pose.LeftLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-z").value)) ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
-  marker.pose.RightLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-x").value)) ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
-  marker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
-  marker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
-  marker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
-  marker.mode = document.getElementById("marker-mode").value;
+  for(let marker of selectedMarkers){
+    marker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
+    marker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
+    marker.pose.Head[2] = (!isNaN(parseFloat(document.getElementById("facing-head-z").value)) ? parseFloat(document.getElementById("facing-head-z").value) : false);
+    marker.pose.LeftArm[0] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-x").value)) ? parseFloat(document.getElementById("facing-leftarm-x").value) : false);
+    marker.pose.LeftArm[1] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-y").value)) ? parseFloat(document.getElementById("facing-leftarm-y").value) : false);
+    marker.pose.LeftArm[2] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-z").value)) ? parseFloat(document.getElementById("facing-leftarm-z").value) : false);
+    marker.pose.RightArm[0] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-x").value)) ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
+    marker.pose.RightArm[1] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-y").value)) ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
+    marker.pose.RightArm[2] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-z").value)) ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
+    marker.pose.Body[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
+    marker.pose.Body[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
+    marker.pose.Body[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
+    marker.pose.LeftLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-x").value)) ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
+    marker.pose.LeftLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-y").value)) ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
+    marker.pose.LeftLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-z").value)) ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
+    marker.pose.RightLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-x").value)) ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
+    marker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
+    marker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
+    marker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
+    marker.mode = document.getElementById("marker-mode").value;
+  }
   
   compileFrames();
   
-  if(window.bones) updateVisualRotation(marker, false, changeHighlights, true);
+  if(window.bones){
+    if(selectedMarkers.length === 1){
+      updateVisualRotation(selectedMarkers[0], false, changeHighlights, true);
+    } else {
+      //TODO: reset rotation?
+    }
+  } 
 }
 
 function updateEvent(){
@@ -309,7 +312,7 @@ function renderValues(){
   
   function renderValue(box, data, isNumber = true){
     if(data.every( (val, i, arr) => val === arr[0] )){
-      console.log(data)
+      
       let value = data[0];
       if(isNumber){
         value = (data !== false ? parseFloat(data) : '');
@@ -421,7 +424,7 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     
-    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt});
+    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt, ctrlKey: e.ctrlKey});
     
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
@@ -537,9 +540,17 @@ var selectedMarker = false; //About to be deprecated
 
 function selectMarker(ev){ //Selects a single marker
   let el = ev.target;
-  deselectMarker()
+  console.log('trigger')
+  if(!ev.ctrlKey){
+    deselectMarker()
+  } 
   
   el.classList.toggle("selected", true);
+  
+  if(ev.ctrlKey){
+    multiselectMarker()
+    return;
+  }
   
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
   //selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
@@ -569,7 +580,7 @@ function multiselectMarker(){ //Handles selecting multiple markers
     })
     
     //Render the values based off all selected markers
-    renderValues(true)
+    renderValues()
   } else {
     //Can't edit all at once, so display the project screen
     document.querySelector(".project-screen").style.display = "unset";
@@ -1021,9 +1032,13 @@ editor.addEventListener("mousedown", function(e){
       
       let elbounds = el.getBoundingClientRect();
       if(elbounds.x > fromx && elbounds.y > fromy && elbounds.x < tox && elbounds.y < toy){
+        let doMultiselect = !el.classList.contains("selected");
         el.classList.toggle("selected", true);
+        if(doMultiselect) multiselectMarker()
       } else {
+        let doMultiselect = el.classList.contains("selected");
         el.classList.toggle("selected", false);
+        if(doMultiselect) multiselectMarker()
       }
     })
   }
