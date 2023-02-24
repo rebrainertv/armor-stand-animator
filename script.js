@@ -269,30 +269,35 @@ function togglePlaybackChangeHighlights(){
 }
 
 function updateRotation(){  //Updates the model's saved rotation based off the entered values in the text boxes
-  selectedMarker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
-  selectedMarker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
-  selectedMarker.pose.Head[2] = (!isNaN(parseFloat(document.getElementById("facing-head-z").value)) ? parseFloat(document.getElementById("facing-head-z").value) : false);
-  selectedMarker.pose.LeftArm[0] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-x").value)) ? parseFloat(document.getElementById("facing-leftarm-x").value) : false);
-  selectedMarker.pose.LeftArm[1] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-y").value)) ? parseFloat(document.getElementById("facing-leftarm-y").value) : false);
-  selectedMarker.pose.LeftArm[2] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-z").value)) ? parseFloat(document.getElementById("facing-leftarm-z").value) : false);
-  selectedMarker.pose.RightArm[0] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-x").value)) ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
-  selectedMarker.pose.RightArm[1] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-y").value)) ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
-  selectedMarker.pose.RightArm[2] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-z").value)) ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
-  selectedMarker.pose.Body[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
-  selectedMarker.pose.Body[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
-  selectedMarker.pose.Body[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
-  selectedMarker.pose.LeftLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-x").value)) ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
-  selectedMarker.pose.LeftLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-y").value)) ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
-  selectedMarker.pose.LeftLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-z").value)) ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
-  selectedMarker.pose.RightLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-x").value)) ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
-  selectedMarker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
-  selectedMarker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
-  selectedMarker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
-  selectedMarker.mode = document.getElementById("marker-mode").value;
+  
+  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+    
+  })
+  
+  marker.pose.Head[0] = (!isNaN(parseFloat(document.getElementById("facing-head-x").value)) ? parseFloat(document.getElementById("facing-head-x").value) : false);
+  marker.pose.Head[1] = (!isNaN(parseFloat(document.getElementById("facing-head-y").value)) ? parseFloat(document.getElementById("facing-head-y").value) : false);
+  marker.pose.Head[2] = (!isNaN(parseFloat(document.getElementById("facing-head-z").value)) ? parseFloat(document.getElementById("facing-head-z").value) : false);
+  marker.pose.LeftArm[0] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-x").value)) ? parseFloat(document.getElementById("facing-leftarm-x").value) : false);
+  marker.pose.LeftArm[1] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-y").value)) ? parseFloat(document.getElementById("facing-leftarm-y").value) : false);
+  marker.pose.LeftArm[2] = (!isNaN(parseFloat(document.getElementById("facing-leftarm-z").value)) ? parseFloat(document.getElementById("facing-leftarm-z").value) : false);
+  marker.pose.RightArm[0] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-x").value)) ? parseFloat(document.getElementById("facing-rightarm-x").value) : false);
+  marker.pose.RightArm[1] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-y").value)) ? parseFloat(document.getElementById("facing-rightarm-y").value) : false);
+  marker.pose.RightArm[2] = (!isNaN(parseFloat(document.getElementById("facing-rightarm-z").value)) ? parseFloat(document.getElementById("facing-rightarm-z").value) : false);
+  marker.pose.Body[0] = (!isNaN(parseFloat(document.getElementById("facing-chest-x").value)) ? parseFloat(document.getElementById("facing-chest-x").value) : false);
+  marker.pose.Body[1] = (!isNaN(parseFloat(document.getElementById("facing-chest-y").value)) ? parseFloat(document.getElementById("facing-chest-y").value) : false);
+  marker.pose.Body[2] = (!isNaN(parseFloat(document.getElementById("facing-chest-z").value)) ? parseFloat(document.getElementById("facing-chest-z").value) : false);
+  marker.pose.LeftLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-x").value)) ? parseFloat(document.getElementById("facing-leftleg-x").value) : false);
+  marker.pose.LeftLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-y").value)) ? parseFloat(document.getElementById("facing-leftleg-y").value) : false);
+  marker.pose.LeftLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-leftleg-z").value)) ? parseFloat(document.getElementById("facing-leftleg-z").value) : false);
+  marker.pose.RightLeg[0] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-x").value)) ? parseFloat(document.getElementById("facing-rightleg-x").value) : false);
+  marker.pose.RightLeg[1] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-y").value)) ? parseFloat(document.getElementById("facing-rightleg-y").value) : false);
+  marker.pose.RightLeg[2] = (!isNaN(parseFloat(document.getElementById("facing-rightleg-z").value)) ? parseFloat(document.getElementById("facing-rightleg-z").value) : false);
+  marker.pose.rotations[0] = (!isNaN(parseFloat(document.getElementById("facing-rotation").value)) ? parseFloat(document.getElementById("facing-rotation").value) : false);
+  marker.mode = document.getElementById("marker-mode").value;
   
   compileFrames();
   
-  if(window.bones) updateVisualRotation(selectedMarker, false, changeHighlights, true);
+  if(window.bones) updateVisualRotation(marker, false, changeHighlights, true);
 }
 
 function updateEvent(){
@@ -300,14 +305,16 @@ function updateEvent(){
 }
 
 function renderValues(){
-  let marker = selectedMarker;
+  let markertype = selectedMarkers[0].type;
   
   function renderValue(box, data, isNumber = true){
     if(data.every( (val, i, arr) => val === arr[0] )){
       console.log(data)
       let value = data[0];
-      if(isNumber) value = (data !== false ? parseFloat(data) : '');
-      if(isNaN(value)) value = '';
+      if(isNumber){
+        value = (data !== false ? parseFloat(data) : '');
+        if(isNaN(value)) value = '';
+      } 
       box.value = value;
       box.placeholder = box.getAttribute("default-placeholder");
     } else {
@@ -316,7 +323,7 @@ function renderValues(){
     }
   }
   
-  if(marker.type === 'keyframe'){
+  if(markertype === 'keyframe'){
     let fullrotdata = {
       headx: [],
       heady: [],
@@ -336,7 +343,8 @@ function renderValues(){
       rightlegx: [],
       rightlegy: [],
       rightlegz: [],
-      rotation: []
+      rotation: [],
+      mode: []
     };
     for(let marker of selectedMarkers){
       fullrotdata.headx.push(marker.pose.Head[0]);
@@ -358,6 +366,7 @@ function renderValues(){
       fullrotdata.rightlegy.push(marker.pose.RightLeg[1]);
       fullrotdata.rightlegz.push(marker.pose.RightLeg[2]);
       fullrotdata.rotation.push(marker.pose.rotations[0]);
+      fullrotdata.mode.push(marker.mode);
     }
     
     renderValue(document.getElementById("facing-head-x"), fullrotdata.headx);
@@ -379,10 +388,21 @@ function renderValues(){
     renderValue(document.getElementById("facing-rightleg-y"), fullrotdata.rightlegy);
     renderValue(document.getElementById("facing-rightleg-z"), fullrotdata.rightlegz);
     renderValue(document.getElementById("facing-rotation"), fullrotdata.rotation);
-    document.getElementById("marker-mode").value = marker.mode;
-    if(window.bones) updateVisualRotation(marker, false, changeHighlights, true);
+    renderValue(document.getElementById("marker-mode"), fullrotdata.mode, false);
+    if(window.bones){
+      if(selectedMarkers.length == 1){
+        updateVisualRotation(selectedMarkers[0], false, changeHighlights, true);
+      } else {
+        //TODO: reset rotation | updateVisualRotation(marker, false, changeHighlights, true);
+      }
+    } 
   } else {
-    document.getElementById("event-command").value = marker.event;
+    let events = [];
+    for(let marker of selectedMarkers){
+      events.push(marker.event);
+    }
+    
+    renderValue(document.getElementById("event-command"), events, false);
   }
 }
 
@@ -522,7 +542,8 @@ function selectMarker(ev){ //Selects a single marker
   el.classList.toggle("selected", true);
   
   document.querySelector("."+ el.classList[1] +"-screen").style.display = "unset";
-  selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
+  //selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
+  selectedMarkers = [ markerdata[parseFloat(el.getAttribute("index"))] ];
   renderValues()
 }
 
