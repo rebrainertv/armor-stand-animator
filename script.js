@@ -304,8 +304,10 @@ function renderValues(){
   
   function renderValue(box, data, isNumber = true){
     if(data.every( (val, i, arr) => val === arr[0] )){
+      console.log(data)
       let value = data[0];
       if(isNumber) value = (data !== false ? parseFloat(data) : '');
+      if(isNaN(value)) value = '';
       box.value = value;
       box.placeholder = box.getAttribute("default-placeholder");
     } else {
@@ -337,25 +339,25 @@ function renderValues(){
       rotation: []
     };
     for(let marker of selectedMarkers){
-      fullrotdata.headx
-      fullrotdata.heady
-      fullrotdata.headz
-      fullrotdata.leftarmx
-      fullrotdata.leftarmy
-      fullrotdata.leftarmz
-      fullrotdata.rightarmx
-      fullrotdata.rightarmy
-      fullrotdata.rightarmz
-      fullrotdata.bodyx
-      fullrotdata.bodyy
-      fullrotdata.bodyz
-      fullrotdata.leftlegx
-      fullrotdata.leftlegy
-      fullrotdata.leftlegz
-      fullrotdata.rightlegx
-      fullrotdata.rightlegy
-      fullrotdata.rightlegz
-      fullrotdata.rotation
+      fullrotdata.headx.push(marker.pose.Head[0]);
+      fullrotdata.heady.push(marker.pose.Head[1]);
+      fullrotdata.headz.push(marker.pose.Head[2]);
+      fullrotdata.leftarmx.push(marker.pose.LeftArm[0]);
+      fullrotdata.leftarmy.push(marker.pose.LeftArm[1]);
+      fullrotdata.leftarmz.push(marker.pose.LeftArm[2]);
+      fullrotdata.rightarmx.push(marker.pose.RightArm[0]);
+      fullrotdata.rightarmy.push(marker.pose.RightArm[1]);
+      fullrotdata.rightarmz.push(marker.pose.RightArm[2]);
+      fullrotdata.bodyx.push(marker.pose.Body[0]);
+      fullrotdata.bodyy.push(marker.pose.Body[1]);
+      fullrotdata.bodyz.push(marker.pose.Body[2]);
+      fullrotdata.leftlegx.push(marker.pose.LeftLeg[0]);
+      fullrotdata.leftlegy.push(marker.pose.LeftLeg[1]);
+      fullrotdata.leftlegz.push(marker.pose.LeftLeg[2]);
+      fullrotdata.rightlegx.push(marker.pose.RightLeg[0]);
+      fullrotdata.rightlegy.push(marker.pose.RightLeg[1]);
+      fullrotdata.rightlegz.push(marker.pose.RightLeg[2]);
+      fullrotdata.rotation.push(marker.pose.rotations[0]);
     }
     
     renderValue(document.getElementById("facing-head-x"), fullrotdata.headx);
