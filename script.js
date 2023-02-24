@@ -303,32 +303,62 @@ function renderValues(){
   let marker = selectedMarker;
   
   function renderValue(box, data, isNumber = true){
-    let value = data;
-    if(isNumber) value = (data !== false ? parseFloat(data) : '');
-    
-    box.value = value;
+    if(data.every( (val, i, arr) => val === arr[0] )){
+      let value = data[0];
+      if(isNumber) value = (data !== false ? parseFloat(data) : '');
+      box.value = value;
+      box.placeholder = box.getAttribute("default-placeholder");
+    } else {
+      box.value = '';
+      box.placeholder = '--';
+    }
   }
   
   if(marker.type === 'keyframe'){
-    renderValue(document.getElementById("facing-head-x"), marker.pose.Head[0]);
-    renderValue(document.getElementById("facing-head-y"), marker.pose.Head[1]);
-    renderValue(document.getElementById("facing-head-z"), marker.pose.Head[2]);
-    renderValue(document.getElementById("facing-leftarm-x"), marker.pose.LeftArm[0]);
-    renderValue(document.getElementById("facing-leftarm-y"), marker.pose.LeftArm[1]);
-    renderValue(document.getElementById("facing-leftarm-z"), marker.pose.LeftArm[2]);
-    renderValue(document.getElementById("facing-rightarm-x"), marker.pose.RightArm[0]);
-    renderValue(document.getElementById("facing-rightarm-y"), marker.pose.RightArm[1]);
-    renderValue(document.getElementById("facing-rightarm-z"), marker.pose.RightArm[2]);
-    renderValue(document.getElementById("facing-chest-x"), marker.pose.Body[0]);
-    renderValue(document.getElementById("facing-chest-y"), marker.pose.Body[1]);
-    renderValue(document.getElementById("facing-chest-z"), marker.pose.Body[2]);
-    renderValue(document.getElementById("facing-leftleg-x"), marker.pose.LeftLeg[0]);
-    renderValue(document.getElementById("facing-leftleg-y"), marker.pose.LeftLeg[1]);
-    renderValue(document.getElementById("facing-leftleg-z"), marker.pose.LeftLeg[2]);
-    renderValue(document.getElementById("facing-rightleg-x"), marker.pose.RightLeg[0]);
-    renderValue(document.getElementById("facing-rightleg-y"), marker.pose.RightLeg[1]);
-    renderValue(document.getElementById("facing-rightleg-z"), marker.pose.RightLeg[2]);
-    renderValue(document.getElementById("facing-rotation"), marker.pose.rotations[0]);
+    let fullrotdata = {
+      headx: [],
+      heady: [],
+      headz: [],
+      leftarmx: [],
+      leftarmy: [],
+      leftarmz: [],
+      rightarmx: [],
+      rightarmy: [],
+      rightarmz: [],
+      bodyx: [],
+      bodyy: [],
+      bodyz: [],
+      leftlegx: [],
+      leftlegy: [],
+      leftlegz: [],
+      rightlegx: [],
+      rightlegy: [],
+      rightlegz: [],
+      rotation: []
+    };
+    for(let marker of selectedMarkers){
+      
+    }
+    
+    renderValue(document.getElementById("facing-head-x"), headx);
+    renderValue(document.getElementById("facing-head-y"),  heady);
+    renderValue(document.getElementById("facing-head-z"),  headz);
+    renderValue(document.getElementById("facing-leftarm-x"),  leftarmx);
+    renderValue(document.getElementById("facing-leftarm-y"),  leftarmy);
+    renderValue(document.getElementById("facing-leftarm-z"),  leftarmz);
+    renderValue(document.getElementById("facing-rightarm-x"),  rightarmx);
+    renderValue(document.getElementById("facing-rightarm-y"),  rightarmy);
+    renderValue(document.getElementById("facing-rightarm-z"),  rightarmz);
+    renderValue(document.getElementById("facing-chest-x"),  bodyx);
+    renderValue(document.getElementById("facing-chest-y"),  bodyy);
+    renderValue(document.getElementById("facing-chest-z"),  bodyz);
+    renderValue(document.getElementById("facing-leftleg-x"),  leftlegx);
+    renderValue(document.getElementById("facing-leftleg-y"),  leftlegy);
+    renderValue(document.getElementById("facing-leftleg-z"),  leftlegz);
+    renderValue(document.getElementById("facing-rightleg-x"),  rightlegx);
+    renderValue(document.getElementById("facing-rightleg-y"),  rightlegy);
+    renderValue(document.getElementById("facing-rightleg-z"),  rightlegz);
+    renderValue(document.getElementById("facing-rotation"),  rotation);
     document.getElementById("marker-mode").value = marker.mode;
     if(window.bones) updateVisualRotation(marker, false, changeHighlights, true);
   } else {
