@@ -304,7 +304,9 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
 }
 
 function updateEvent(){
-  selectedMarker.event = document.getElementById("event-command").value;
+  for(let marker of selectedMarkers){
+    marker.event = document.getElementById("event-command").value;
+  }
 }
 
 function renderValues(){
@@ -424,7 +426,7 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     
-    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt, ctrlKey: e.ctrlKey});
+    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt, ctrlKey: e.ctrlKey}, true);
     
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
@@ -538,14 +540,17 @@ function createMarker(type, location = false, doselect = true){
 var selectedMarkers = [];
 var selectedMarker = false; //About to be deprecated
 
-function selectMarker(ev){ //Selects a single marker
+function selectMarker(ev, force = false){ //Selects a single marker
   let el = ev.target;
-  console.log('trigger')
   if(!ev.ctrlKey){
     deselectMarker()
   } 
   
-  el.classList.toggle("selected", true);
+  if(force){
+    el.classList.toggle("selected", true);
+  } else {
+    el.classList.toggle("selected");
+  }
   
   if(ev.ctrlKey){
     multiselectMarker()
