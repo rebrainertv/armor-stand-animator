@@ -337,28 +337,46 @@ function renderValues(){
       rotation: []
     };
     for(let marker of selectedMarkers){
-      
+      fullrotdata.headx
+      fullrotdata.heady
+      fullrotdata.headz
+      fullrotdata.leftarmx
+      fullrotdata.leftarmy
+      fullrotdata.leftarmz
+      fullrotdata.rightarmx
+      fullrotdata.rightarmy
+      fullrotdata.rightarmz
+      fullrotdata.bodyx
+      fullrotdata.bodyy
+      fullrotdata.bodyz
+      fullrotdata.leftlegx
+      fullrotdata.leftlegy
+      fullrotdata.leftlegz
+      fullrotdata.rightlegx
+      fullrotdata.rightlegy
+      fullrotdata.rightlegz
+      fullrotdata.rotation
     }
     
-    renderValue(document.getElementById("facing-head-x"), headx);
-    renderValue(document.getElementById("facing-head-y"),  heady);
-    renderValue(document.getElementById("facing-head-z"),  headz);
-    renderValue(document.getElementById("facing-leftarm-x"),  leftarmx);
-    renderValue(document.getElementById("facing-leftarm-y"),  leftarmy);
-    renderValue(document.getElementById("facing-leftarm-z"),  leftarmz);
-    renderValue(document.getElementById("facing-rightarm-x"),  rightarmx);
-    renderValue(document.getElementById("facing-rightarm-y"),  rightarmy);
-    renderValue(document.getElementById("facing-rightarm-z"),  rightarmz);
-    renderValue(document.getElementById("facing-chest-x"),  bodyx);
-    renderValue(document.getElementById("facing-chest-y"),  bodyy);
-    renderValue(document.getElementById("facing-chest-z"),  bodyz);
-    renderValue(document.getElementById("facing-leftleg-x"),  leftlegx);
-    renderValue(document.getElementById("facing-leftleg-y"),  leftlegy);
-    renderValue(document.getElementById("facing-leftleg-z"),  leftlegz);
-    renderValue(document.getElementById("facing-rightleg-x"),  rightlegx);
-    renderValue(document.getElementById("facing-rightleg-y"),  rightlegy);
-    renderValue(document.getElementById("facing-rightleg-z"),  rightlegz);
-    renderValue(document.getElementById("facing-rotation"),  rotation);
+    renderValue(document.getElementById("facing-head-x"), fullrotdata.headx);
+    renderValue(document.getElementById("facing-head-y"), fullrotdata.heady);
+    renderValue(document.getElementById("facing-head-z"), fullrotdata.headz);
+    renderValue(document.getElementById("facing-leftarm-x"), fullrotdata.leftarmx);
+    renderValue(document.getElementById("facing-leftarm-y"), fullrotdata.leftarmy);
+    renderValue(document.getElementById("facing-leftarm-z"), fullrotdata.leftarmz);
+    renderValue(document.getElementById("facing-rightarm-x"), fullrotdata.rightarmx);
+    renderValue(document.getElementById("facing-rightarm-y"), fullrotdata.rightarmy);
+    renderValue(document.getElementById("facing-rightarm-z"), fullrotdata.rightarmz);
+    renderValue(document.getElementById("facing-chest-x"), fullrotdata.bodyx);
+    renderValue(document.getElementById("facing-chest-y"), fullrotdata.bodyy);
+    renderValue(document.getElementById("facing-chest-z"), fullrotdata.bodyz);
+    renderValue(document.getElementById("facing-leftleg-x"), fullrotdata.leftlegx);
+    renderValue(document.getElementById("facing-leftleg-y"), fullrotdata.leftlegy);
+    renderValue(document.getElementById("facing-leftleg-z"), fullrotdata.leftlegz);
+    renderValue(document.getElementById("facing-rightleg-x"), fullrotdata.rightlegx);
+    renderValue(document.getElementById("facing-rightleg-y"), fullrotdata.rightlegy);
+    renderValue(document.getElementById("facing-rightleg-z"), fullrotdata.rightlegz);
+    renderValue(document.getElementById("facing-rotation"), fullrotdata.rotation);
     document.getElementById("marker-mode").value = marker.mode;
     if(window.bones) updateVisualRotation(marker, false, changeHighlights, true);
   } else {
