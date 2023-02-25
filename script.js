@@ -464,6 +464,7 @@ function dragElement(elmnt) {
   }
 
   function closeDragElement() {
+    console.log('dragup')
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
@@ -541,6 +542,7 @@ var selectedMarkers = [];
 var selectedMarker = false; //About to be deprecated
 
 function selectMarker(ev, force = false){ //Selects a single marker
+  console.log('select')
   let el = ev.target;
   if(!ev.ctrlKey){
     deselectMarker()
