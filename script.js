@@ -426,7 +426,9 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     
-    if(!elmnt.classList.contains("selected")) selectMarker({target: elmnt, ctrlKey: e.ctrlKey}, true);
+    if(!elmnt.classList.contains("selected") && !e.ctrlKey){
+      selectMarker({target: elmnt, ctrlKey: e.ctrlKey}, true);
+    } 
     
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
@@ -464,7 +466,6 @@ function dragElement(elmnt) {
   }
 
   function closeDragElement() {
-    console.log('dragup')
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
