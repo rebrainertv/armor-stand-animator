@@ -293,20 +293,7 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
   }
   
   //Set marker element's title attribute
-  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
-    let data = markerdata[parseFloat(el.getAttribute("index"))];
-    let posedata = data.pose;
-    let title = [
-      "Mode: " + data.mode,
-      "Pose:"
-    ];
-    for(let limbname of Object.keys(posedata)){
-      if(posedata[limbname].join(",") != 'false,false,false'){
-        title.push(" " + limbname + ": " + posedata[limbname].join(", "));
-      }
-    }
-    el.title = title.join("\n");
-  });
+  updateMarkerTitles();
   
   compileFrames();
   
@@ -323,6 +310,32 @@ function updateEvent(){
   for(let marker of selectedMarkers){
     marker.event = document.getElementById("event-command").value;
   }
+  
+  updateMarkerTitles();
+}
+
+function updateMarkerTitles(){
+  Array.from(document.querySelectorAll(".marker.animations")).forEach((el) => {
+    let data = markerdata[parseFloat(el.getAttribute("index"))];
+    let posedata = data.pose;
+    let title = [];
+    for(let limbname of Object.keys(posedata)){
+      if(limbname == 'rotations' && posedata[limbname][0] != false){
+        title.push(" Facing: " + posedata[limbname][0] + "°");
+      } else if(posedata[limbname].join(",") != 'false,false,false' && limbname != 'rotations'){
+        title.push(" " + limbname + ": " + posedata[limbname].join("°, ").replaceAll("false", "~") + "°");
+      } 
+    }
+    if(title.length > 0) title.splice(0, 0, 'Pose: ')
+    title.push("Mode: " + data.mode);
+    el.title = title.join("\n");
+  });
+  
+  Array.from(document.querySelectorAll(".marker.events")).forEach((el) => {
+    let data = markerdata[parseFloat(el.getAttribute("index"))];
+    
+    el.title = (data.event !== '' ? 'Command: ' + data.event : '');
+  });
 }
 
 function renderValues(){
@@ -549,6 +562,7 @@ function createMarker(type, location = false, doselect = true){
   }*/selectMarker;
   
   document.querySelector(".element-placement").appendChild(marker);
+  updateMarkerTitles();
   
   if(doselect) selectMarker({target: marker})
   
@@ -559,7 +573,6 @@ var selectedMarkers = [];
 var selectedMarker = false; //About to be deprecated
 
 function selectMarker(ev, force = false){ //Selects a single marker
-  console.log('select')
   let el = ev.target;
   if(!ev.ctrlKey){
     deselectMarker()
