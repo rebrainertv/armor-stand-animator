@@ -35,53 +35,6 @@ function generateEditorTimestamps(amount){
 generateEditorTimestamps(1)
 generateEditorTimestamps(60)
 
-//Render rotation values
-function updateVisualRotationOld(data, inPlayback = false){
-  //Finnicky rotation script that is discontinued
-  function getRadians(degrees){
-    if(degrees === false){
-      if(inPlayback){
-        return false; //Keep current rotation
-      } else {
-        return 0; //Reset rotation
-      }
-    } 
-    var pi = Math.PI;
-    return degrees * (pi/180);
-  }
-  
-  //{-108, 3.14, -160} ingame = [-108, 108, -160] online ???
-  
-  let xmodifier = -1;
-  let ymodifier = -1;
-  let zmodifier = 1;
-  
-  bones[3].rotation.x = (getRadians(data.pose.Head[0]) !== false ? getRadians(data.pose.Head[0]) : bones[3].rotation.x) * xmodifier;
-  bones[3].rotation.y = (getRadians(data.pose.Head[1]) !== false ? getRadians(data.pose.Head[1]) : bones[3].rotation.y) * ymodifier;
-  bones[3].rotation.z = (getRadians(data.pose.Head[2]) !== false ? getRadians(data.pose.Head[2]) : bones[3].rotation.z) * zmodifier;
-  bones[4].rotation.x = (getRadians(data.pose.LeftArm[0]) !== false ? getRadians(data.pose.LeftArm[0]) : bones[4].rotation.x) * xmodifier;
-  bones[4].rotation.y = (getRadians(data.pose.LeftArm[1]) !== false ? getRadians(data.pose.LeftArm[1]) : bones[4].rotation.y) * ymodifier;
-  bones[4].rotation.z = (getRadians(data.pose.LeftArm[2]) !== false ? getRadians(data.pose.LeftArm[2]) : bones[4].rotation.z) * zmodifier;
-  bones[6].rotation.x = (getRadians(data.pose.RightArm[0]) !== false ? getRadians(data.pose.RightArm[0]) : bones[6].rotation.x) * xmodifier;
-  bones[6].rotation.y = (getRadians(data.pose.RightArm[1]) !== false ? getRadians(data.pose.RightArm[1]) : bones[6].rotation.y) * ymodifier;
-  bones[6].rotation.z = (getRadians(data.pose.RightArm[2]) !== false ? getRadians(data.pose.RightArm[2]) : bones[6].rotation.z) * zmodifier;
-  bones[2].rotation.x = (getRadians(data.pose.Body[0]) !== false ? getRadians(data.pose.Body[0]) : bones[2].rotation.x) * xmodifier;
-  bones[2].rotation.y = (getRadians(data.pose.Body[1]) !== false ? getRadians(data.pose.Body[1]) : bones[2].rotation.y) * ymodifier;
-  bones[2].rotation.z = (getRadians(data.pose.Body[2]) !== false ? getRadians(data.pose.Body[2]) : bones[2].rotation.z) * zmodifier;
-  bones[5].rotation.x = (getRadians(data.pose.LeftLeg[0]) !== false ? getRadians(data.pose.LeftLeg[0]) : bones[5].rotation.x) * xmodifier;
-  bones[5].rotation.y = (getRadians(data.pose.LeftLeg[1]) !== false ? getRadians(data.pose.LeftLeg[1]) : bones[5].rotation.y) * ymodifier;
-  bones[5].rotation.z = (getRadians(data.pose.LeftLeg[2]) !== false ? getRadians(data.pose.LeftLeg[2]) : bones[5].rotation.z) * zmodifier;
-  bones[7].rotation.x = (getRadians(data.pose.RightLeg[0]) !== false ? getRadians(data.pose.RightLeg[0]) : bones[7].rotation.x) * xmodifier;
-  bones[7].rotation.y = (getRadians(data.pose.RightLeg[1]) !== false ? getRadians(data.pose.RightLeg[1]) : bones[7].rotation.y) * ymodifier;
-  bones[7].rotation.z = (getRadians(data.pose.RightLeg[2]) !== false ? getRadians(data.pose.RightLeg[2]) : bones[7].rotation.z) * zmodifier;
-  window.gltf.scene.children[0].rotation.y = (getRadians(data.pose.rotations[0]) !== false ? getRadians(data.pose.rotations[0]) : window.gltf.scene.children[0].rotation.y);
-  
-  //Offset baseplate rotation
-  bones[0].rotation.y = gltf.scene.children[0].rotation.y * -1;
-  
-  render();
-}
-
 let currentPose = {
   Head: [false, false, false],
   LeftArm: [false, false, false],
@@ -106,14 +59,7 @@ function updateVisualRotation(data, inPlayback = false, transparencies = false, 
         } else {
           return fallback;
         }
-      } /*else {
-        if(previewinherits && previewframedata && previewframedata.length >= data.timestamp+1){
-          return getRadians(previewframedata[data.timestamp].pose[namedata[0]][namedata[1]]);
-          //console.log(previewframedata, previewframedata[data.timestamp].pose[namedata[0]][namedata[1]])
-        } else {
-          return 0; //Reset rotation
-        }
-      }*/
+      } 
     }
     return radians;
   }
@@ -635,21 +581,6 @@ function deselectMarker(){ //Deselects all markers
   })
   
   if(window.bones){
-    /*if(previewFrames && previewframedata.length > 0){
-      previewFrame()
-    } else {
-      updateVisualRotaion({
-        pose: {
-          Head: [false, false, false],
-          LeftArm: [false, false, false],
-          RightArm: [false, false, false],
-          Body: [false, false, false],
-          LeftLeg: [false, false, false],
-          RightLeg: [false, false, false],
-          rotations: [false, false]
-        }
-      })
-    }*/
     resetOpacities()
   } 
 }
@@ -1249,9 +1180,6 @@ function exportToFunction(){
         let x = (bonedata[0] !== false ? bonedata[0] : 0);
         let y = (bonedata[1] !== false ? bonedata[1] : 0);
         let z = (bonedata[2] !== false ? bonedata[2] : 0);
-        /*if(x < 0) x = 360 - x;
-        if(y < 0) y = 360 - y;
-        if(z < 0) z = 360 - z;*/
         
         let poseentry = bonename + ": [";
         poseentry += x + "f, ";
