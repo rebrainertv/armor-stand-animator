@@ -292,6 +292,22 @@ function updateRotation(){  //Updates the model's saved rotation based off the e
     marker.mode = document.getElementById("marker-mode").value;
   }
   
+  //Set marker element's title attribute
+  Array.from(document.querySelectorAll(".marker.selected")).forEach((el) => {
+    let data = markerdata[parseFloat(el.getAttribute("index"))];
+    let posedata = data.pose;
+    let title = [
+      "Mode: " + data.mode,
+      "Pose:"
+    ];
+    for(let limbname of Object.keys(posedata)){
+      if(posedata[limbname].join(",") != 'false,false,false'){
+        title.push(" " + limbname + ": " + posedata[limbname].join(", "));
+      }
+    }
+    el.title = title.join("\n");
+  });
+  
   compileFrames();
   
   if(window.bones){
