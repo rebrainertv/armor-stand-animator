@@ -331,7 +331,6 @@ header > span.context-label:hover .context-menu {
   top: 50%;
   left: 50%;
   width: 450px;
-  height: 200px;
   transform: translate(-50%, -50%);
   z-index: 21;
   background-color: var(--app-inner-background);

@@ -360,26 +360,31 @@
         </tr>
       </table>
       <br>
-      <div>
-        Marker type:
-        <select class="app-input modal-input" style="width:unset;text-indent: 0;" id="specific-marker-type">
-          <option value="animations">Animation</option>
-          <option value="events">Event</option>
-        </select>
-      </div>
-      <br>
-      <div>
-        Seconds:
-        <input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false)">
-      </div>
-      <div>
-        Ticks:
-        <input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true)">t
-      </div>
-      <br>
+      <table style="margin:auto;">
+        <tbody>
+          <tr>
+            <td style="text-align:right;">Marker type:</td>
+            <td>
+              <select class="app-input modal-input" style="width:unset;text-indent: 0;" id="specific-marker-type">
+                <option value="animations">Animation</option>
+                <option value="events">Event</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">Seconds:</td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false)"></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">Ticks:</td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true)"></td>
+          </tr>
+        </tbody>
+      </table>
       <button onclick="createMarker(document.getElementById('specific-marker-type').value, document.getElementById('insert-specific-ticks').value); closeModals();">
         Insert
       </button>
+      <br><br>
     </div>
   </body>
 </html>
