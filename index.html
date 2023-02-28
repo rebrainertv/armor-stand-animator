@@ -201,15 +201,15 @@
             <tbody>
               <tr>
                 <td>Head</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-head-x" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-head-y" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-head-z" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-head-x" step="5" oninput="updateRotation('Head', 0, this); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-head-y" step="5" oninput="updateRotation('Head', 0, this); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-head-z" step="5" oninput="updateRotation('Head', 0, this); this.placeholder=this.getAttribute('default-placeholder')"></td>
               </tr>
               <tr>
                 <td>Left Arm</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-leftarm-x" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-leftarm-y" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-leftarm-z" step="5" oninput="updateRotation(); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-leftarm-x" step="5" oninput="updateRotation('LeftArm'); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-leftarm-y" step="5" oninput="updateRotation('LeftArm'); this.placeholder=this.getAttribute('default-placeholder')"></td>
+                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-leftarm-z" step="5" oninput="updateRotation('LeftArm'); this.placeholder=this.getAttribute('default-placeholder')"></td>
               </tr>
               <tr>
                 <td>Right Arm</td>
