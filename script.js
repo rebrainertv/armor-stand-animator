@@ -593,23 +593,25 @@ function deselectMarker(){ //Deselects all markers
 }
 
 document.addEventListener("keydown", function(e){
-  if(e.key == 'Delete'){
-    deleteMarker()
-  }
-  if(e.key == 'd' && e.ctrlKey){
-    e.preventDefault();
-    //Duplicate all selected markers
-    duplicateMarker()
-  }
-  if(e.key == '.'){
-    let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
-    leftamount += framepixelratio;
-    document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
-  }
-  if(e.key == ','){
-    let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
-    leftamount -= framepixelratio;
-    document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
+  if(!['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)){
+    if(e.key == 'Delete'){
+      deleteMarker()
+    }
+    if(e.key == 'd' && e.ctrlKey){
+      e.preventDefault();
+      //Duplicate all selected markers
+      duplicateMarker()
+    }
+    if(e.key == '.'){
+      let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+      leftamount += framepixelratio;
+      document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
+    }
+    if(e.key == ','){
+      let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+      leftamount -= framepixelratio;
+      document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
+    }
   }
 })
 
@@ -687,7 +689,8 @@ function bubbleSort(arr){
 }
 
 createMarker('events')
-createMarker('animations')
+//createMarker('animations')
+createMarker({"timestamp":0,"type":"keyframe","pose":{"Head":[false,false,false],"LeftArm":[false,false,false],"RightArm":[false,false,false],"Body":[false,false,false],"LeftLeg":[false,false,false],"RightLeg":[false,false,false],"rotations":[false,false]},"mode":"none"}, 0)
 
 //Compile frames
 var framedata = [];
@@ -1053,7 +1056,7 @@ function saveProject(){
   }
   
   let filedata = {
-    format_version: 3,
+    format_version: 4,
     markerdata: sortedmarkerdata,
     settings: {
       scoreboard_name: 'example_animation'
@@ -1121,12 +1124,15 @@ function loadProject(data, filename){
     }
     case 3: {
       /* Differences between 2 and 3:
-        - Marker "mode" now defines how motions ARRIVE at the marker's point instead of how they 
+        - Marker "mode" now defines how motions ARRIVE at the marker's point instead of how the marker starts a motion
       */
-      for(let marker of data.markerdata){
-        if(marker.hasOwnProperty("disabled")){
-          marker.deleted = marker.disabled;
-          delete marker.disabled;
+      for(let i = 0; i < data.markerdata.length; i++){
+        let currentmarker = data.markerdata[i];
+        let previousmarker = (i > 0 ? data.markerdata[i-1] : false);
+        if(previousmarker){
+          currentmarker.mode = previousmarker.mode;
+        } else {
+          currentmarker.mode = 'none';
         }
       }
       
