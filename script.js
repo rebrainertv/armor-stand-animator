@@ -723,6 +723,7 @@ function compileFrames(){
               if(searchdata.end === false){
                 //Append this value to the searchdata instead of creating a new object
                 searchdata.end = value;
+                searchdata.mode = marker.mode;
               } else {
                 //Create an new object, but make its end point the current object's start point
                 rawdata.push({
@@ -746,7 +747,7 @@ function compileFrames(){
               "end": false,
               "bonename": bonename,
               "axis": i, //0 for x, 1 for y, 2 for z
-              "mode": marker.mode
+              "mode": 'none'
             });
           }
         }
@@ -803,6 +804,12 @@ function compileFrames(){
             * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
           if(isNaN(output)) output = valuestart;
           frame.pose[entry.bonename][entry.axis] = output;
+        } else if(entry.mode == 'none'){
+          if(i === framespan){
+            frame.pose[entry.bonename][entry.axis] = entry.end.value;
+          } else {
+            frame.pose[entry.bonename][entry.axis] = entry.start.value;
+          }
         }
 
         framegroup.push(frame);
@@ -1113,6 +1120,21 @@ function loadProject(data, filename){
       break;
     }
     case 3: {
+      /* Differences between 2 and 3:
+        - Marker "mode" now defines how motions ARRIVE at the marker's point instead of how they 
+      */
+      for(let marker of data.markerdata){
+        if(marker.hasOwnProperty("disabled")){
+          marker.deleted = marker.disabled;
+          delete marker.disabled;
+        }
+      }
+      
+      data.format_version = 4;
+      reloadproject = true;
+      break;
+    }
+    case 4: {
       //Default format version
       
       //Wipe current project
