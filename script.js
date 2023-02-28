@@ -615,6 +615,10 @@ document.addEventListener("keydown", function(e){
   }
 })
 
+function scrollToTick(ticknumber){
+  document.querySelector(".dynamic-editor-container").scrollLeft = ticknumber * framepixelratio;
+}
+
 function deleteMarker(){
   //Doesn't truly delete the marker data, disables it
   
