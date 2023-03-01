@@ -129,7 +129,7 @@ header > span.context-label:hover {
   white-space: nowrap;
 }
 
-header > span.context-label:hover .context-menu {
+header > span.context-label:hover .context-menu:not(.nested-menu) {
   display: inline-block;
 }
 
@@ -141,6 +141,21 @@ header > span.context-label:hover .context-menu {
 .context-menu li:hover, label:hover {
   background-color: var(--home-background);
   /*color: black;*/
+}
+
+.nested-menu-header {
+  position: relative;
+}
+
+.context-menu.nested-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+
+header > span.context-label > .nested-menu-header:hover .nested-menu {
+  display: inline-block;
 }
 
 .app-left {
