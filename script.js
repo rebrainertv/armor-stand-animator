@@ -32,7 +32,6 @@ function generateEditorTimestamps(amount){
   document.querySelector(".end-spacer").parentNode.appendChild(document.querySelector(".end-spacer"));
 }
 
-generateEditorTimestamps(1)
 generateEditorTimestamps(60)
 
 let currentPose = {
