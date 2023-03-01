@@ -154,7 +154,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   top: 0;
 }
 
-header > span.context-label > .nested-menu-header:hover .nested-menu {
+.nested-menu-header:hover > .nested-menu {
   display: inline-block;
 }
 
