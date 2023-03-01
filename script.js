@@ -638,7 +638,23 @@ function deleteMarker(){
 
 function mergeMarkers(){
   //Merges all markers at the same position
+  let markerlist = document.querySelectorAll(".marker.selected")
+  if(markerlist.length == 0) markerlist = document.querySelectorAll(".marker")
+  let timestamps = [];
+  //Grab the index values from all selected markers
+  Array.from(markerlist).forEach((el) => {
+    let index = parseFloat(el.getAttribute("index"));
+    let timestamp = markerdata[index].timestamp;
+    if(!timestamps.includes(timestamp)) timestamps.push(timestamp);
+  })
   
+  //Discover all markers with the correct index values
+  for(let timestamp of timestamps){
+    let group = [];
+    for(let potentialmarker of markerdata){
+      if(potentialmarker.timestamp = timestamp) group.push(potentialmarker);
+    }
+  }
 }
 
 function retimeModifierMarker(modifier){
