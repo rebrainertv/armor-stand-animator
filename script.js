@@ -409,7 +409,9 @@ function dragElement(elmnt) {
     
     if(!elmnt.classList.contains("selected") && !e.ctrlKey){
       selectMarker({target: elmnt, ctrlKey: e.ctrlKey}, true);
-    } 
+    }
+    
+    elmnt.parentNode.appendChild(elmnt);
     
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
@@ -632,6 +634,11 @@ function deleteMarker(){
     unel.style.display = "none";
   })
   document.querySelector(".project-screen").style.display = "unset";
+}
+
+function mergeMarkers(){
+  //Merges all markers at the same position
+  
 }
 
 function retimeModifierMarker(modifier){
