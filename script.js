@@ -1130,8 +1130,8 @@ function loadProject(data, filename){
         - Marker "mode" now defines how motions ARRIVE at the marker's point instead of how the marker starts a motion
       */
       for(let i = 0; i < data.markerdata.length; i++){
-        let currentmarker = data.markerdata[i];
-        let previousmarker = (i > 0 ? data.markerdata[i-1] : false);
+        let currentmarker = data.markerdata[(data.markerdata.length-1) - i];
+        let previousmarker = (i < (data.markerdata.length-1) ? data.markerdata[((data.markerdata.length-1) - i) - 1] : false);
         if(previousmarker){
           currentmarker.mode = previousmarker.mode;
         } else {
