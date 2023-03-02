@@ -474,7 +474,7 @@ function dragElement(elmnt) {
       if(successcount > 1) {
         if(mydata.type == 'keyframe'){
           for(let bonename of Object.keys(mydata.pose)){
-            for(let i = 0; i < mydata.pose[bonename]; i++){
+            for(let i = 0; i < mydata.pose[bonename].length; i++){
               if(mydata.pose[bonename][i] !== false){
                 originalmarker.pose[bonename][i] = mydata.pose[bonename][i];
               }
@@ -485,6 +485,7 @@ function dragElement(elmnt) {
           originalmarker.event = [originalmarker.event, mydata.event].join("\n");
         }
         markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
+        selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(originalmarker) +'"]')}, true);
         selel.parentNode.removeChild(selel);
       }
     })
