@@ -459,13 +459,33 @@ function dragElement(elmnt) {
       selel.style.left = leftamount + "px";
 
       markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
+      let mydata = markerdata[parseFloat(selel.getAttribute("index"))];
       //Merge markers if applicable
       let successcount = 0;
+      let originalmarker = false;
       for(let marker of markerdata) {
-        if(marker.timestamp == tick) successcount++;
+        if(marker.timestamp == tick && !marker.deleted && marker.type === mydata.type){
+          successcount++;
+          if(originalmarker == false){
+            originalmarker = marker;
+          }
+        } 
       }
       if(successcount > 1) {
-        Object.contcat
+        if(mydata.type == 'keyframe'){
+          for(let bonename of Object.keys(mydata.pose)){
+            for(let i = 0; i < mydata.pose[bonename]; i++){
+              if(mydata.pose[bonename][i] !== false){
+                originalmarker.pose[bonename][i] = mydata.pose[bonename][i];
+              }
+            }
+          }
+          originalmarker.mode = mydata.mode;
+        } else {
+          originalmarker.event = [originalmarker.event, mydata.event].join("\n");
+        }
+        markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
+        selel.parentNode.removeChild(selel);
       }
     })
   }
