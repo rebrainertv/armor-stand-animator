@@ -459,6 +459,14 @@ function dragElement(elmnt) {
       selel.style.left = leftamount + "px";
 
       markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
+      //Merge markers if applicable
+      let successcount = 0;
+      for(let marker of markerdata) {
+        if(marker.timestamp == tick) successcount++;
+      }
+      if(successcount > 1) {
+        Object.contcat
+      }
     })
   }
 }
