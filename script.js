@@ -963,13 +963,10 @@ function playAnimation(){
     }
   });
   //Set pose to first frame
-  updateVisualRotation(framedata[0]);
+  //updateVisualRotation(framedata[0]);
   
   //Reset scroll of playback editor
-  document.querySelector(".dynamic-editor-container").scrollLeft = 0;
-  
-  //Set interval
-  animationInterval = setInterval(animate, 50);
+  //document.querySelector(".dynamic-editor-container").scrollLeft = 0;
   
   //Change play button
   let button = document.getElementById("playButton");
@@ -980,8 +977,17 @@ function playAnimation(){
   
   let currentFrame = tick;  
   let scrollPosition = leftamount;
+  document.querySelector(".dynamic-editor-container").scrollLeft = scrollPosition;
+  if(currentFrame > framedata[framedata.length-1].timestamp){
+    currentFrame = 0;
+    scrollPosition = 0;
+  }
+  updateVisualRotation(framedata[currentFrame]);
+  
+  //Set interval
+  animationInterval = setInterval(animate, 50);
+  
   function animate(){
-    console.log(currentFrame)
     //Find the frame that matches the timestamp marking
     function getFrame(timestamp){
       for(let potentialframe of framedata){

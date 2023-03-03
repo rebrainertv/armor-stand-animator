@@ -80,17 +80,55 @@
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Delete markers
           </li>
-          <li>
+          <li class="nested-menu-header">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Erase all markers
+            Erase Markers
+            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+            <ul class="context-menu nested-menu">
+              <li>
+                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                All
+              </li>
+              <li>
+                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                All event
+              </li>
+              <li>
+                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                All animation
+              </li>
+            </ul>
           </li>
-          <li>
+          <li class="nested-menu-header">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Erase all event markers
-          </li>
-          <li>
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Erase all animation markers
+            Playback Speed
+            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+            <ul class="context-menu nested-menu">
+              <li onclick="setPlaybackSpeed(0.5)">
+                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-0.5-checkmark">
+                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                </svg>
+                0.5
+              </li>
+              <li onclick="setPlaybackSpeed(1.0)">
+                <svg style="height: 14px;" viewbox="0 0 24 24" id="speed-1.0-checkmark">
+                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                </svg>
+                1.0
+              </li>
+              <li onclick="setPlaybackSpeed(1.5)">
+                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-1.5-checkmark">
+                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                </svg>
+                1.5
+              </li>
+              <li onclick="setPlaybackSpeed(2.0)">
+                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-2.0-checkmark">
+                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                </svg>
+                2.0
+              </li>
+            </ul>
           </li>
         </ul>
       </span><!--
@@ -179,7 +217,7 @@
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Documentation
           </li>
-          <li class="nested-menu-header">
+          <!--<li class="nested-menu-header">
             <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
             Test
             <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
@@ -208,7 +246,7 @@
               </ul>
             </li>
             </ul>
-          </li>
+          </li>-->
         </ul>
       </span>
       
