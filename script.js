@@ -466,7 +466,7 @@ function dragElement(elmnt) {
       for(let marker of markerdata) {
         if(marker.timestamp == tick && !marker.deleted && marker.type === mydata.type){
           successcount++;
-          if(originalmarker == false){
+          if(originalmarker == false && marker !== mydata){
             originalmarker = marker;
           }
         } 
@@ -1042,6 +1042,8 @@ editor.addEventListener("mousedown", function(e){
   selectbox.style.display = "inline-block";
   
   function move(newevent){
+    if(animationInterval) return;
+    
     let newmousex = (newevent.clientX - bounding.x);
     let newmousey = (newevent.clientY - bounding.y);
     
