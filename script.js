@@ -932,6 +932,17 @@ function toggleLoop(){
   document.getElementById("loopButton").classList.toggle("pushed", doLoop);
 }
 
+let playbackspeed = 1.0;
+function setPlaybackSpeed(value){
+  if(animationInterval) return;
+  playbackspeed = parseFloat(value);
+  Array.from(document.getElementsByClassName("speed-checkmark")).forEach(el => {
+    el.style.visibility = 'hidden';
+  })
+  
+  document.getElementById("speed-"+value+"-checkmark").style.visibility = 'unset';
+}
+
 function stopAnimation(){
   let button = document.getElementById("playButton");
   button.innerHTML = '<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />';
@@ -985,7 +996,7 @@ function playAnimation(){
   updateVisualRotation(framedata[currentFrame]);
   
   //Set interval
-  animationInterval = setInterval(animate, 50);
+  animationInterval = setInterval(animate, 50 * (1 / playbackspeed));
   
   function animate(){
     //Find the frame that matches the timestamp marking
