@@ -209,8 +209,16 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   cursor: pointer;
 }
 
+.bottom-button.pushed {
+  background-color: #ffffff40;
+}
+
 .bottom-button:hover {
   background-color: #ffffff60;
+}
+
+.bottom-button.pushed:hover {
+  background-color: #ffffff80;
 }
 
 .dynamic-editor-container {

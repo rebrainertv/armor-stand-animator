@@ -926,6 +926,12 @@ function compileFrames(){
 
 let animationInterval = false;
 
+let doLoop = false;
+function toggleLoop(){
+  doLoop = !doLoop;
+  document.getElementById("loopButton").classList.toggle("pushed", doLoop);
+}
+
 function stopAnimation(){
   let button = document.getElementById("playButton");
   button.innerHTML = '<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />';
@@ -969,9 +975,13 @@ function playAnimation(){
   let button = document.getElementById("playButton");
   button.innerHTML = '<path fill="currentColor" d="M18,18H6V6H18V18Z" />';
   
-  let currentFrame = 0;
-  let scrollPosition = 0;
+  let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+  let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+  
+  let currentFrame = tick;  
+  let scrollPosition = leftamount;
   function animate(){
+    console.log(currentFrame)
     //Find the frame that matches the timestamp marking
     function getFrame(timestamp){
       for(let potentialframe of framedata){
@@ -984,11 +994,16 @@ function playAnimation(){
       return {"pose":{"Head":[false,false,false],"LeftArm":[false,false,false],"RightArm":[false,false,false],"Body":[false,false,false],"LeftLeg":[false,false,false],"RightLeg":[false,false,false],"rotations":[false,false]},"timestamp":timestamp};
     }
     
+    if(currentFrame > framedata[framedata.length-1].timestamp){
+      if(doLoop){
+        currentFrame = 0;
+        scrollPosition = 0;
+      } else {
+        stopAnimation()
+      }
+    }
     updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
     currentFrame++;
-    if(currentFrame > framedata[framedata.length-1].timestamp){
-      stopAnimation()
-    }
     
     //Scroll editor
     scrollPosition += framepixelratio;
