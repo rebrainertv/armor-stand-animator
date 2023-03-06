@@ -1057,6 +1057,7 @@ document.querySelector(".dynamic-editor-container").onscroll = function(){
 
 //Mutiselect in editor
 let editor = document.querySelector(".dynamic-editor");
+let previousEditorClick = false;
 editor.addEventListener("mousedown", function(e){
   deselectMarker();
   document.querySelector('.project-screen').style.display = 'unset';
@@ -1117,12 +1118,25 @@ editor.addEventListener("mousedown", function(e){
     })
   }
   
-  function up(){
+  function up(upevent){
     selectbox.removeEventListener("mousemove", move);
     editor.removeEventListener("mousemove", move);
     document.removeEventListener("mouseup", up);
     
     selectbox.style.display = "none";
+    
+    //Detect double-click
+    if(!previousEditorClick){
+      previousEditorClick = new Date();
+    } else {
+      if(new Date(new Date() - previousEditorClick).getMilliseconds() < 300){
+        console.log(e);
+        
+        previousEditorClick = false;
+      } else {
+        previousEditorClick = new Date()
+      }
+    }
   }
   
   editor.addEventListener("mousemove", move);
