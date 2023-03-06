@@ -453,48 +453,13 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     
-    Array.from(document.querySelectorAll(".marker.selected")).forEach((selel) => {
-      let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
-      let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-      selel.style.left = leftamount + "px";
-
-      markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
-      let mydata = markerdata[parseFloat(selel.getAttribute("index"))];
-      //Merge markers if applicable
-      let successcount = 0;
-      let originalmarker = false;
-      for(let marker of markerdata) {
-        if(marker.timestamp == tick && !marker.deleted && marker.type === mydata.type){
-          successcount++;
-          if(originalmarker == false && marker !== mydata){
-            originalmarker = marker;
-          }
-        } 
-      }
-      if(successcount > 1) {
-        if(mydata.type == 'keyframe'){
-          for(let bonename of Object.keys(mydata.pose)){
-            for(let i = 0; i < mydata.pose[bonename].length; i++){
-              if(mydata.pose[bonename][i] !== false){
-                originalmarker.pose[bonename][i] = mydata.pose[bonename][i];
-              }
-            }
-          }
-          originalmarker.mode = mydata.mode;
-        } else {
-          originalmarker.event = [originalmarker.event, mydata.event].join("\n");
-        }
-        markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
-        selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(originalmarker) +'"]')}, true);
-        selel.parentNode.removeChild(selel);
-      }
-    })
+    mergeMarkers()
   }
 }
 
 function createMarker(type, location = false, doselect = true){
-  let leftamount = location * framepixelratio || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
-  if(location * framepixelratio === 0) leftamount = 0;
+  let leftamount = location * framepixelratio
+  if(location === false) leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
   if(typeof type === 'string'){
     if(type == 'animations'){
@@ -549,6 +514,8 @@ function createMarker(type, location = false, doselect = true){
   updateMarkerTitles();
   
   if(doselect) selectMarker({target: marker})
+  
+  mergeMarkers([marker])
   
   return marker;
 }
@@ -666,8 +633,8 @@ function deleteMarker(){
   document.querySelector(".project-screen").style.display = "unset";
 }
 
-function mergeMarkers(){
-  //Merges all markers at the same position
+function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.selected"))){
+  /*//Merges all markers at the same position BROKEN, UNFINISHED
   let markerlist = document.querySelectorAll(".marker.selected")
   if(markerlist.length == 0) markerlist = document.querySelectorAll(".marker")
   let timestamps = [];
@@ -684,7 +651,44 @@ function mergeMarkers(){
     for(let potentialmarker of markerdata){
       if(potentialmarker.timestamp = timestamp) group.push(potentialmarker);
     }
-  }
+  }*/
+  
+  markers.forEach((selel) => {
+    let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
+    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+    selel.style.left = leftamount + "px";
+
+    markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
+    let mydata = markerdata[parseFloat(selel.getAttribute("index"))];
+    //Merge markers if applicable
+    let successcount = 0;
+    let originalmarker = false;
+    for(let marker of markerdata) {
+      if(marker.timestamp == tick && !marker.deleted && marker.type === mydata.type){
+        successcount++;
+        if(originalmarker == false && marker !== mydata){
+          originalmarker = marker;
+        }
+      } 
+    }
+    if(successcount > 1) {
+      if(mydata.type == 'keyframe'){
+        for(let bonename of Object.keys(mydata.pose)){
+          for(let i = 0; i < mydata.pose[bonename].length; i++){
+            if(mydata.pose[bonename][i] !== false){
+              originalmarker.pose[bonename][i] = mydata.pose[bonename][i];
+            }
+          }
+        }
+        originalmarker.mode = mydata.mode;
+      } else {
+        originalmarker.event = [originalmarker.event, mydata.event].join("\n");
+      }
+      markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
+      selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(originalmarker) +'"]')}, true);
+      selel.parentNode.removeChild(selel);
+    }
+  })
 }
 
 function retimeModifierMarker(modifier){
