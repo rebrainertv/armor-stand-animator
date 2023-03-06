@@ -494,6 +494,7 @@ function dragElement(elmnt) {
 
 function createMarker(type, location = false, doselect = true){
   let leftamount = location * framepixelratio || (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
+  if(location * framepixelratio === 0) leftamount = 0;
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
   if(typeof type === 'string'){
     if(type == 'animations'){
@@ -1130,7 +1131,19 @@ editor.addEventListener("mousedown", function(e){
       previousEditorClick = new Date();
     } else {
       if(new Date(new Date() - previousEditorClick).getMilliseconds() < 300){
-        console.log(e);
+        let newmousex = (upevent.clientX - bounding.x);
+        let newmousey = (upevent.clientY - bounding.y);
+        
+        let leftamount = (Math.round(newmousex / framepixelratio) * framepixelratio) - (35 * framepixelratio);
+        let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+        
+        if(tick >= 0){ //Prevent negative markers
+          if(newmousey > 90){
+            createMarker('animations', tick, true)
+          } else {
+            createMarker('events', tick, true)
+          }
+        }
         
         previousEditorClick = false;
       } else {
