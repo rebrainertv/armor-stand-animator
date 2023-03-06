@@ -1038,7 +1038,7 @@ function playAnimation(){
         title.push(" " + limbname + ": " + posedata[limbname].join("°, ").replaceAll("false", "~") + "°");
       } 
     }
-    if(title.length > 0) title.splice(0, 0, 'Pose: ');
+    title.splice(0, 0, 'Pose: ');
     
     document.getElementById("pose").innerHTML = title.join("<br>");
     
