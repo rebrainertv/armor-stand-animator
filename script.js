@@ -997,6 +997,7 @@ function playAnimation(){
   if(currentFrame > framedata[framedata.length-1].timestamp){
     currentFrame = 0;
     scrollPosition = 0;
+    document.getElementById("pose").innerHTML = "";
   }
   updateVisualRotation(framedata[currentFrame]);
   
@@ -1020,12 +1021,26 @@ function playAnimation(){
       if(doLoop){
         currentFrame = 0;
         scrollPosition = 0;
+        document.getElementById("pose").innerHTML = "";
       } else {
         stopAnimation()
       }
     }
     updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
     currentFrame++;
+    
+    let posedata = currentPose;
+    let title = [];
+    for(let limbname of Object.keys(posedata)){
+      if(limbname == 'rotations' && posedata[limbname][0] != false){
+        title.push(" Facing: " + posedata[limbname][0] + "°");
+      } else if(posedata[limbname].join(",") != 'false,false,false' && limbname != 'rotations'){
+        title.push(" " + limbname + ": " + posedata[limbname].join("°, ").replaceAll("false", "~") + "°");
+      } 
+    }
+    if(title.length > 0) title.splice(0, 0, 'Pose: ');
+    
+    document.getElementById("pose").innerHTML = title.join("<br>");
     
     //Scroll editor
     scrollPosition += framepixelratio;
