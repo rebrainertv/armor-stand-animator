@@ -1134,7 +1134,7 @@ editor.addEventListener("mousedown", function(e){
     if(!previousEditorClick){
       previousEditorClick = new Date();
     } else {
-      if(new Date(new Date() - previousEditorClick).getMilliseconds() < 300){
+      if(new Date() - previousEditorClick < 180){
         let newmousex = (upevent.clientX - bounding.x);
         let newmousey = (upevent.clientY - bounding.y);
         

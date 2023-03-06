@@ -165,6 +165,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   display: inline-block;
   width: 65%;
   vertical-align: top;
+  position: relative;
 }
 
 .app-right {
@@ -385,4 +386,14 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   height: unset;
   font-size: 13pt;
   width: 75px;
+}
+
+.playback-pane {
+  position: absolute;
+  top: 0;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  background-color: #000000a3;
+  color: white;
+  padding: 12px;
 }
