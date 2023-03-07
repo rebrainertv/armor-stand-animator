@@ -461,7 +461,7 @@ function createMarker(type, location = false, doselect = true){
   let leftamount = location * framepixelratio
   if(location === false) leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-  
+  let disabled = false;
   
   if(typeof type === 'string'){
     if(type == 'animations'){
@@ -489,6 +489,7 @@ function createMarker(type, location = false, doselect = true){
   } else if(typeof type === 'object'){
     type = JSON.parse(JSON.stringify(type));
     type.timestamp = tick;
+    if(type.disabled) disabled = true;
     markerdata.push(type)
     type = {'keyframe': 'animations', 'command': 'events'}[type.type];
   } else {
@@ -498,7 +499,7 @@ function createMarker(type, location = false, doselect = true){
   let marker = document.createElement("div");
   marker.classList = ["marker"];
   marker.classList.toggle(type, true);
-  marker.classList.toggle(disabled, );
+  marker.classList.toggle('disabled', disabled);
   marker.setAttribute("index", markerdata.length-1)
   
   //Make the marker draggable
@@ -1000,6 +1001,8 @@ function playAnimation(){
   //Reset scroll of playback editor
   //document.querySelector(".dynamic-editor-container").scrollLeft = 0;
   
+  if(framedata.length < 2) return; //Abort if animation is 0 or 1 frames
+  
   //Change play button
   let button = document.getElementById("playButton");
   button.innerHTML = '<path fill="currentColor" d="M18,18H6V6H18V18Z" />';
@@ -1348,7 +1351,6 @@ function exportToFunction(){
   
   let scoreboardname = document.getElementById("scoreboardname").value;
   
-  //TODO: events
   let filedata = [
     "scoreboard objectives add " + scoreboardname + " dummy"
   ];
@@ -1387,7 +1389,7 @@ function exportToFunction(){
   
   //Get event markers, finally
   for(let marker of markerdata){
-    if(marker.type === 'command' && !marker.deleted && marker.event.length > 3){
+    if(marker.type === 'command' && !marker.deleted && !marker.disabled && marker.event.length > 3){
       //Mutliple commands per marker
       let commands = marker.event.split("\n");
       for(let command of commands){
