@@ -461,6 +461,8 @@ function createMarker(type, location = false, doselect = true){
   let leftamount = location * framepixelratio
   if(location === false) leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+  
+  
   if(typeof type === 'string'){
     if(type == 'animations'){
       markerdata.push(
@@ -496,6 +498,7 @@ function createMarker(type, location = false, doselect = true){
   let marker = document.createElement("div");
   marker.classList = ["marker"];
   marker.classList.toggle(type, true);
+  marker.classList.toggle(disabled, );
   marker.setAttribute("index", markerdata.length-1)
   
   //Make the marker draggable
@@ -599,6 +602,10 @@ document.addEventListener("keydown", function(e){
       e.preventDefault();
       //Duplicate all selected markers
       duplicateMarker()
+    }
+    if((e.key == 'd' && !e.ctrlKey) || e.key == '0'){
+      e.preventDefault();
+      disableMarker()
     }
     if(e.key == '.'){
       let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
@@ -720,6 +727,15 @@ function duplicateMarker(){
   })
 }
 
+function disableMarker(){
+  let markerlist = document.querySelectorAll(".marker.selected")
+  Array.from(markerlist).forEach((el) => {
+    let index = parseFloat(el.getAttribute("index"));
+    markerdata[index].disabled = !markerdata[index].disabled;
+    el.classList.toggle("disabled", markerdata[index].disabled);
+  })
+}
+
 //Project data
 var markerdata = [
   //{timestamp: 0, type: 'command', event: '/command'},
@@ -762,8 +778,8 @@ function compileFrames(){
   var rawdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
   for(let marker of sortedmarkerdata){
-    if(marker.deleted){
-      //Skip deleted markers
+    if(marker.deleted || marker.disabled){
+      //Skip deleted or disabled markers
       continue;
     } 
     if(marker.type === 'command'){

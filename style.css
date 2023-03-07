@@ -334,6 +334,10 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   top: 25px;
 }
 
+.marker.disabled {
+  background-color: #262626;
+}
+
 .cursor {
   height: 153px;
   width: 16px;
