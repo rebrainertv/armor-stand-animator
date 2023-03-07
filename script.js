@@ -735,6 +735,8 @@ function disableMarker(){
     markerdata[index].disabled = !markerdata[index].disabled;
     el.classList.toggle("disabled", markerdata[index].disabled);
   })
+  
+  compileFrames();
 }
 
 //Project data
