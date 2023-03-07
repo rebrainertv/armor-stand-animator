@@ -1343,7 +1343,7 @@ document.getElementById("project-upload").addEventListener("change", function(e)
   reader.readAsText(file);
 })
 
-function exportToFunction(){
+function generateFunction(){
   if(document.getElementById("scoreboardname").value == ''){
     document.getElementById("scoreboardname").value = prompt("What do you want to call your scoreboard?", "example_animation");
   }
@@ -1400,8 +1400,20 @@ function exportToFunction(){
     }
   }
   
+  return filedata;
+}
+
+function exportToFunction(filedata){
   let filename = prompt("What do you want your filename to be?", defaultfilename);
   if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
+}
+
+function exportToDatapack(){
+  let filename = prompt("What do you want your filename to be?", defaultfilename);
+  if(filename !== null){
+    let zip = new JSZip();
+    let manifest = zip.file('pack.mcmeta', JSON.stringify({pack:{pack_format:11,description:'Created with ReBrainerTV\'s'}}, null, 3))
+  }
 }
 
 function resetOrbit(){
