@@ -1,5 +1,5 @@
-- Fix frame transitions not properly identifying the animation mode
-- Half time and double time
-- When multiselecting, unselect everything the box isn't touching
+x Fix frame transitions not properly identifying the animation mode
+x Half time and double time
+x When multiselecting, unselect everything the box isn't touching
 - Documentation and about pages
-- General top menu functionality
+x General top menu functionality

@@ -409,6 +409,9 @@ function dragElement(elmnt) {
     
     if(!elmnt.classList.contains("selected") && !e.ctrlKey){
       selectMarker({target: elmnt, ctrlKey: e.ctrlKey}, true);
+    } else if(e.ctrlKey){
+      elmnt.classList.toggle("selected");
+      multiselectMarker()
     }
     
     elmnt.parentNode.appendChild(elmnt);
