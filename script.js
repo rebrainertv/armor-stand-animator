@@ -1025,6 +1025,8 @@ function playAnimation(){
   
   if(framedata.length < 2) return; //Abort if animation is 0 or 1 frames
   
+  document.getElementById("logs").innerHTML = "";
+  
   document.body.classList.toggle('inPlayback', true)
   
   //Change play button
@@ -1072,13 +1074,19 @@ function playAnimation(){
     updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
     currentFrame++;
     
-    let posedata = currentPose;
+    if(eventdata.length > 0 && false){ //TODO: Logs
+      if(eventdata[currentFrame] !== false){
+        document.getElementById("logs").innerHTML += JSON.stringify(eventdata[currentFrame].commands) + "<br>";
+      }
+    }
+    
+    let posedata = JSON.parse(JSON.stringify(currentPose));
     //Round off rotational values
     for(let limbname of Object.keys(posedata)){
       for(let i = 0; i < posedata[limbname].length; i++){
-        value = posedata[limbname][i];
+        let value = posedata[limbname][i];
         if(value !== false){
-          value = (Math.floor(value * 1000) / 1000);
+          posedata[limbname][i] = (Math.floor(value * 1000) / 1000);
         }
       }
     }
