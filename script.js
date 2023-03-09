@@ -1073,6 +1073,16 @@ function playAnimation(){
     currentFrame++;
     
     let posedata = currentPose;
+    //Round off rotational values
+    for(let limbname of Object.keys(posedata)){
+      for(let i = 0; i < posedata[limbname].length; i++){
+        value = posedata[limbname][i];
+        if(value !== false){
+          value = (Math.floor(value * 1000) / 1000);
+        }
+      }
+    }
+    
     let title = [];
     for(let limbname of Object.keys(posedata)){
       if(limbname == 'rotations' && posedata[limbname][0] != false){

@@ -101,15 +101,15 @@
             Erase Markers
             <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
             <ul class="context-menu nested-menu">
-              <li>
+              <li onclick="eraseMarkerCommand()">
                 <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
                 All
               </li>
-              <li>
+              <li onclick="eraseMarkerCommand('.events')">
                 <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
                 All event
               </li>
-              <li>
+              <li onclick="eraseMarkerCommand('.animations')">
                 <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
                 All animation
               </li>
