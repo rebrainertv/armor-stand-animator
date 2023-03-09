@@ -435,9 +435,17 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
 }
 
 @media only screen and (max-width: 750px) {
+  .app-left {
+    width: 100%;
+  }
+  
   .app-right {
     width: 100%;
     height: calc(100vh - 230px);
     z-index: unset;
+  }
+  
+  .inPlayback .app-right {
+    display: none;
   }
 }

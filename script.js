@@ -971,6 +971,7 @@ function setPlaybackSpeed(value){
 }
 
 function stopAnimation(){
+  document.body.classList.toggle('inPlayback', false)
   let button = document.getElementById("playButton");
   button.innerHTML = '<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />';
   
@@ -1007,6 +1008,8 @@ function playAnimation(){
   //document.querySelector(".dynamic-editor-container").scrollLeft = 0;
   
   if(framedata.length < 2) return; //Abort if animation is 0 or 1 frames
+  
+  document.body.classList.toggle('inPlayback', true)
   
   //Change play button
   let button = document.getElementById("playButton");
