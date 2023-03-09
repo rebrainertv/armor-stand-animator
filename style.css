@@ -330,7 +330,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
 
 .marker.events {
   background-color: limegreen;
-  border-radius: 100%;
+  border-radius: 50px;
   top: 25px;
 }
 
