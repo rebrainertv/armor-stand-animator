@@ -777,11 +777,13 @@ createMarker({"timestamp":0,"type":"keyframe","pose":{"Head":[false,false,false]
 //Compile frames
 var framedata = [];
 var previewframedata = [];
+var eventdata = [];
 function compileFrames(){
   //First, sort each frame in chronological order  
   let sortedmarkerdata = bubbleSort(markerdata);
   
   var rawdata = [];
+  var raweventdata = [];
   //The program needs to sort each rotation event by its start/end positions, the bone to rotate, the rotation mode and the start/end timestamps
   for(let marker of sortedmarkerdata){
     if(marker.deleted || marker.disabled){
@@ -789,7 +791,10 @@ function compileFrames(){
       continue;
     } 
     if(marker.type === 'command'){
-      //rawdata.push(marker);
+      raweventdata.push({
+        timestamp: marker.timestamp,
+        commands: marker.event.split("\n")
+      })
     } else {
       for(let bonename of Object.keys(marker.pose)){
         let bonedata = marker.pose[bonename];
@@ -837,6 +842,17 @@ function compileFrames(){
           }
         }
       }
+    }
+  }
+  
+  //Calculate event data
+  eventdata = [];
+  for(let i = 0; i < raweventdata.length; i++){
+    let event = raweventdata[i];
+    if(i === event.timestamp){
+      eventdata.push(event);
+    } else {
+      eventdata.push(false);
     }
   }
   
