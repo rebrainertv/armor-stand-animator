@@ -182,7 +182,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
 
 .app-left {
   background-color: var(--button-gray);
-  height: 75vh;
+  height: calc(100vh - 230px);
   display: inline-block;
   width: 65%;
   vertical-align: top;
@@ -191,7 +191,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
 
 .app-right {
   background-color: var(--app-background);
-  height: 75vh;
+  height: calc(100vh - 230px);
   display: inline-block;
   width: 35%;
   vertical-align: top;
@@ -411,4 +411,33 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   height: unset;
   font-size: 13pt;
   width: 75px;
+}
+
+@media only screen and (max-height: 650px) {
+  .app-right {
+    position: absolute;
+    right: 0;
+    z-index: 5;
+    height: calc(100% - 37px);
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .app-right {
+    width: 500px;
+    position: absolute;
+    right: 0;
+  }
+  
+  .app-left {
+    width: calc(100% - 500px);
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .app-right {
+    width: 100%;
+    height: calc(100vh - 230px);
+    z-index: unset;
+  }
 }
