@@ -1063,16 +1063,16 @@ function playAnimation(){
         currentFrame = 0;
         scrollPosition = 0;
         document.getElementById("pose").innerHTML = "";
+        document.getElementById("logs").innerHTML = "";
       } else {
         stopAnimation()
       }
     }
     updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
-    currentFrame++;
     
     if(Object.keys(eventdata).length > 0){ //TODO: Logs
       if(eventdata[currentFrame]){
-        document.getElementById("logs").innerHTML += eventdata[currentFrame].commands + "<br>";
+        document.getElementById("logs").innerHTML += eventdata[currentFrame].commands.join("<br>") + "<br>";
       }
     }
     
@@ -1098,6 +1098,8 @@ function playAnimation(){
     title.splice(0, 0, 'Pose: ');
     
     document.getElementById("pose").innerHTML = title.join("<br>");
+    
+    currentFrame++;
     
     //Scroll editor
     scrollPosition += framepixelratio;
