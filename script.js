@@ -846,14 +846,10 @@ function compileFrames(){
   }
   
   //Calculate event data
-  eventdata = [];
+  eventdata = {};
   for(let i = 0; i < raweventdata.length; i++){
     let event = raweventdata[i];
-    if(i === event.timestamp){
-      eventdata.push(event);
-    } else {
-      eventdata.push(false);
-    }
+    eventdata[event.timestamp] = event;
   }
   
   window.motiondata = rawdata;
@@ -1074,9 +1070,9 @@ function playAnimation(){
     updateVisualRotation(getFrame(currentFrame), true, (changePlaybackHighlights ? 'playback' : false));
     currentFrame++;
     
-    if(eventdata.length > 0 && false){ //TODO: Logs
-      if(eventdata[currentFrame] !== false){
-        document.getElementById("logs").innerHTML += JSON.stringify(eventdata[currentFrame].commands) + "<br>";
+    if(Object.keys(eventdata).length > 0){ //TODO: Logs
+      if(eventdata[currentFrame]){
+        document.getElementById("logs").innerHTML += eventdata[currentFrame].commands + "<br>";
       }
     }
     
