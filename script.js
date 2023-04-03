@@ -161,6 +161,7 @@ let viewSilhouette = false;
 let previewFrames = true;
 let changeHighlights = false;
 let changePlaybackHighlights = false;
+let showPlaybackPane = false;
 
 function toggleBasePlate(){
   viewBasePlate = !viewBasePlate;
@@ -211,6 +212,12 @@ function toggleMarkerChangeHighlights(){
 function togglePlaybackChangeHighlights(){
   changePlaybackHighlights = !changePlaybackHighlights;
   document.getElementById("playbackmarkerchange-checkmark").style.visibility = (changePlaybackHighlights ? 'visible' : 'hidden')
+}
+
+function togglePlaybackPane(){
+  showPlaybackPane = !showPlaybackPane;
+  document.getElementById("playbackpane-checkmark").style.visibility = (showPlaybackPane ? 'visible' : 'hidden')
+  document.getElementById("pb-pane").style.display = (showPlaybackPane ? 'unset' : 'none')
 }
 
 function updateRotation(limbname = false, axis = false, textbox = false){  //Updates the model's saved rotation based off the entered values in the text boxes

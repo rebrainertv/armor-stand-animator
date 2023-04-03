@@ -212,6 +212,12 @@
             </svg>
             Highlight Marker Changes In Playback
           </li>
+          <li onclick="togglePlaybackPane()">
+            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playbackpane-checkmark">
+              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+            </svg>
+            Show Playback Pane
+          </li>
         </ul>
       </span><!--
    --><span class="context-label">
@@ -272,11 +278,11 @@
     <div class="app-main">
       <div class="app-left">
         <div id="preview-container" style="width:100%;height:100%;" ondblclick="resetOrbit()"></div>
-        <div class="playback-pane" style="display: none;">
+        <div class="playback-pane" style="display: none;" id="pb-pane">
           <table class="playback-pane-table">
             <thead>
               <tr>
-                <th colspan="2">Playback Pane</th>
+                <th colspan="2">Playback Pane <a style="color: white" href="javascript:void(0)" onclick="togglePlaybackPane()">[x]</a></th>
               </tr>
               <tr>
                 <th>Logs</th>
