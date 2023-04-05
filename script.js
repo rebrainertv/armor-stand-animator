@@ -1433,6 +1433,13 @@ document.getElementById("project-upload").addEventListener("change", function(e)
   reader.readAsText(file);
 })
 
+async function openExampleFile(url){
+  let result = await fetch(url);
+  result.json().then(function(d){
+    loadProject(d, 'example.mcanimation')
+  })
+}
+
 function generateFunction(){
   if(document.getElementById("scoreboardname").value == ''){
     document.getElementById("scoreboardname").value = prompt("What do you want to call your scoreboard?", "example_animation");
