@@ -202,16 +202,22 @@ function toggleSmall(){
 function toggleFramePreview(){
   previewFrames = !previewFrames;
   document.getElementById("framepreview-checkmark").style.visibility = (previewFrames ? 'visible' : 'hidden')
+  lsConfig.previewFrames = previewFrames;
+  window.localStorage.config = JSON.stringify(lsConfig);
 }
 
 function toggleMarkerChangeHighlights(){
   changeHighlights = !changeHighlights;
   document.getElementById("markerchange-checkmark").style.visibility = (changeHighlights ? 'visible' : 'hidden')
+  lsConfig.changeHighlights = changeHighlights;
+  window.localStorage.config = JSON.stringify(lsConfig);
 }
 
 function togglePlaybackChangeHighlights(){
   changePlaybackHighlights = !changePlaybackHighlights;
   document.getElementById("playbackmarkerchange-checkmark").style.visibility = (changePlaybackHighlights ? 'visible' : 'hidden')
+  lsConfig.changePlaybackHighlights = changePlaybackHighlights;
+  window.localStorage.config = JSON.stringify(lsConfig);
 }
 
 function togglePlaybackPane(){
@@ -1546,4 +1552,30 @@ function openInsertSpecificMarker(type){
   document.getElementById("specific-marker-modal").style.display = "block";
   
   document.getElementById("insert-specific-ticks").focus()
+}
+
+//Localstorage Settings
+let lsConfig = false;
+
+let validConfig = true;
+try {
+  JSON.parse(window.localStorage.config)
+} catch(e) {
+  validConfig = false;
+}
+
+if(window.localStorage.config && validConfig){
+  lsConfig = JSON.parse(window.localStorage.config);
+  
+  if(!lsConfig.previewFrames) toggleFramePreview()
+  if(lsConfig.changeHighlights) toggleMarkerChangeHighlights()
+  if(lsConfig.changePlaybackHighlights) togglePlaybackChangeHighlights()
+  if(lsConfig.playbackspeed !== 1.0) setPlaybackSpeed(lsConfig.playbackspeed)
+} else {
+  lsConfig = {
+    previewFrames: true,
+    changeHighlights: false,
+    changePlaybackHighlights: false,
+    playbackspeed: 1.0
+  };
 }
