@@ -525,8 +525,6 @@ function createMarker(type, location = false, doselect = true){
   marker.oncontextmenu = function(e){
     e.preventDefault()
     
-    selectMarker({target: this})
-    
     let contextdata = [
       {title: 'Duplicate', callback: duplicateMarker()},
       {title: 'Delete', callback: deleteMarker()},
