@@ -525,18 +525,12 @@ function createMarker(type, location = false, doselect = true){
   marker.oncontextmenu = function(e){
     e.preventDefault()
     
-    let contextmenu = document.querySelector("#context-menu");
-    
-    let pageHeight = document.body.scrollHeight;
-    let pageWidth = document.body.scrollWidth;
-    let boundingbox = contextmenu.getBoundingClientRect()
-    
-    left = (e.x + boundingbox.x < pageWidth ? e.x : pageWidth - boundingbox.width)
-    
-    
-    contextmenu.style.display = 'unset';
-    contextmenu.style.left = left + "px";
-    contextmenu.style.top = top + "px";
+    createContextMenu(e, [
+      {title: 'Copy pose to clipboard', callback: function(){
+        
+      }},
+      {title: '', callback: function(){alert('hi')}},
+    ])
   }
   
   //Move the marker to the current cursor position
@@ -1570,6 +1564,38 @@ function openInsertSpecificMarker(type){
   document.getElementById("specific-marker-modal").style.display = "block";
   
   document.getElementById("insert-specific-ticks").focus()
+}
+
+//Global context menu code
+function createContextMenu(e, data){
+  let contextmenu = document.querySelector("#context-menu");
+  
+  //Generate options
+  contextmenu.innerHTML = "";
+  for(let item of data){
+    let listitem = document.createElement("li");
+    listitem.innerHTML = item.title;
+    listitem.onclick = item.callback;
+    contextmenu.appendChild(listitem);
+  }
+  
+  contextmenu.style.display = 'unset'; //Has to display it before calculating position so the size attributes are discovered properly
+  
+  let pageHeight = document.body.scrollHeight;
+  let pageWidth = document.body.scrollWidth;
+  let boundingbox = contextmenu.getBoundingClientRect()
+
+  let left = (e.x + boundingbox.width < pageWidth ? e.x : pageWidth - boundingbox.width);
+  let top = (e.y + boundingbox.height < pageHeight ? e.y : pageHeight - boundingbox.height);
+  
+  contextmenu.style.left = left + "px";
+  contextmenu.style.top = top + "px";
+}
+
+document.onclick = function(e){
+  if(e.target !== document.querySelector("#context-menu") && e.target.parentNode !== document.querySelector("#context-menu")){
+    document.querySelector("#context-menu").style.display = "none";
+  }
 }
 
 //Localstorage Settings

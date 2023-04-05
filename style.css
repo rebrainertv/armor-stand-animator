@@ -417,6 +417,11 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   color: white;
   z-index: 100;
   border-top: unset;
+  opacity: 0.8;
+}
+
+#context-menu li:hover {
+  opacity: 1;
 }
 
 @media only screen and (max-height: 650px) {
