@@ -623,6 +623,7 @@ document.addEventListener("keydown", function(e){
       Array.from(document.querySelectorAll(".marker")).forEach((el) => {
         el.classList.toggle('selected', true)
       })
+      multiselectMarker()
     }
     if(e.key == '.'){
       let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
