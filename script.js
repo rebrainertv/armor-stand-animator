@@ -606,6 +606,10 @@ function deselectMarker(){ //Deselects all markers
 
 document.addEventListener("keydown", function(e){
   if(!['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)){
+    if(e.key == ' '){
+      e.preventDefault();
+      playAnimation()
+    }
     if(e.key == 'Delete'){
       deleteMarker()
     }
