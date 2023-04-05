@@ -526,10 +526,12 @@ function createMarker(type, location = false, doselect = true){
     e.preventDefault()
     
     createContextMenu(e, [
-      {title: 'Copy pose to clipboard', callback: function(){
+      {title: 'Edit', callback: function(){
         
       }},
-      {title: '', callback: function(){alert('hi')}},
+      {title: 'Move to specific position', callback: function(){
+        
+      }},
     ])
   }
   
