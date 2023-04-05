@@ -953,7 +953,7 @@ function compileFrames(){
             * ((framespan*valueincrement) / 2) + ((framespan*valueincrement) / 2) + valuestart;
           if(isNaN(output)) output = valuestart;
           frame.pose[entry.bonename][entry.axis] = output;
-        } else if(entry.mode == 'none'){
+        } else if(entry.mode == 'none' || !entry.mode){
           if(i === framespan){
             frame.pose[entry.bonename][entry.axis] = entry.end.value;
           } else {
