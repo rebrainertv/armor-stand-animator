@@ -515,6 +515,24 @@
       </button>
       <br><br>
     </div>
+    <ul class="context-menu" id="context-menu" style="display: none;">
+      <li onclick="openInsertSpecificMarker('events')">
+        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+        Event marker at specific position
+      </li>
+      <li onclick="createMarker('events')">
+        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+        Event marker at cursor
+      </li>
+      <li onclick="openInsertSpecificMarker('animations')">
+        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+        Animation marker at specific position
+      </li>
+      <li onclick="createMarker('animations')">
+        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+        Animation marker at cursor
+      </li>
+    </ul>
   </body>
 </html>
 <script>

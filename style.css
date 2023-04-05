@@ -413,6 +413,12 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
   width: 75px;
 }
 
+#context-menu {
+  color: white;
+  z-index: 100;
+  border-top: unset;
+}
+
 @media only screen and (max-height: 650px) {
   .app-right {
     position: absolute;

@@ -521,6 +521,24 @@ function createMarker(type, location = false, doselect = true){
   //Make the marker draggable
   dragElement(marker);
   
+  //Custom marker context menu
+  marker.oncontextmenu = function(e){
+    e.preventDefault()
+    
+    let contextmenu = document.querySelector("#context-menu");
+    
+    let pageHeight = document.body.scrollHeight;
+    let pageWidth = document.body.scrollWidth;
+    let boundingbox = contextmenu.getBoundingClientRect()
+    
+    left = (e.x + boundingbox.x < pageWidth ? e.x : pageWidth - boundingbox.width)
+    
+    
+    contextmenu.style.display = 'unset';
+    contextmenu.style.left = left + "px";
+    contextmenu.style.top = top + "px";
+  }
+  
   //Move the marker to the current cursor position
   marker.style.left = leftamount + "px";
   
