@@ -525,14 +525,25 @@ function createMarker(type, location = false, doselect = true){
   marker.oncontextmenu = function(e){
     e.preventDefault()
     
-    createContextMenu(e, [
-      {title: 'Edit', callback: function(){
-        
-      }},
+    selectMarker({target: this})
+    
+    let contextdata = [
+      {title: 'Duplicate', callback: duplicateMarker()},
+      {title: 'Delete', callback: deleteMarker()},
       {title: 'Move to specific position', callback: function(){
         
       }},
-    ])
+    ];
+    
+    if(marker.classList.contains("animations")){
+      contextdata.push({
+        title: 'Copy pose to clipboard', callback: function(){
+          console.log('copy pose')
+        }
+      })
+    }
+    
+    createContextMenu(e, contextdata)
   }
   
   //Move the marker to the current cursor position
