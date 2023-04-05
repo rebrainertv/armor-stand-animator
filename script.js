@@ -618,6 +618,12 @@ document.addEventListener("keydown", function(e){
       e.preventDefault();
       disableMarker()
     }
+    if((e.key == 'a' && e.ctrlKey)){
+      e.preventDefault();
+      Array.from(document.querySelectorAll(".marker")).forEach((el) => {
+        el.classList.toggle('selected', true)
+      })
+    }
     if(e.key == '.'){
       let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
       leftamount += framepixelratio;
@@ -630,7 +636,21 @@ document.addEventListener("keydown", function(e){
     }
   } else if(document.activeElement.tagName.toLowerCase() === 'input' && selectedMarkers.length === 1 && selectedMarkers[0].type === 'keyframe'){
     if(e.key == '['){ //Jump to previous marker containing a value in the same text box
-      
+      console.log('back')
+      let el = document.activeElement;
+      let bonename = false;
+      let index = false;
+      if(el.hasAttribute("group") && el.hasAttribute("index")){
+        bonename = el.getAttribute("group");
+        index = parseFloat(el.getAttribute("index"));
+        
+        for(let i = markerdata.indexOf(selectedMarkers[0]) - 1; i > -1; i--){
+          if(markerdata[i].pose && markerdata[i].pose[bonename][index] !== false){
+            selectMarker({target: document.querySelector('.marker[index="'+ i +'"]')})
+            break;
+          }
+        }
+      }
     }
     if(e.key == ']'){ //Jump to next marker containing a value in the same text box
       let el = document.activeElement;
@@ -640,7 +660,12 @@ document.addEventListener("keydown", function(e){
         bonename = el.getAttribute("group");
         index = parseFloat(el.getAttribute("index"));
         
-        for(let i = )
+        for(let i = markerdata.indexOf(selectedMarkers[0]) + 1; i < markerdata.length; i++){
+          if(markerdata[i].pose && markerdata[i].pose[bonename][index] !== false){
+            selectMarker({target: document.querySelector('.marker[index="'+ i +'"]')})
+            break;
+          }
+        }
       }
     }
   }
