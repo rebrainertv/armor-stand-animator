@@ -628,6 +628,21 @@ document.addEventListener("keydown", function(e){
       leftamount -= framepixelratio;
       document.querySelector(".dynamic-editor-container").scrollLeft = leftamount;
     }
+  } else if(document.activeElement.tagName.toLowerCase() === 'input' && selectedMarkers.length === 1 && selectedMarkers[0].type === 'keyframe'){
+    if(e.key == '['){ //Jump to previous marker containing a value in the same text box
+      
+    }
+    if(e.key == ']'){ //Jump to next marker containing a value in the same text box
+      let el = document.activeElement;
+      let bonename = false;
+      let index = false;
+      if(el.hasAttribute("group") && el.hasAttribute("index")){
+        bonename = el.getAttribute("group");
+        index = parseFloat(el.getAttribute("index"));
+        
+        for(let i = )
+      }
+    }
   }
 })
 
