@@ -415,6 +415,7 @@ function dragElement(elmnt) {
 
   function dragMouseDown(e) {
     e = e || window.event;
+    if(e.which == 3) return; //Don't apply if it's a rightclick
     e.preventDefault();
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
@@ -464,7 +465,7 @@ function dragElement(elmnt) {
     })
   }
 
-  function closeDragElement() {
+  function closeDragElement(e) {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
