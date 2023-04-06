@@ -515,24 +515,32 @@
       </button>
       <br><br>
     </div>
-    <ul class="context-menu" id="context-menu" style="display: none;">
-      <li onclick="openInsertSpecificMarker('events')">
-        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-        Event marker at specific position
-      </li>
-      <li onclick="createMarker('events')">
-        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-        Event marker at cursor
-      </li>
-      <li onclick="openInsertSpecificMarker('animations')">
-        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-        Animation marker at specific position
-      </li>
-      <li onclick="createMarker('animations')">
-        <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-        Animation marker at cursor
-      </li>
-    </ul>
+    <div id="edit-marker-modal" class="modal" style="display:none;">
+      <table class="title-bar">
+        <tr>
+          <td>Move marker to specific position</td>
+          <td class="close-button" onclick="closeModals()">×</td>
+        </tr>
+      </table>
+      <br>
+      <table style="margin:auto;">
+        <tbody>
+          <tr>
+            <td style="text-align:right;">Seconds:</td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="edit-specific-seconds" oninput="correctSpecific(this.value, false)"></td>
+          </tr>
+          <tr>
+            <td style="text-align:right;">Ticks:</td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" id="edit-specific-ticks" oninput="correctSpecific(this.value, true)"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button onclick="createMarker(document.getElementById('edit-marker-type').value, document.getElementById('edit-specific-ticks').value); closeModals();">
+        Insert
+      </button>
+      <br><br>
+    </div>
+    <ul class="context-menu" id="context-menu" style="display: none;"></ul>
   </body>
 </html>
 <script>
