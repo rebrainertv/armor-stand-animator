@@ -529,15 +529,15 @@ function createMarker(type, location = false, doselect = true){
     let contextdata = [
       {title: 'Duplicate', callback: duplicateMarker},
       {title: 'Delete', callback: deleteMarker},
-      {title: 'Disable', callback: disableMarker},
+      {title: 'Disable / Enable', callback: disableMarker},
       {title: 'Move to specific position', callback: function(){
         
       }},
     ];
     
-    if(marker.classList.contains("disabled")){
+    /*if(marker.classList.contains("disabled")){
       contextdata[2].title = "Enable";
-    }
+    }*/
     
     if(marker.classList.contains("animations")){
       contextdata.push({
