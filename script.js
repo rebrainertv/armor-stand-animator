@@ -731,6 +731,8 @@ function deleteMarker(){
     unel.style.display = "none";
   })
   document.querySelector(".project-screen").style.display = "unset";
+  
+  document.querySelector("#context-menu").style.display = "none";
 }
 
 function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.selected"))){
@@ -802,6 +804,8 @@ function retimeModifierMarker(modifier){
 }
 
 function duplicateMarker(){
+  document.querySelector("#context-menu").style.display = "none";
+  
   let markerlist = document.querySelectorAll(".marker.selected")
   Array.from(markerlist).forEach((el) => {
     let index = parseFloat(el.getAttribute("index"));
