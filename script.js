@@ -535,6 +535,10 @@ function createMarker(type, location = false, doselect = true){
       }},
     ];
     
+    if(marker.classList.contains("disabled")){
+      contextdata[2].title = "Enable";
+    }
+    
     if(marker.classList.contains("animations")){
       contextdata.push({
         title: 'Copy pose to clipboard', callback: function(){
@@ -542,6 +546,8 @@ function createMarker(type, location = false, doselect = true){
         }
       })
     }
+    
+    marker.classList.toggle("selected", true);
     
     createContextMenu(e, contextdata)
   }
