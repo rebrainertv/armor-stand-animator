@@ -502,11 +502,11 @@
           </tr>
           <tr>
             <td style="text-align:right;">Seconds:</td>
-            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false)"></td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false, 'insert')"></td>
           </tr>
           <tr>
             <td style="text-align:right;">Ticks:</td>
-            <td><input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true)"></td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" id="insert-specific-ticks" oninput="correctSpecific(this.value, true, 'insert')"></td>
           </tr>
         </tbody>
       </table>
@@ -527,16 +527,16 @@
         <tbody>
           <tr>
             <td style="text-align:right;">Seconds:</td>
-            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="edit-specific-seconds" oninput="correctSpecific(this.value, false)"></td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="edit-specific-seconds" oninput="correctSpecific(this.value, false, 'edit')"></td>
           </tr>
           <tr>
             <td style="text-align:right;">Ticks:</td>
-            <td><input class="app-input modal-input" placeholder="0" type="number" id="edit-specific-ticks" oninput="correctSpecific(this.value, true)"></td>
+            <td><input class="app-input modal-input" placeholder="0" type="number" id="edit-specific-ticks" oninput="correctSpecific(this.value, true, 'edit')"></td>
           </tr>
         </tbody>
       </table>
-      <button onclick="createMarker(document.getElementById('edit-marker-type').value, document.getElementById('edit-specific-ticks').value); closeModals();">
-        Edit
+      <button onclick="moveMarker(currentMoveableMarker, document.getElementById('edit-specific-ticks').value); closeModals();">
+        Update
       </button>
       <br><br>
     </div>
@@ -544,32 +544,32 @@
   </body>
 </html>
 <script>
-  function correctSpecific(val, isTicks){
+  function correctSpecific(val, isTicks, prefix){
     //Quit if value exceeds 60 seconds
     if(isTicks && val > 1200){
       val = 1200;
-      document.getElementById("insert-specific-ticks").value = 1200;
+      document.getElementById(prefix + "-specific-ticks").value = 1200;
     } else if(!isTicks && val > 60){
       val = 60;
     }
     
     function verifyEnds(){
-      let splitvalue = document.getElementById("insert-specific-seconds").value.split(".");
+      let splitvalue = document.getElementById(prefix + "-specific-seconds").value.split(".");
       if(splitvalue.length > 1 && splitvalue[1].length < 2){
-        document.getElementById("insert-specific-seconds").value += "0";
+        document.getElementById(prefix + "-specific-seconds").value += "0";
       } else if(splitvalue.length == 1){
-        document.getElementById("insert-specific-seconds").value += ".00";
+        document.getElementById(prefix + "-specific-seconds").value += ".00";
       }
     }
     
     if(isTicks){
-      document.getElementById("insert-specific-seconds").value = val / 20;
+      document.getElementById(prefix + "-specific-seconds").value = val / 20;
       verifyEnds()
     } else {
       val = Math.round(val * 20) / 20;
-      document.getElementById("insert-specific-ticks").value = val * 20;
+      document.getElementById(prefix + "-specific-ticks").value = val * 20;
       if(val != 0){
-        document.getElementById("insert-specific-seconds").value = val;
+        document.getElementById(prefix + "-specific-seconds").value = val;
       } 
     }
   }

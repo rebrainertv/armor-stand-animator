@@ -530,7 +530,7 @@ function createMarker(type, location = false, doselect = true){
       {title: 'Duplicate', callback: duplicateMarker},
       {title: 'Delete', callback: deleteMarker},
       {title: 'Disable / Enable', callback: disableMarker},
-      {title: 'Move to specific position', callback: openEditSpecificMarker},
+      {title: 'Move to specific position', callback: function(){openEditSpecificMarker(marker)}},
     ];
     
     /*if(marker.classList.contains("disabled")){
@@ -1615,12 +1615,17 @@ function openInsertSpecificMarker(type){
   document.getElementById("insert-specific-ticks").focus()
 }
 
-function openEditSpecificMarker(){  
+let currentMovableMarker = false;
+function openEditSpecificMarker(marker){  
   document.getElementById("overlay").style.display = "block";
   document.getElementById("edit-marker-modal").style.display = "block";
   
-  document.getElementById("edit-specific-ticks").value = 2;
+  let data = markerdata[parseFloat(marker.getAttribute("index"))];
   
+  document.getElementById("edit-specific-ticks").value = data.timestamp;
+  correctSpecific(data.timestamp, true, 'edit')
+  
+  currentMovableMarker = marker;
   
   document.getElementById("edit-specific-ticks").focus()
 }
