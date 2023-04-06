@@ -470,7 +470,7 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     
-    if(e.which !== 3) mergeMarkers()
+    if(e.which !== 3 || !e.which) mergeMarkers()
   }
 }
 
