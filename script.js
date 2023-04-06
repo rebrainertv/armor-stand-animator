@@ -546,7 +546,13 @@ function createMarker(type, location = false, doselect = true){
             poses.push(markerdata[index].pose);
           })
           
+          let output = [];
+          for(let pose of poses){
+            output.push(generateCommand(pose));
+          }
           
+          navigator.clipboard.writeText(output.join("\n"))
+          alert("Copied the poses of the selected markers to clipboard.");
         }
       })
     }
@@ -1499,7 +1505,34 @@ async function openExampleFile(url){
 }
 
 function generateCommand(posedata){
+  let rotationdata = posedata.rotations;
+
+  let pose = [];
+  let rotation = false;
+
+  for(let bonename of Object.keys(posedata)){
+    let bonedata = posedata[bonename];
+    if(bonename !== 'rotations' && bonedata.join(".") !== 'false.false.false'){
+      let x = (bonedata[0] !== false ? bonedata[0] : 0);
+      let y = (bonedata[1] !== false ? bonedata[1] : 0);
+      let z = (bonedata[2] !== false ? bonedata[2] : 0);
+
+      let poseentry = bonename + ": [";
+      poseentry += x + "f, ";
+      poseentry += y + "f, ";
+      poseentry += z + "f";
+      poseentry += "]";
+      pose.push(poseentry)
+    }
+  }
+
+  if(rotationdata[0] !== false){
+    rotation = rotationdata[0] + 'f,0f';
+  }
+
+  let nbt = "{" + (pose.length > 0 ? ("Pose:{" + pose.join(",") + "}") : '') + (pose.length > 0 && rotation ? ',' : '') + (rotation ? ("Rotation: [" + rotation + "]") : '') + "}";
   
+  return "data merge entity @s "+ nbt +"";
 }
 
 function generateFunction(){
@@ -1516,36 +1549,8 @@ function generateFunction(){
     "scoreboard objectives add " + scoreboardname + " dummy"
   ];
   let extraselectordata = "";
-  for(let frame of framedata){
-    let posedata = frame.pose;
-    let rotationdata = frame.pose.rotations;
-    
-    let pose = [];
-    let rotation = false;
-    
-    for(let bonename of Object.keys(posedata)){
-      let bonedata = posedata[bonename];
-      if(bonename !== 'rotations' && bonedata.join(".") !== 'false.false.false'){
-        let x = (bonedata[0] !== false ? bonedata[0] : 0);
-        let y = (bonedata[1] !== false ? bonedata[1] : 0);
-        let z = (bonedata[2] !== false ? bonedata[2] : 0);
-        
-        let poseentry = bonename + ": [";
-        poseentry += x + "f, ";
-        poseentry += y + "f, ";
-        poseentry += z + "f";
-        poseentry += "]";
-        pose.push(poseentry)
-      }
-    }
-    
-    if(rotationdata[0] !== false){
-      rotation = rotationdata[0] + 'f,0f';
-    }
-    
-    let nbt = "{" + (pose.length > 0 ? ("Pose:{" + pose.join(",") + "}") : '') + (pose.length > 0 && rotation ? ',' : '') + (rotation ? ("Rotation: [" + rotation + "]") : '') + "}";
-    
-    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run data merge entity @s "+ nbt +"")
+  for(let frame of framedata){    
+    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generateCommand(frame.pose))
   }
   
   //Get event markers, finally
