@@ -19,6 +19,9 @@ function recreateMarkers(newmarkerdata){
   }
 }
 
-function moveMarker(){
-  
+function moveMarker(el, tick){
+  let index = parseFloat(el.getAttribute("index"));
+  markerdata[index].timestamp = tick;
+  el.style.left = (markerdata[index].timestamp * framepixelratio) + "px";
+  el.scrollIntoViewIfNeeded()
 }

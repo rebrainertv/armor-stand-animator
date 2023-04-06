@@ -399,6 +399,12 @@
                 </td>
               </tr>
               <tr>
+                <td>
+                  Repeat
+                  <input class="app-input" type="number" default-placeholder="ticks" placeholder="ticks" id="event-repeat" step="1" oninput="">
+                </td>
+              </tr>
+              <tr>
                 
               </tr>
               <tr>
@@ -535,7 +541,7 @@
           </tr>
         </tbody>
       </table>
-      <button onclick="moveMarker(currentMoveableMarker, document.getElementById('edit-specific-ticks').value); closeModals();">
+      <button onclick="moveMarker(currentMovableMarker, document.getElementById('edit-specific-ticks').value); closeModals();">
         Update
       </button>
       <br><br>
