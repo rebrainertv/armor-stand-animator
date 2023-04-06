@@ -470,11 +470,11 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     
-    mergeMarkers()
+    if(e.which !== 3) mergeMarkers()
   }
 }
 
-function createMarker(type, location = false, doselect = true){
+function createMarker(type, location = false, doselect = true){  
   let leftamount = location * framepixelratio
   if(location === false) leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
   let tick = (leftamount / framepixelratio) * framepixelmultiplier;
@@ -527,8 +527,9 @@ function createMarker(type, location = false, doselect = true){
     e.preventDefault()
     
     let contextdata = [
-      {title: 'Duplicate', callback: duplicateMarker()},
-      {title: 'Delete', callback: deleteMarker()},
+      {title: 'Duplicate', callback: duplicateMarker},
+      {title: 'Delete', callback: deleteMarker},
+      {title: 'Disable', callback: disableMarker},
       {title: 'Move to specific position', callback: function(){
         
       }},
@@ -548,11 +549,11 @@ function createMarker(type, location = false, doselect = true){
   //Move the marker to the current cursor position
   marker.style.left = leftamount + "px";
   
-  marker.onclick = /*function(){
-    if(document.querySelectorAll(".marker.selected").length < 2){
-      selectMarker();
-    }
-  }*/selectMarker;
+  marker.onclick = function(e){
+    if(e.which === 1){
+      selectMarker(e);
+    } 
+  };
   
   document.querySelector(".element-placement").appendChild(marker);
   updateMarkerTitles();
@@ -1220,6 +1221,7 @@ document.querySelector(".dynamic-editor-container").onscroll = function(){
 let editor = document.querySelector(".dynamic-editor");
 let previousEditorClick = false;
 editor.addEventListener("mousedown", function(e){
+  if(e.which !== 1) return; //Only listen for left clicks in this case
   deselectMarker();
   document.querySelector('.project-screen').style.display = 'unset';
   
