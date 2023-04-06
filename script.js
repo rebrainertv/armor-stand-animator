@@ -540,7 +540,13 @@ function createMarker(type, location = false, doselect = true){
     if(marker.classList.contains("animations")){
       contextdata.push({
         title: 'Copy pose to clipboard', callback: function(){
-          console.log('copy pose')
+          let poses = [];
+          Array.from(document.querySelectorAll(".marker.animations.selected")).forEach((el) => {
+            let index = parseFloat(el.getAttribute("index"));
+            poses.push(markerdata[index].pose);
+          })
+          
+          
         }
       })
     }
@@ -1327,6 +1333,18 @@ editor.addEventListener("mousedown", function(e){
   document.addEventListener("mouseup", up);
 })
 
+/*editor.addEventListener('contextmenu', function(e){
+  e.preventDefault()
+  
+  createContextMenu(e, [
+    {title: 'Add Event Marker', callback: function(){}},
+    {title: 'Add Animation Marker', callback: function(){}},
+    {title: 'Erase Event Markers', callback: function(){}},
+    {title: 'Erase Animation Markers', callback: function(){}},
+    {title: 'Erase All Markers', callback: function(){}}
+  ])
+})*/
+
 let defaultfilename = "my_animation_project"
 
 function saveProject(){
@@ -1480,6 +1498,10 @@ async function openExampleFile(url){
   })
 }
 
+function generateCommand(posedata){
+  
+}
+
 function generateFunction(){
   if(document.getElementById("scoreboardname").value == ''){
     document.getElementById("scoreboardname").value = prompt("What do you want to call your scoreboard?", "example_animation");
@@ -1618,7 +1640,7 @@ function createContextMenu(e, data){
   let boundingbox = contextmenu.getBoundingClientRect()
 
   let left = (e.x + boundingbox.width < pageWidth ? e.x : pageWidth - boundingbox.width);
-  let top = (e.y + boundingbox.height < pageHeight ? e.y : pageHeight - boundingbox.height);
+  let top = (e.y + boundingbox.height < pageHeight ? e.y : e.y - boundingbox.height);
   
   contextmenu.style.left = left + "px";
   contextmenu.style.top = top + "px";
