@@ -1592,7 +1592,10 @@ function openEditSpecificMarker(){
   document.getElementById("overlay").style.display = "block";
   document.getElementById("edit-marker-modal").style.display = "block";
   
-  document.getElementById("insert-specific-ticks").focus()
+  document.getElementById("edit-specific-ticks").value = 2;
+  
+  
+  document.getElementById("edit-specific-ticks").focus()
 }
 
 //Global context menu code
