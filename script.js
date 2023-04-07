@@ -1083,6 +1083,8 @@ function setPlaybackSpeed(value){
   })
   
   document.getElementById("speed-"+value+"-checkmark").style.visibility = 'unset';
+  lsConfig.playbackspeed = value;
+  window.localStorage.config = JSON.stringify(lsConfig);
 }
 
 function stopAnimation(){
