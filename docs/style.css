@@ -1,0 +1,12 @@
+h1 {
+  font-family: 'MinecraftTen';
+  margin: 0;
+  text-align: center;
+  color: white;
+  filter: drop-shadow(2px 3px 6px black) drop-shadow(-2px 0px 6px black);
+  font-size: 3em;
+}
+
+body {
+  background-color: var(--app-background);
+}
