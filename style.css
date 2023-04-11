@@ -415,7 +415,7 @@ header > span.context-label:hover .context-menu:not(.nested-menu) {
 
 #context-menu {
   color: white;
-  z-index: 100;
+  z-index: 19;
   border-top: unset;
   opacity: 0.8;
   user-select: none;
