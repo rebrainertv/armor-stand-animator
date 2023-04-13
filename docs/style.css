@@ -13,3 +13,19 @@ body {
   padding: 4px 20px;
   font-size: 14pt;
 }
+
+a[href] {
+  background-color: #ffffff55;
+  padding: 2px;
+  border-radius: 5px;
+  color: var(--button-green);
+  text-decoration-color: var(--button-green);
+}
+
+table {
+  border-collapse: collapse;
+  border: none;
+  background-color: white;
+  color: black;
+  box-shadow: 0px 0px 15px 5px black;
+}
