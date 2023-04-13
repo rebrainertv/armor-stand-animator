@@ -1,411 +1,829 @@
 <html>
-
-<head>
-<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="/style.css">
-
-
-</head>
-
-<body lang=EN-US style='word-wrap:break-word'>
-
-<div class=WordSection1>
-
-<h1>Documentation</h1>
-
-<p class=MsoNormal><span lang=EN>This is the documentation and guide for Armor
-Stand Animator and how to use it.</span></p>
-
-<h1><a name="_z8x994k4dlkj"></a><span lang=EN>Project Setup</span></h1>
-
-<p class=MsoNormal><span lang=EN>To create a new animation project, go to <a
-href="https://armor-stand-animator.glitch.me/"><span style='color:#1155CC'>https://armor-stand-animator.glitch.me/</span></a>.
-Animations can be any length between 1 tick and 1200 ticks (60 seconds)
-depending on the information you put in the project. Unfortunately, armor stand
-animation speed is capped at 20fps because Minecraft has 20 ticks per second,
-meaning that we are only able to switch frames using commands 20 times a
-second.</span></p>
-
-<h2><a name="_59do996xvs6x"></a><span lang=EN>Saving your project for later</span></h2>
-
-<p class=MsoNormal><span lang=EN>To save your animation project to your
-computer and edit it later, go to the top of the screen and press File &gt;
-Save Project. After you give your file a name, it will be downloaded to your
-computer as a .mcanimation file. This file is <b>not</b> compatible with
-Minecraft or any other animation software. When you want to come back and edit
-that project, you can go to File &gt; Load Project to reupload that animation
-file and resume from where you left off.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Now that you know how to save your progress
-for later, it's time to learn about Markers and how to use them to create
-animations.</span></p>
-
-<h1><a name="_84v3tfbjpbxr"></a><span lang=EN>Markers</span></h1>
-
-<p class=MsoNormal><span lang=EN>Markers are little symbols in the timeline at
-the bottom of the screen that contain user-inputted information about what
-happens at that point in the animation. They can make the armor stand's limbs
-move or execute commands in various other ways. </span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Only one marker of each type can exist at the
-same point in time, so if you try to drag 2 markers on top of each other, they
-will merge (with priority going to the one(s) you just dropped). </span></p>
-
-<h2><a name="_io45m43dtzx"></a><span lang=EN>Add a new marker</span></h2>
-
-<p class=MsoNormal><span lang=EN>There are many different ways to add a marker,
-depending on where you want to put it.</span></p>
-
-<p class=MsoNormal><span lang=EN>To add a marker at the playback cursor (the
-blue line in the playback pane), click an Add Marker button in the playback
-controls or go to Add &gt; [Type] marker at cursor.</span></p>
-
-<p class=MsoNormal><span lang=EN><img border=0 width=277 height=41
-id=image1.png
-src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image001.png?v=1681318056455"></span></p>
-
-<p class=MsoNormal><span lang=EN>To add a marker at a specific tick /
-timestamp, go to Add &gt; [Type] marker at specific position.</span></p>
-
-<p class=MsoNormal><span lang=EN>Finally, the easiest way to add a marker is to
-simply double-click the editor at any point to create one at your mouse's
-position.</span></p>
-
-<h2><a name="_cmbp5tzh212r"></a><span lang=EN>Selecting markers</span></h2>
-
-<p class=MsoNormal><span lang=EN>You can multiselect markers to run many
-actions on them at once. Either hold CTRL and click on multiple markers to
-select/deselect them or click and drag in the timeline. If the markers are all
-of the same type, you'll be able to set all of their values in the above
-editor. Regardless of whether they are the same type, you can bulk move,
-delete, disable and duplicate markers. </span></p>
-
-<h2><a name="_v18gg13ea59a"></a><span lang=EN>Event Markers</span></h2>
-
-<p class=MsoNormal><span lang=EN>Event markers are the simpler type of marker -
-their purpose is to execute any Minecraft command at a specific point in the
-animation. For example, if I wanted the armor stand to spin and change armor
-halfway through its spin, I would use an event marker to replace the armor on
-the stand.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Add a command into an event marker using the
-upper Event editing screen. Commands should not be prefixed with a slash (for
-example, you should use &quot;say hi&quot; instead of &quot;/say hi&quot;). In
-addition, multiple commands can be added per event marker by adding a new line
-in the text box, similar to function files.</span></p>
-
-<h2><a name="_k49f971yf18m"></a><span lang=EN>Animation Markers</span></h2>
-
-<p class=MsoNormal><span lang=EN>Animation markers are what bring your armor
-stand to life. You can set any variation of poses and the computer will
-calculate how to get from point A to point B in the specified distance between
-the next set value in 20fps. At the moment, in-game armor stand pose rotation
-is not interpolated so larger jumps will appear blocky and robotic, but this
-can't be helped unless Mojang decides to allow armor stand limb interpolation
-to let armor stand animations appear smoother than 20fps.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>The animation marker's screen is a little more
-complicated than the event marker's:</span></p>
-
-<p class=MsoNormal><span lang=EN><img border=0 width=272 height=263
-id=image3.png
-src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image002.png?v=1681318056870"></span></p>
-
-<p class=MsoNormal><span lang=EN>Animation markers allow you to rotate any axis
-of any limb on your armor stand. When you change any value, you'll see the
-preview model on the left adjust to fit the values you have inputted on the
-right. The stand's Head, Left Arm, Right Arm, Chest, Left Leg and Right Leg all
-have 3 axes you can modify and their values are measured in degrees. The Facing
-field lets you rotate the entire stand, but it unfortunately only works
-horizontally; you cannot visually tilt the entire stand upwards. </span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Finally, the marker Mode defines what
-algorithm the program uses to calculate the motion. The marker's mode modifies
-how the motion <b>arrives</b> at the specified marker. There are currently 3
-modes with which you can animate: Linear (go directly from point A to point B) </span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>To create a motion, place down two Animation
-markers. Choose a limb and axis (for example, Head: Y axis) and put two
-different values in the markers' text boxes corresponding to that rotation
-axis. Make sure the second marker's Mode is set to Ease or Linear so that the
-program will actually calculate rotational steps between the two points instead
-of instantly jumping between the two in No Transition mode. You can preview
-your motion in playback.</span></p>
-
-<h2><a name="_ewaz3f3j20hd"></a><span lang=EN>Disabled markers</span></h2>
-
-<p class=MsoNormal><span lang=EN>Disabled markers sit in your timeline but
-don't have any function. They are totally ignored when exporting or calculating
-the preview. They are kind of like a &quot;comment&quot; feature to allow you
-to test out different ideas in the same timeline. You can disable a marker by
-going to Edit &gt; Disable markers, right-clicking and selecting Disable /
-Enable or selecting the marker and pressing the &quot;d&quot; or zero (0) key.</span></p>
-
-<h2><a name="_hqc803vpo287"></a><span lang=EN>Copy pose to clipboard</span></h2>
-
-<p class=MsoNormal><span lang=EN>If you just want to save the pose you entered
-in a marker and not its entire motion data, right-click an animation marker and
-select &quot;Copy Pose to Clipboard&quot;. You'll get a series of /data
-commands copied to your clipboard containing the information you entered in the
-selected animation markers. </span></p>
-
-<h1><a name="_l5vqd0mtatu5"></a><span lang=EN>Playback &amp; Model Preview</span></h1>
-
-<p class=MsoNormal><span lang=EN>Not only can the side dummy preview the data
-you enter in markers, but it can also render the entire animation! Once you
-have one or more valid motions, press the spacebar or the play button at the
-bottom of the screen to play your animation from the point you have scrolled to
-in the editor. The armor stand will run through the motions that you have
-programmed and you can see it in the browser before importing it into
-Minecraft.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>The model preview cannot have armor or custom
-heads applied to it as this would require custom 3D model data, but you can see
-what a plain vanilla armor stand looks like while playing your animation. You
-can also make the model use the baby model, toggle the base plate and render
-without its texture in Silhouette mode in the View menu at the top of the
-screen.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>The model preview has traditional 3D object
-orbit controls: hold right-click to move the camera, scroll wheel to zoom and
-left click &amp; drag to orbit around the model preview. You can reset the
-position to the front of the stand by double-clicking the model preview screen
-or going to View &gt; Reset Camera Position. </span></p>
-
-<h1><a name="_4ry2p077yw78"></a><span lang=EN>Putting it into Minecraft</span></h1>
-
-<p class=MsoNormal><span lang=EN>In order to put your animation into Minecraft,
-you must already have an understanding of command blocks, data packs and
-MCFUNCTION files.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Minecraft: Java Edition does not have any
-animation file support in vanilla, but we can change the rotation values of
-armor stands' limbs with NBT. Since Minecraft has 20 ticks in a second, we can
-only change animation frames 20 times a second, which means your animation is
-locked to 20fps. Frame 0 would be 0:00, frame 20 would be 0:01. </span></p>
-
-<p class=MsoNormal><span lang=EN>To measure which frame the armor stand is on,
-a scoreboard objective is created. When you run the function file generated by
-the website in-game, your armor stand will switch its pose to the frame defined
-by the entity's scoreboard value. This means that you have full control over
-the in-game playback of your animation, but it also means it's a little more
-complicated to set up.</span></p>
-
-<h2><a name="_z9njp3rt6jmp"></a><span lang=EN>Exporting to a data pack</span></h2>
-
-<p class=MsoNormal><span lang=EN>If you don't have a data pack you already want
-to add your function file to, you can generate an entire data pack containing
-just your function file.</span></p>
-
-<ol style='margin-top:0in' start=1 type=1>
- <li class=MsoNormal><span lang=EN>Create the world in Minecraft you want to
-     import your animation data to.</span></li>
- <li class=MsoNormal><span lang=EN>In the Armor Stand Animator, go to File &gt;
-     Export &gt; as data pack. Give your file a name.</span></li>
- <li class=MsoNormal><span lang=EN>You should get a .zip file downloaded to
-     your computer. Navigate to your downloads folder and cut (ctrl + x) the
-     file.</span></li>
- <li class=MsoNormal><span lang=EN>Now find the folder containing your world
-     data and open its datapacks directory.</span></li>
- <ol style='margin-top:0in' start=1 type=a>
-  <li class=MsoNormal><span lang=EN> Type </span><span lang=EN
-      style='font-family:"Courier New";color:black;background:#D9D9D9'>%appdata%</span><span
-      lang=EN> into the address bar of your file explorer</span></li>
-  <li class=MsoNormal><span lang=EN>Open the </span><span lang=EN
-      style='font-family:"Courier New";color:black;background:#D9D9D9'>.minecraft</span><span
-      lang=EN> folder, then navigate into </span><span lang=EN
-      style='font-family:"Courier New";color:black;background:#D9D9D9'>saves </span></li>
-  <li class=MsoNormal><span lang=EN>Choose the appropriate world folder </span></li>
-  <li class=MsoNormal><span lang=EN>Open the datapacks folder</span></li>
- </ol>
- <li class=MsoNormal><span lang=EN>From here, you can paste your .zip file into
-     the folder. Minecraft will recognize it even if you leave it as a .zip
-     file, but I would recommend extracting the data because it makes it much
-     easier to edit the datapack later.</span></li>
-</ol>
-
-<p class=MsoNormal><span lang=EN>If you're already in your world, you should be
-able to type </span><span lang=EN style='font-family:"Courier New";color:black;
-background:#D9D9D9'>/reload</span><span lang=EN> into the chat and your data
-pack will show up. If you're not yet in the world, you can just enter it and
-Minecraft should recognize the datapack.</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>You can check if Minecraft has recognised your
-datapack by running </span><span lang=EN style='font-family:"Courier New";
-color:black;background:#D9D9D9'>/datapack list</span><span lang=EN>.</span></p>
-
-<p class=MsoNormal><span lang=EN><img border=0 width=570 height=58
-id=image2.png
-src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image003.png?v=1681318057442"></span></p>
-
-<h2><a name="_k64d6mmf9c95"></a><span lang=EN>Export to function file</span></h2>
-
-<p class=MsoNormal><span lang=EN>If you already have a data pack on the world
-you want to add your animation to, you can choose to export your animation as a
-function file instead (File &gt; Export &gt; as function file). Place it in the
-</span><span lang=EN style='font-family:"Courier New";color:black;background:
-#D9D9D9'>[datapack directory]/data/[namespace]/functions/</span><span lang=EN>
-folder of your datapack. </span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>If you're already in your world, you should be
-able to type </span><span lang=EN style='font-family:"Courier New";color:black;
-background:#D9D9D9'>/reload</span><span lang=EN> into the chat and your
-function will show up. If you're not already in the world, you can just enter
-it and Minecraft should recognize the function.</span></p>
-
-<h2><a name="_yprqonadkbgz"></a><span lang=EN>Playing the animation in-game</span></h2>
-
-<p class=MsoNormal><span lang=EN>Now that you've imported the function file
-containing your animation into Minecraft, it's time to play it in-game.</span></p>
-
-<p class=MsoNormal><span lang=EN>You'll need:</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN>-<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-lang=EN>Creative mode</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN>-<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-lang=EN>An armor stand</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN>-<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-lang=EN>2-3 command blocks</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>First, place down your armor stand. You can
-put armor or items on it or edit its NBT in any way you want. </span></p>
-
-<p class=MsoNormal><span lang=EN>Second of all, run the function file generated
-by the website (should be available as </span><span lang=EN style='font-family:
-"Courier New";color:black;background:#D9D9D9'>/function &lt;datapack
-filename&gt;:&lt;scoreboard name&gt;</span><span lang=EN>) to create the
-scoreboard. You need to do this at least once before you try animating your
-armor stand.</span></p>
-
-<p class=MsoNormal><span lang=EN>Finally, place your command blocks down in a
-chain in this pattern:</span></p>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<div align=center>
-
-<table class=1 border=1 cellspacing=0 cellpadding=0 width=1082
- style='border-collapse:collapse;border:none'>
- <tr>
-  <td width=147 valign=top style='width:110.25pt;border:solid black 1.0pt;
-  padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal align=center style='text-align:center;line-height:normal;
-  border:none'><b><span lang=EN style='font-size:8.0pt'>COMMAND BLOCK TYPE</span></b></p>
-  </td>
-  <td width=117 valign=top style='width:87.75pt;border:solid black 1.0pt;
-  border-left:none;padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal align=center style='text-align:center;line-height:normal;
-  border:none'><b><span lang=EN style='font-size:8.0pt'>NEEDS REDSTONE</span></b></p>
-  </td>
-  <td width=818 valign=top style='width:613.5pt;border:solid black 1.0pt;
-  border-left:none;padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal align=center style='text-align:center;line-height:normal;
-  border:none'><b><span lang=EN style='font-size:8.0pt'>COMMAND</span></b></p>
-  </td>
- </tr>
- <tr>
-  <td width=147 valign=top style='width:110.25pt;border:solid black 1.0pt;
-  border-top:none;padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal style='line-height:normal;border:none'><span lang=EN>Repeat</span></p>
-  </td>
-  <td width=117 valign=top style='width:87.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal style='line-height:normal;border:none'><span lang=EN>Yes</span></p>
-  </td>
-  <td width=818 valign=top style='width:613.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal><span lang=EN style='font-family:"Courier New";color:black;
-  background:#D9D9D9'>/function &lt;datapack filename&gt;:&lt;scoreboard
-  name&gt;</span></p>
-  </td>
- </tr>
- <tr>
-  <td width=147 valign=top style='width:110.25pt;border:solid black 1.0pt;
-  border-top:none;padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal style='line-height:normal;border:none'><span lang=EN>Chain</span></p>
-  </td>
-  <td width=117 valign=top style='width:87.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal style='line-height:normal;border:none'><span lang=EN>No</span></p>
-  </td>
-  <td width=818 valign=top style='width:613.5pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:5.0pt 5.0pt 5.0pt 5.0pt'>
-  <p class=MsoNormal><span lang=EN style='font-family:"Courier New";color:black;
-  background:#D9D9D9'>/scoreboard players add
-  @e[type=armor_stand,limit=1,sort=nearest] &lt;scoreboard name&gt; 1</span></p>
-  </td>
- </tr>
-</table>
-
-</div>
-
-<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN>Finally, place a redstone block down beside
-the repeating block to start the chain. Your armor stand should play the
-animation!</span></p>
-
-<h2><a name="_lr81nkzcp8y4"></a><span lang=EN>Looping the animation or other
-forms of custom playback</span></h2>
-
-<p class=MsoNormal><span lang=EN>You have complete control over your
-animation's playback in-game. Unfortunately, this also means that you'll have
-to manually program animation looping, start/stops, or backwards playback. </span></p>
-
-<p class=MsoNormal><span lang=EN>You can achieve this by setting the armor
-stand's scoreboard entry to any frame and then running the function to apply
-the changes. For example, </span></p>
-
-<p class=MsoNormal><span lang=EN style='font-family:"Courier New";color:black;
-background:#D9D9D9'>/scoreboard players set
-@e[type=armor_stand,limit=1,sort=nearest,scores={&lt;scoreboard name&gt;=60}]
-&lt;scoreboard name&gt; 0</span><span lang=EN> will restart your animation from
-the beginning when it has played for 60 ticks. You would add this command to
-your chain to check when the armor stand has reached specific parts of the
-animation.</span></p>
-
-<h1><a name="_n9e2hgtkbq86"></a><span lang=EN>Advanced Features</span></h1>
-
-<p class=MsoNormal><span lang=EN>There are a couple more advanced animation
-editing features that could uncomplicate the animating process for some. </span></p>
-
-</div>
-
-</body>
-
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Generator" content="Microsoft Word 15 (filtered)" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body lang="EN-US" style="word-wrap: break-word">
+    <div class="WordSection1">
+      <h1>Documentation</h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >This is the documentation and guide for Armor Stand Animator and how
+          to use it.</span
+        >
+      </p>
+
+      <h1><a name="_z8x994k4dlkj"></a><span lang="EN">Project Setup</span></h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To create a new animation project, go to
+          <a href="https://armor-stand-animator.glitch.me/"
+            ><span style="color: #1155cc"
+              >https://armor-stand-animator.glitch.me/</span
+            ></a
+          >. Animations can be any length between 1 tick and 1200 ticks (60
+          seconds) depending on the information you put in the project.
+          Unfortunately, armor stand animation speed is capped at 20fps because
+          Minecraft has 20 ticks per second, meaning that we are only able to
+          switch frames using commands 20 times a second.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_59do996xvs6x"></a
+        ><span lang="EN">Saving your project for later</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To save your animation project to your computer and edit it later, go
+          to the top of the screen and press File &gt; Save Project. After you
+          give your file a name, it will be downloaded to your computer as a
+          .mcanimation file. This file is <b>not</b> compatible with Minecraft
+          or any other animation software. When you want to come back and edit
+          that project, you can go to File &gt; Load Project to reupload that
+          animation file and resume from where you left off.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Now that you know how to save your progress for later, it's time to
+          learn about Markers and how to use them to create animations.</span
+        >
+      </p>
+
+      <h1><a name="_84v3tfbjpbxr"></a><span lang="EN">Markers</span></h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Markers are little symbols in the timeline at the bottom of the
+          screen that contain user-inputted information about what happens at
+          that point in the animation. They can make the armor stand's limbs
+          move or execute commands in various other ways.
+        </span>
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Only one marker of each type can exist at the same point in time, so
+          if you try to drag 2 markers on top of each other, they will merge
+          (with priority going to the one(s) you just dropped).
+        </span>
+      </p>
+
+      <h2>
+        <a name="_io45m43dtzx"></a><span lang="EN">Add a new marker</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >There are many different ways to add a marker, depending on where you
+          want to put it.</span
+        >
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To add a marker at the playback cursor (the blue line in the playback
+          pane), click an Add Marker button in the playback controls or go to
+          Add &gt; [Type] marker at cursor.</span
+        >
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          ><img
+            border="0"
+            width="277"
+            height="41"
+            id="image1.png"
+            src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image001.png?v=1681318056455"
+        /></span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To add a marker at a specific tick / timestamp, go to Add &gt; [Type]
+          marker at specific position.</span
+        >
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Finally, the easiest way to add a marker is to simply double-click
+          the editor at any point to create one at your mouse's position.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_cmbp5tzh212r"></a><span lang="EN">Selecting markers</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >You can multiselect markers to run many actions on them at once.
+          Either hold CTRL and click on multiple markers to select/deselect them
+          or click and drag in the timeline. If the markers are all of the same
+          type, you'll be able to set all of their values in the above editor.
+          Regardless of whether they are the same type, you can bulk move,
+          delete, disable and duplicate markers.
+        </span>
+      </p>
+
+      <h2><a name="_v18gg13ea59a"></a><span lang="EN">Event Markers</span></h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Event markers are the simpler type of marker - their purpose is to
+          execute any Minecraft command at a specific point in the animation.
+          For example, if I wanted the armor stand to spin and change armor
+          halfway through its spin, I would use an event marker to replace the
+          armor on the stand.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Add a command into an event marker using the upper Event editing
+          screen. Commands should not be prefixed with a slash (for example, you
+          should use &quot;say hi&quot; instead of &quot;/say hi&quot;). In
+          addition, multiple commands can be added per event marker by adding a
+          new line in the text box, similar to function files.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_k49f971yf18m"></a><span lang="EN">Animation Markers</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Animation markers are what bring your armor stand to life. You can
+          set any variation of poses and the computer will calculate how to get
+          from point A to point B in the specified distance between the next set
+          value in 20fps. At the moment, in-game armor stand pose rotation is
+          not interpolated so larger jumps will appear blocky and robotic, but
+          this can't be helped unless Mojang decides to allow armor stand limb
+          interpolation to let armor stand animations appear smoother than
+          20fps.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >The animation marker's screen is a little more complicated than the
+          event marker's:</span
+        >
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          ><img
+            border="0"
+            width="272"
+            height="263"
+            id="image3.png"
+            src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image002.png?v=1681318056870"
+        /></span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Animation markers allow you to rotate any axis of any limb on your
+          armor stand. When you change any value, you'll see the preview model
+          on the left adjust to fit the values you have inputted on the right.
+          The stand's Head, Left Arm, Right Arm, Chest, Left Leg and Right Leg
+          all have 3 axes you can modify and their values are measured in
+          degrees. The Facing field lets you rotate the entire stand, but it
+          unfortunately only works horizontally; you cannot visually tilt the
+          entire stand upwards.
+        </span>
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Finally, the marker Mode defines what algorithm the program uses to
+          calculate the motion. The marker's mode modifies how the motion
+          <b>arrives</b> at the specified marker. There are currently 3 modes
+          with which you can animate: Linear (go directly from point A to point
+          B)
+        </span>
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To create a motion, place down two Animation markers. Choose a limb
+          and axis (for example, Head: Y axis) and put two different values in
+          the markers' text boxes corresponding to that rotation axis. Make sure
+          the second marker's Mode is set to Ease or Linear so that the program
+          will actually calculate rotational steps between the two points
+          instead of instantly jumping between the two in No Transition mode.
+          You can preview your motion in playback.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_ewaz3f3j20hd"></a><span lang="EN">Disabled markers</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Disabled markers sit in your timeline but don't have any function.
+          They are totally ignored when exporting or calculating the preview.
+          They are kind of like a &quot;comment&quot; feature to allow you to
+          test out different ideas in the same timeline. You can disable a
+          marker by going to Edit &gt; Disable markers, right-clicking and
+          selecting Disable / Enable or selecting the marker and pressing the
+          &quot;d&quot; or zero (0) key.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_hqc803vpo287"></a
+        ><span lang="EN">Copy pose to clipboard</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >If you just want to save the pose you entered in a marker and not its
+          entire motion data, right-click an animation marker and select
+          &quot;Copy Pose to Clipboard&quot;. You'll get a series of /data
+          commands copied to your clipboard containing the information you
+          entered in the selected animation markers.
+        </span>
+      </p>
+
+      <h1>
+        <a name="_l5vqd0mtatu5"></a
+        ><span lang="EN">Playback &amp; Model Preview</span>
+      </h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Not only can the side dummy preview the data you enter in markers,
+          but it can also render the entire animation! Once you have one or more
+          valid motions, press the spacebar or the play button at the bottom of
+          the screen to play your animation from the point you have scrolled to
+          in the editor. The armor stand will run through the motions that you
+          have programmed and you can see it in the browser before importing it
+          into Minecraft.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >The model preview cannot have armor or custom heads applied to it as
+          this would require custom 3D model data, but you can see what a plain
+          vanilla armor stand looks like while playing your animation. You can
+          also make the model use the baby model, toggle the base plate and
+          render without its texture in Silhouette mode in the View menu at the
+          top of the screen.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >The model preview has traditional 3D object orbit controls: hold
+          right-click to move the camera, scroll wheel to zoom and left click
+          &amp; drag to orbit around the model preview. You can reset the
+          position to the front of the stand by double-clicking the model
+          preview screen or going to View &gt; Reset Camera Position.
+        </span>
+      </p>
+
+      <h1>
+        <a name="_4ry2p077yw78"></a
+        ><span lang="EN">Putting it into Minecraft</span>
+      </h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >In order to put your animation into Minecraft, you must already have
+          an understanding of command blocks, data packs and MCFUNCTION
+          files.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Minecraft: Java Edition does not have any animation file support in
+          vanilla, but we can change the rotation values of armor stands' limbs
+          with NBT. Since Minecraft has 20 ticks in a second, we can only change
+          animation frames 20 times a second, which means your animation is
+          locked to 20fps. Frame 0 would be 0:00, frame 20 would be 0:01.
+        </span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >To measure which frame the armor stand is on, a scoreboard objective
+          is created. When you run the function file generated by the website
+          in-game, your armor stand will switch its pose to the frame defined by
+          the entity's scoreboard value. This means that you have full control
+          over the in-game playback of your animation, but it also means it's a
+          little more complicated to set up.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_z9njp3rt6jmp"></a
+        ><span lang="EN">Exporting to a data pack</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >If you don't have a data pack you already want to add your function
+          file to, you can generate an entire data pack containing just your
+          function file.</span
+        >
+      </p>
+
+      <ol style="margin-top: 0in" start="1" type="1">
+        <li class="MsoNormal">
+          <span lang="EN"
+            >Create the world in Minecraft you want to import your animation
+            data to.</span
+          >
+        </li>
+        <li class="MsoNormal">
+          <span lang="EN"
+            >In the Armor Stand Animator, go to File &gt; Export &gt; as data
+            pack. Give your file a name.</span
+          >
+        </li>
+        <li class="MsoNormal">
+          <span lang="EN"
+            >You should get a .zip file downloaded to your computer. Navigate to
+            your downloads folder and cut (ctrl + x) the file.</span
+          >
+        </li>
+        <li class="MsoNormal">
+          <span lang="EN"
+            >Now find the folder containing your world data and open its
+            datapacks directory.</span
+          >
+        </li>
+        <ol style="margin-top: 0in" start="1" type="a">
+          <li class="MsoNormal">
+            <span lang="EN"> Type </span
+            ><span
+              lang="EN"
+              style="
+                font-family: 'Courier New';
+                color: black;
+                background: #d9d9d9;
+              "
+              >%appdata%</span
+            ><span lang="EN"> into the address bar of your file explorer</span>
+          </li>
+          <li class="MsoNormal">
+            <span lang="EN">Open the </span
+            ><span
+              lang="EN"
+              style="
+                font-family: 'Courier New';
+                color: black;
+                background: #d9d9d9;
+              "
+              >.minecraft</span
+            ><span lang="EN"> folder, then navigate into </span
+            ><span
+              lang="EN"
+              style="
+                font-family: 'Courier New';
+                color: black;
+                background: #d9d9d9;
+              "
+              >saves
+            </span>
+          </li>
+          <li class="MsoNormal">
+            <span lang="EN">Choose the appropriate world folder </span>
+          </li>
+          <li class="MsoNormal">
+            <span lang="EN">Open the datapacks folder</span>
+          </li>
+        </ol>
+        <li class="MsoNormal">
+          <span lang="EN"
+            >From here, you can paste your .zip file into the folder. Minecraft
+            will recognize it even if you leave it as a .zip file, but I would
+            recommend extracting the data because it makes it much easier to
+            edit the datapack later.</span
+          >
+        </li>
+      </ol>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >If you're already in your world, you should be able to type </span
+        ><span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >/reload</span
+        ><span lang="EN">
+          into the chat and your data pack will show up. If you're not yet in
+          the world, you can just enter it and Minecraft should recognize the
+          datapack.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >You can check if Minecraft has recognised your datapack by running </span
+        ><span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >/datapack list</span
+        ><span lang="EN">.</span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          ><img
+            border="0"
+            width="570"
+            height="58"
+            id="image2.png"
+            src="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/image003.png?v=1681318057442"
+        /></span>
+      </p>
+
+      <h2>
+        <a name="_k64d6mmf9c95"></a
+        ><span lang="EN">Export to function file</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >If you already have a data pack on the world you want to add your
+          animation to, you can choose to export your animation as a function
+          file instead (File &gt; Export &gt; as function file). Place it in the </span
+        ><span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >[datapack directory]/data/[namespace]/functions/</span
+        ><span lang="EN"> folder of your datapack. </span>
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >If you're already in your world, you should be able to type </span
+        ><span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >/reload</span
+        ><span lang="EN">
+          into the chat and your function will show up. If you're not already in
+          the world, you can just enter it and Minecraft should recognize the
+          function.</span
+        >
+      </p>
+
+      <h2>
+        <a name="_yprqonadkbgz"></a
+        ><span lang="EN">Playing the animation in-game</span>
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Now that you've imported the function file containing your animation
+          into Minecraft, it's time to play it in-game.</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">You'll need:</span></p>
+
+      <p class="MsoNormal" style="margin-left: 0.5in; text-indent: -0.25in">
+        <span lang="EN"
+          >-<span style="font: 7pt 'Times New Roman'"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span
+        ><span lang="EN">Creative mode</span>
+      </p>
+
+      <p class="MsoNormal" style="margin-left: 0.5in; text-indent: -0.25in">
+        <span lang="EN"
+          >-<span style="font: 7pt 'Times New Roman'"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span
+        ><span lang="EN">An armor stand</span>
+      </p>
+
+      <p class="MsoNormal" style="margin-left: 0.5in; text-indent: -0.25in">
+        <span lang="EN"
+          >-<span style="font: 7pt 'Times New Roman'"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span
+        ><span lang="EN">2-3 command blocks</span>
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >First, place down your armor stand. You can put armor or items on it
+          or edit its NBT in any way you want.
+        </span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Second of all, run the function file generated by the website (should
+          be available as </span
+        ><span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >/function &lt;datapack filename&gt;:&lt;scoreboard name&gt;</span
+        ><span lang="EN"
+          >) to create the scoreboard. You need to do this at least once before
+          you try animating your armor stand.</span
+        >
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Finally, place your command blocks down in a chain in this
+          pattern:</span
+        >
+      </p>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <div align="center">
+        <table
+          class="1"
+          border="1"
+          cellspacing="0"
+          cellpadding="0"
+          width="1082"
+          style="border-collapse: collapse; border: none"
+        >
+          <tr>
+            <td
+              width="147"
+              valign="top"
+              style="
+                width: 110.25pt;
+                border: solid black 1pt;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p
+                class="MsoNormal"
+                align="center"
+                style="text-align: center; line-height: normal; border: none"
+              >
+                <b
+                  ><span lang="EN" style="font-size: 8pt"
+                    >COMMAND BLOCK TYPE</span
+                  ></b
+                >
+              </p>
+            </td>
+            <td
+              width="117"
+              valign="top"
+              style="
+                width: 87.75pt;
+                border: solid black 1pt;
+                border-left: none;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p
+                class="MsoNormal"
+                align="center"
+                style="text-align: center; line-height: normal; border: none"
+              >
+                <b
+                  ><span lang="EN" style="font-size: 8pt"
+                    >NEEDS REDSTONE</span
+                  ></b
+                >
+              </p>
+            </td>
+            <td
+              width="818"
+              valign="top"
+              style="
+                width: 613.5pt;
+                border: solid black 1pt;
+                border-left: none;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p
+                class="MsoNormal"
+                align="center"
+                style="text-align: center; line-height: normal; border: none"
+              >
+                <b><span lang="EN" style="font-size: 8pt">COMMAND</span></b>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              width="147"
+              valign="top"
+              style="
+                width: 110.25pt;
+                border: solid black 1pt;
+                border-top: none;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal" style="line-height: normal; border: none">
+                <span lang="EN">Repeat</span>
+              </p>
+            </td>
+            <td
+              width="117"
+              valign="top"
+              style="
+                width: 87.75pt;
+                border-top: none;
+                border-left: none;
+                border-bottom: solid black 1pt;
+                border-right: solid black 1pt;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal" style="line-height: normal; border: none">
+                <span lang="EN">Yes</span>
+              </p>
+            </td>
+            <td
+              width="818"
+              valign="top"
+              style="
+                width: 613.5pt;
+                border-top: none;
+                border-left: none;
+                border-bottom: solid black 1pt;
+                border-right: solid black 1pt;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal">
+                <span
+                  lang="EN"
+                  style="
+                    font-family: 'Courier New';
+                    color: black;
+                    background: #d9d9d9;
+                  "
+                  >/function &lt;datapack filename&gt;:&lt;scoreboard
+                  name&gt;</span
+                >
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              width="147"
+              valign="top"
+              style="
+                width: 110.25pt;
+                border: solid black 1pt;
+                border-top: none;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal" style="line-height: normal; border: none">
+                <span lang="EN">Chain</span>
+              </p>
+            </td>
+            <td
+              width="117"
+              valign="top"
+              style="
+                width: 87.75pt;
+                border-top: none;
+                border-left: none;
+                border-bottom: solid black 1pt;
+                border-right: solid black 1pt;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal" style="line-height: normal; border: none">
+                <span lang="EN">No</span>
+              </p>
+            </td>
+            <td
+              width="818"
+              valign="top"
+              style="
+                width: 613.5pt;
+                border-top: none;
+                border-left: none;
+                border-bottom: solid black 1pt;
+                border-right: solid black 1pt;
+                padding: 5pt 5pt 5pt 5pt;
+              "
+            >
+              <p class="MsoNormal">
+                <span
+                  lang="EN"
+                  style="
+                    font-family: 'Courier New';
+                    color: black;
+                    background: #d9d9d9;
+                  "
+                  >/scoreboard players add
+                  @e[type=armor_stand,limit=1,sort=nearest] &lt;scoreboard
+                  name&gt; 1</span
+                >
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <p class="MsoNormal"><span lang="EN">&nbsp;</span></p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >Finally, place a redstone block down beside the repeating block to
+          start the chain. Your armor stand should play the animation!</span
+        >
+      </p>
+
+      <h2>
+        <a name="_lr81nkzcp8y4"></a
+        ><span lang="EN"
+          >Looping the animation or other forms of custom playback</span
+        >
+      </h2>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >You have complete control over your animation's playback in-game.
+          Unfortunately, this also means that you'll have to manually program
+          animation looping, start/stops, or backwards playback.
+        </span>
+      </p>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >You can achieve this by setting the armor stand's scoreboard entry to
+          any frame and then running the function to apply the changes. For
+          example,
+        </span>
+      </p>
+
+      <p class="MsoNormal">
+        <span
+          lang="EN"
+          style="font-family: 'Courier New'; color: black; background: #d9d9d9"
+          >/scoreboard players set
+          @e[type=armor_stand,limit=1,sort=nearest,scores={&lt;scoreboard
+          name&gt;=60}] &lt;scoreboard name&gt; 0</span
+        ><span lang="EN">
+          will restart your animation from the beginning when it has played for
+          60 ticks. You would add this command to your chain to check when the
+          armor stand has reached specific parts of the animation.</span
+        >
+      </p>
+
+      <h1>
+        <a name="_n9e2hgtkbq86"></a><span lang="EN">Advanced Features</span>
+      </h1>
+
+      <p class="MsoNormal">
+        <span lang="EN"
+          >There are a couple more advanced animation editing features that
+          could uncomplicate the animating process for more elaborate processes.
+        </span>
+      </p>
+    </div>
+  </body>
 </html>
