@@ -676,6 +676,11 @@ document.addEventListener("keydown", function(e){
       })
       multiselectMarker()
     }
+    if(e.key == 's' && e.ctrlKey){
+      e.preventDefault();
+      //Duplicate all selected markers
+      saveProject()
+    }
     if(e.key == '.'){
       let leftamount = (Math.round(document.querySelector(".dynamic-editor-container").scrollLeft / framepixelratio) * framepixelratio);
       leftamount += framepixelratio;
