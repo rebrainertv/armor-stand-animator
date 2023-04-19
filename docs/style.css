@@ -7,6 +7,10 @@ h1 {
   font-size: 3em;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--app-background);
   color: white;
@@ -40,4 +44,11 @@ table {
   top: 0;
   z-index: 1;
   background-color: var(--sidebar-background);
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-overflow: clip;
+}
+
+.sidebar a {
+  background-color: transparent;
 }
