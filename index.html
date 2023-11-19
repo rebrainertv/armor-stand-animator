@@ -549,6 +549,21 @@
       </button>
       <br><br>
     </div>
+    <div id="export-modal" class="modal" style="display:none;">
+      <table class="title-bar">
+        <tr>
+          <td>Export</td>
+          <td class="close-button" onclick="closeModals()">×</td>
+        </tr>
+      </table>
+      <br>
+      <label><input type="checkbox"> Use @s instead of @e</label><br>
+      <label><input type="checkbox"> Eliminate repeated data changes</label>
+      <button onclick="moveMarker(currentMovableMarker, document.getElementById('edit-specific-ticks').value); closeModals();">
+        Export
+      </button>
+      <br><br>
+    </div>
     <ul class="context-menu" id="context-menu" style="display: none;"></ul>
   </body>
 </html>
