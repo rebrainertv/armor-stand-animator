@@ -1623,6 +1623,7 @@ function exportToBedrockAnimation(){
   let animid = "animation.armor_stand." + scoreboardname;
   
   //DOES NOT SUPPORT: events, torso rotation, instant transitions
+  //VERY EXPERIMENTAL
   
   filedata.animations[animid] = {
     bones: {
