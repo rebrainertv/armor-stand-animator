@@ -1559,7 +1559,7 @@ function generateFunction(reduced = false){
   for(let i = 0; i < framedata.length; i++){
     let frame = framedata[i];
     if((reduced === false) || i === 0 || (i > 0 && (generateCommand(frame.pose) !== generateCommand(framedata[i-1].pose)))){
-      filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generateCommand(frame.pose))
+      filedata.push("execute as @s[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generateCommand(frame.pose))
     }
   }
   
@@ -1569,7 +1569,7 @@ function generateFunction(reduced = false){
       //Mutliple commands per marker
       let commands = marker.event.split("\n");
       for(let command of commands){
-        if(command.length > 3) filedata.push("execute as @e[scores={"+ scoreboardname +"="+ marker.timestamp +"}" + extraselectordata + "] at @s run " + command)
+        if(command.length > 3) filedata.push("execute as @s[scores={"+ scoreboardname +"="+ marker.timestamp +"}" + extraselectordata + "] at @s run " + command)
       }
     }
   }
@@ -1612,6 +1612,28 @@ function exportToDatapack(){
       saveAs(result, filename + '.zip');
     })
   }
+}
+
+function exportToBedrockAnimation(){  
+  let filedata = {
+    format_version: "1.8.0",
+    animations: {}
+  };
+  let scoreboardname = document.getElementById("scoreboardname").value;
+  let animid = "animation.armor_stand." + scoreboardname;
+  
+  //DOES NOT SUPPORT: events, torso rotation, instant transitions
+  
+  filedata.animations[animid] = {
+    bones: {}
+  };
+  
+  let bones = 
+  
+  let filename = prompt("What do you want your filename to be?", defaultfilename);
+  if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
+  
+  
 }
 
 function resetOrbit(){

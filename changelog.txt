@@ -1,2 +1,4 @@
 What's new in v1.0.1
-- Added exporting as a reduced function file. This removes all repeating frames and speeds up animation times but may decrease accuracy in some cases.
+- Added exporting as a reduced function file.
+  - This removes all repeating frames and speeds up animation times but may decrease accuracy in some cases.
+  - It can also help reduce file sizes
