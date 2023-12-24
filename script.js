@@ -1542,7 +1542,7 @@ function generateCommand(posedata){
   return "data merge entity @s "+ nbt +"";
 }
 
-function generateFunction(){
+function generateFunction(reduced = false){
   if(document.getElementById("scoreboardname").value == ''){
     document.getElementById("scoreboardname").value = prompt("What do you want to call your scoreboard?", "example_animation");
   }
@@ -1556,8 +1556,11 @@ function generateFunction(){
     "scoreboard objectives add " + scoreboardname + " dummy"
   ];
   let extraselectordata = "";
-  for(let frame of framedata){    
-    filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generateCommand(frame.pose))
+  for(let i = 0; i < framedata.length; i++){
+    let frame = framedata[i];
+    if((reduced === false) || i === 0 || (i > 0 && (generateCommand(frame.pose) !== generateCommand(framedata[i-1].pose)))){
+      filedata.push("execute as @e[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generateCommand(frame.pose))
+    }
   }
   
   //Get event markers, finally
@@ -1582,9 +1585,10 @@ function exportToFunction(){
 }
 
 function exportToFunctionReduced(){
-  let filedata = generateFunction();
+  let filedata = generateFunction(true);
   
-  
+  //Delete all repeating lines
+  console.log(filedata);
   
   let filename = prompt("What do you want your filename to be?", defaultfilename);
   if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
