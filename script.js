@@ -1636,7 +1636,7 @@ function exportToBedrockAnimation(){
   };
   
   function getBedrockBoneData(mode, entry){
-    if(entry.join(",") === 'false,false,false') return false;
+    if(entry.join(",") === 'false,false,false' || entry.join(",") === 'false,false') return false;
     
     let output = [
       entry[0] || 0.0,
@@ -1662,13 +1662,16 @@ function exportToBedrockAnimation(){
   for(let marker of markerdata){
     if(marker.type === "keyframe" && marker.pose){
       animbones['head'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.Head) || {};
+      animbones['rightarm'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.RightArm) || {};
+      animbones['leftarm'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.LeftArm) || {};
+      animbones['rightleg'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.RightLeg) || {};
+      animbones['leftleg'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.LeftLeg) || {};
+      animbones['baseplate'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.rotations) || {};
     }
   }
   
   let filename = prompt("What do you want your filename to be?", defaultfilename);
-  if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
-  
-  
+  if(filename !== null) saveAs(new File([JSON.stringify(filedata)], filename +'.animation.json'))
 }
 
 function resetOrbit(){
