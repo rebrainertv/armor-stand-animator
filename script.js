@@ -1625,10 +1625,45 @@ function exportToBedrockAnimation(){
   //DOES NOT SUPPORT: events, torso rotation, instant transitions
   
   filedata.animations[animid] = {
-    bones: {}
+    bones: {
+      head: { rotation: {} },
+      rightarm: { rotation: {} },
+      leftarm: { rotation: {} },
+      rightleg: { rotation: {} },
+      leftleg: { rotation: {} },
+      baseplate: { rotation: {} },
+    }
   };
   
-  let bones = 
+  function getBedrockBoneData(mode, entry){
+    if(entry.join(",") === 'false,false,false') return false;
+    
+    let output = [
+      entry[0] || 0.0,
+      entry[1] || 0.0,
+      entry[2] || 0.0,
+    ];
+    
+    if(mode === 'ease'){
+      return {
+        lerp_mode: 'catmullrom',
+        post: output
+      };
+    } else if(mode === 'linear'){
+      return output;
+    } else {
+      return {
+        post: output
+      }
+    }
+  }
+  
+  let animbones = filedata.animations[animid].bones;
+  for(let marker of markerdata){
+    if(marker.type === "keyframe" && marker.pose){
+      animbones['head'].rotation[(marker.timestamp / 20)] = getBedrockBoneData(marker.mode, marker.pose.Head) || {};
+    }
+  }
   
   let filename = prompt("What do you want your filename to be?", defaultfilename);
   if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
