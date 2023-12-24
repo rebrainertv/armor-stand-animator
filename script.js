@@ -1581,6 +1581,15 @@ function exportToFunction(){
   if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
 }
 
+function exportToFunctionReduced(){
+  let filedata = generateFunction();
+  
+  
+  
+  let filename = prompt("What do you want your filename to be?", defaultfilename);
+  if(filename !== null) saveAs(new File([filedata.join("\n")], filename +'.mcfunction'))
+}
+
 function exportToDatapack(){
   let filedata = generateFunction();
   
