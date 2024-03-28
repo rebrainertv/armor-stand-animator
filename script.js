@@ -470,6 +470,7 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     
+    // Merge markers and autocorrect their position
     if(e.which !== 3 || !e.which) mergeMarkers()
   }
 }
@@ -774,32 +775,38 @@ function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.se
     let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
     let tick = (leftamount / framepixelratio) * framepixelmultiplier;
     selel.style.left = leftamount + "px";
+  });
+  
+  markers.forEach((selel) => {
+    let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
+    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+    selel.style.left = leftamount + "px";
 
     markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
-    let mydata = markerdata[parseFloat(selel.getAttribute("index"))];
+    let seldata = markerdata[parseFloat(selel.getAttribute("index"))];
     //Merge markers if applicable
     let successcount = 0;
     let originalmarker = false;
     for(let marker of markerdata) {
-      if(marker.timestamp == tick && !marker.deleted && marker.type === mydata.type){
+      if(marker.timestamp == tick && !marker.deleted && marker.type === seldata.type){
         successcount++;
-        if(originalmarker == false && marker !== mydata){
+        if(originalmarker == false && marker !== seldata){
           originalmarker = marker;
         }
       } 
     }
     if(successcount > 1) {
-      if(mydata.type == 'keyframe'){
-        for(let bonename of Object.keys(mydata.pose)){
+      if(seldata.type == 'keyframe'){
+        for(let bonename of Object.keys(seldata.pose)){
           for(let i = 0; i < mydata.pose[bonename].length; i++){
-            if(mydata.pose[bonename][i] !== false){
-              originalmarker.pose[bonename][i] = mydata.pose[bonename][i];
+            if(seldata.pose[bonename][i] !== false){
+              originalmarker.pose[bonename][i] = seldata.pose[bonename][i];
             }
           }
         }
-        originalmarker.mode = mydata.mode;
+        originalmarker.mode = seldata.mode;
       } else {
-        originalmarker.event = [originalmarker.event, mydata.event].join("\n");
+        originalmarker.event = [originalmarker.event, seldata.event].join("\n");
       }
       markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
       selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(originalmarker) +'"]')}, true);
