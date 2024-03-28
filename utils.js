@@ -24,4 +24,6 @@ function moveMarker(el, tick){
   markerdata[index].timestamp = tick;
   el.style.left = (markerdata[index].timestamp * framepixelratio) + "px";
   el.scrollIntoViewIfNeeded()
+  
+  mergeMarkers([el]);
 }

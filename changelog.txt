@@ -5,4 +5,4 @@ What's new in v1.0.1
   
 What's new in v1.0.2
 - Fixed a bug where moving multiple markers would sometimes unexpectedly merge them with previously existsing ones
--
+- Fixed a bug where manually moving markers to a specific position would fail to merge them

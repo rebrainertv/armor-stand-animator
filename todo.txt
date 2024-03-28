@@ -1,5 +1,6 @@
 x Fix frame transitions not properly identifying the animation mode
 x Half time and double time
 x When multiselecting, unselect everything the box isn't touching
-- Documentation and about pages
+x Documentation and about pages
 x General top menu functionality
+- "Add soundfile"
