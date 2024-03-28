@@ -465,7 +465,7 @@ function dragElement(elmnt) {
     })
   }
 
-  function closeDragElement(e) {
+  function closeDragElement(e = new MouseEvent("mouseup")) {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
@@ -786,7 +786,7 @@ function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.se
     let seldata = markerdata[parseFloat(selel.getAttribute("index"))];
     
     //Merge markers if applicable
-    let matchingMarker = markerdata.find((mkr) => {mkr.timestamp == tick && !mrk.deleted && mkr.type === seldata.type && mkr != seldata});
+    let matchingMarker = markerdata.find((mkr) => mkr.timestamp == tick && !mkr.deleted && mkr.type === seldata.type && mkr != seldata);
     if(matchingMarker) {
       if(seldata.type == 'keyframe'){
         for(let bonename of Object.keys(seldata.pose)){
@@ -803,20 +803,6 @@ function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.se
       markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
       selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(matchingMarker) +'"]')}, true);
       selel.parentNode.removeChild(selel);
-    }
-    
-    let successcount = 0;
-    let originalmarker = false;
-    for(let marker of markerdata) {
-      if(marker.timestamp == tick && !marker.deleted && marker.type === seldata.type){
-        successcount++;
-        if(originalmarker == false && marker !== seldata){
-          originalmarker = marker;
-        }
-      } 
-    }
-    if(successcount > 1) {
-      
     }
   })
 }
