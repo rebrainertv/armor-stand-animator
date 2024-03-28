@@ -771,20 +771,40 @@ function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.se
     }
   }*/
   
+  // Snap position of selected markers
   markers.forEach((selel) => {
     let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
-    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
     selel.style.left = leftamount + "px";
+    let tick = (leftamount / framepixelratio) * framepixelmultiplier;
+    markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
   });
   
+  // Merge markers at the same position
   markers.forEach((selel) => {
     let leftamount = (Math.round(selel.offsetLeft / framepixelratio) * framepixelratio);
     let tick = (leftamount / framepixelratio) * framepixelmultiplier;
-    selel.style.left = leftamount + "px";
-
-    markerdata[parseFloat(selel.getAttribute("index"))].timestamp = tick;
     let seldata = markerdata[parseFloat(selel.getAttribute("index"))];
+    
     //Merge markers if applicable
+    let matchingMarker = markerdata.find((mkr) => {mkr.timestamp == tick && !mrk.deleted && mkr.type === seldata.type && mkr != seldata});
+    if(matchingMarker) {
+      if(seldata.type == 'keyframe'){
+        for(let bonename of Object.keys(seldata.pose)){
+          for(let i = 0; i < seldata.pose[bonename].length; i++){
+            if(seldata.pose[bonename][i] !== false){
+              matchingMarker.pose[bonename][i] = seldata.pose[bonename][i];
+            }
+          }
+        }
+        matchingMarker.mode = seldata.mode;
+      } else {
+        matchingMarker.event = [matchingMarker.event, seldata.event].join("\n");
+      }
+      markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
+      selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(matchingMarker) +'"]')}, true);
+      selel.parentNode.removeChild(selel);
+    }
+    
     let successcount = 0;
     let originalmarker = false;
     for(let marker of markerdata) {
@@ -796,21 +816,7 @@ function mergeMarkers(markers = Array.from(document.querySelectorAll(".marker.se
       } 
     }
     if(successcount > 1) {
-      if(seldata.type == 'keyframe'){
-        for(let bonename of Object.keys(seldata.pose)){
-          for(let i = 0; i < mydata.pose[bonename].length; i++){
-            if(seldata.pose[bonename][i] !== false){
-              originalmarker.pose[bonename][i] = seldata.pose[bonename][i];
-            }
-          }
-        }
-        originalmarker.mode = seldata.mode;
-      } else {
-        originalmarker.event = [originalmarker.event, seldata.event].join("\n");
-      }
-      markerdata[parseFloat(selel.getAttribute("index"))].deleted = true;
-      selectMarker({target: document.querySelector('.marker[index="'+ markerdata.indexOf(originalmarker) +'"]')}, true);
-      selel.parentNode.removeChild(selel);
+      
     }
   })
 }
