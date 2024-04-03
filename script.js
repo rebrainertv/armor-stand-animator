@@ -21,12 +21,23 @@ function generateEditorTimestamps(amount){
     element.innerHTML = "<span style='width:129px; display: inline-block;'>" + (lastGeneratedTimestamp + 1).toString().toMMSS() + "</span>";
     lastGeneratedTimestamp++;
     
-    let empty1 = document.createElement("td");
-    let empty2 = document.createElement("td");
-    
     document.getElementById("dynamic-ruler").appendChild(element);
-    document.getElementById("dynamic-events").appendChild(empty1);
-    document.getElementById("dynamic-animations").appendChild(empty2);
+
+    let emptyContainers = [
+      "dynamic-events",
+      "dynamic-animations-rotation",
+      "dynamic-animations",
+      "dynamic-animations-leftarm",
+      "dynamic-animations-rightarm",
+      "dynamic-animations-body",
+      "dynamic-animations-leftleg",
+      "dynamic-animations-rightleg",
+    ];
+
+    for(let id of emptyContainers) {
+      let empty = document.createElement("td");
+      document.getElementById(id).appendChild(empty);
+    }
   }
   
   document.querySelector(".end-spacer").parentNode.appendChild(document.querySelector(".end-spacer"));
