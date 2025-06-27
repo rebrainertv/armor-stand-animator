@@ -3,4 +3,11 @@ x Half time and double time
 x When multiselecting, unselect everything the box isn't touching
 x Documentation and about pages
 x General top menu functionality
-- "Add soundfile"
+x "Add soundfile"
+ Fix transparencies (removed lol)
+x Fix event markers
+x Fix playback pane
+x Fix small model combined with scale
+x Fix deletion
+
+- Scroll to previous and next event markers with a button

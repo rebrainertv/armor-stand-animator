@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head> 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/icon.png?v=1677522942107">
+    <link rel="icon" href="./assets/icon.png">
 
-    <title>Armor Stand Animator</title>
+    <title>Armor Stand Animator by ReBrainerTV</title>
 
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
@@ -22,264 +22,306 @@
 			}
 		</script>
     
-    <script src="https://unpkg.com/wavesurfer.js@7"></script>
-    <script type="module" src="/model.js" defer></script>
-    <script src="./filesaver.js" defer></script>
+    <script src="./js/filesaver.js" defer></script>
+    <script src="./js/markdown-it.min.js"></script>
+    <script src="./js/waveform.min.js" defer></script>
+    <script src="./js/jszip.js" defer></script>
+
+    <script type="module" src="./model.js" defer></script>
+    
     <script src="./utils.js" defer></script>
-    <script src="./jszip.js" defer></script>
+    <script src="./visualOptions.js" defer></script>
     <script src="./script.js" defer></script>
     <!--<script src="/script.js" defer></script>-->
   </head>
   <body>
     <header>
-      <span class="context-label">
-        File
-        <ul class="context-menu">
-          <li onclick="window.open(location.href)">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            New
-          </li>
-          <label style="display: list-item;" for="project-upload">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Load Project
-          </label>
-          <input type="file" style="display: none;" accept=".mcanimation" id="project-upload">
-          <li onclick="saveProject()">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Save Project
-          </li>
-          <li class="nested-menu-header">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Export
-            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
-            <ul class="context-menu nested-menu">
-              <li onclick="exportToFunction()">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
-                as function file
-              </li>
-              <li onclick="exportToFunctionReduced()">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
-                as reduced function file
-              </li>
-              <li onclick="exportToDatapack()">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
-                as data pack
-              </li>
-              <li onclick="exportToBedrockAnimation()">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
-                as a Bedrock animation
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </span><!--
-   --><span class="context-label">
-        Edit
-        <ul class="context-menu">
-          <!--<li onclick="">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Undo
-          </li>
-          <li onclick="">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Redo
-          </li>-->
-          <li onclick="retimeModifierMarker(0.5)">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Half time
-          </li>
-          <li onclick="retimeModifierMarker(2)">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Double time
-          </li>
-          <li onclick="duplicateMarker()">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Duplicate markers
-          </li>
-          <li onclick="deleteMarker()">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Delete markers
-          </li>
-          <li onclick="disableMarker()">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Disable markers
-          </li>
-          <li class="nested-menu-header">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Erase Markers
-            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
-            <ul class="context-menu nested-menu">
-              <li onclick="eraseMarkerCommand()">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                All
-              </li>
-              <li onclick="eraseMarkerCommand('.events')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                All event
-              </li>
-              <li onclick="eraseMarkerCommand('.animations')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                All animation
-              </li>
-            </ul>
-          </li>
-          <li class="nested-menu-header">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Playback Speed
-            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
-            <ul class="context-menu nested-menu">
-              <li onclick="setPlaybackSpeed('0.5')">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-0.5-checkmark" class="speed-checkmark">
-                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                </svg>
-                0.5
-              </li>
-              <li onclick="setPlaybackSpeed('1.0')">
-                <svg style="height: 14px;" viewbox="0 0 24 24" id="speed-1.0-checkmark" class="speed-checkmark">
-                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                </svg>
-                1.0
-              </li>
-              <li onclick="setPlaybackSpeed('1.5')">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-1.5-checkmark" class="speed-checkmark">
-                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                </svg>
-                1.5
-              </li>
-              <li onclick="setPlaybackSpeed('2.0')">
-                <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-2.0-checkmark" class="speed-checkmark">
-                  <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                </svg>
-                2.0
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </span><!--
-   --><span class="context-label">
-        Add
-        <ul class="context-menu">
-          <li onclick="openInsertSpecificMarker('events')">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Event marker at specific position
-          </li>
-          <li onclick="createMarker('events')">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Event marker at cursor
-          </li>
-          <li onclick="openInsertSpecificMarker('animations')">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Animation marker at specific position
-          </li>
-          <li onclick="createMarker('animations')">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Animation marker at cursor
-          </li>
-        </ul>
-      </span><!--
-   --><span class="context-label">
-        View
-        <ul class="context-menu">
-          <li onclick="toggleBasePlate()">
-            <svg style="height: 14px;" viewbox="0 0 24 24" id="baseplate-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Show Base Plate
-          </li>
-          <li onclick="toggleSmall()">
-            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="viewsmall-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Small Model
-          </li>
-          <li onclick="toggleSilhouette()">
-            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="silhouette-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Silhouette
-          </li>
-          <li onclick="resetOrbit()">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Reset camera position
-          </li>
-          <li onclick="toggleFramePreview()">
-            <svg style="height: 14px;" viewbox="0 0 24 24" id="framepreview-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Preview Frame-By-Frame Rotation
-          </li>
-          <li onclick="toggleMarkerChangeHighlights()">
-            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="markerchange-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Highlight Marker Changes In Editor
-          </li>
-          <li onclick="togglePlaybackChangeHighlights()">
-            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playbackmarkerchange-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Highlight Marker Changes In Playback
-          </li>
-          <li onclick="togglePlaybackPane()">
-            <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playbackpane-checkmark">
-              <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-            </svg>
-            Show Playback Pane
-          </li>
-        </ul>
-      </span><!--
-   --><span class="context-label">
-        Help
-        <ul class="context-menu">
-          <li>
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Credits
-          </li>
-          <li onclick="window.open('/docs/')">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Documentation
-          </li>
-          <li class="nested-menu-header">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Examples
-            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
-            <ul class="context-menu nested-menu">
-              <li onclick="openExampleFile('https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/dab.mcanimation')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Dab
-              </li>
-              <li onclick="openExampleFile('https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/griddyproject.mcanimation')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Griddy
-              </li>
-              <li onclick="openExampleFile('https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/spin.mcanimation')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Spin
-              </li>
-              <li onclick="openExampleFile('https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/wave_test3.mcanimation')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Wave
-              </li>
-              <li onclick="openExampleFile('https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/ymca.mcanimation')">
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                YMCA
-              </li>
-            </ul>
-          </li>
-          <!--<li class="nested-menu-header">
-            <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-            Test
-            <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
-            <ul class="context-menu nested-menu">
-              <li>
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Nested Menu
-              </li>
-              <li>
-                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
-                Nested Menu
-              </li>
-              <li class="nested-menu-header">
+      <div class="header-toolbar">
+        <span class="context-label">
+          File
+          <ul class="context-menu">
+            <li onclick="window.open(location.href)">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              New
+            </li>
+            <label style="display: list-item;" for="project-upload">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Load Project
+            </label>
+            <input type="file" style="display: none;" accept=".mcanimation" id="project-upload">
+            <li onclick="saveProject()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Save Project
+            </li>
+            <li class="nested-menu-header">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Export
+              <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+              <ul class="context-menu nested-menu">
+                <li onclick="exportToFunction()">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
+                  as function file
+                </li>
+                <li onclick="exportToFunctionReduced()">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
+                  as reduced function file
+                </li>
+                <li onclick="exportToDatapack()">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
+                  as data pack
+                </li>
+                <li onclick="exportToBedrockAnimation()">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24"></svg>
+                  as a Bedrock animation
+                </li>
+              </ul>
+            </li>
+            <label style="display: list-item;" for="audio-upload">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Select Preview Audio
+            </label>
+            <input type="file" style="display: none;" accept=".ogg,.mp3,.wav" id="audio-upload">
+          </ul>
+        </span>
+        <span class="context-label">
+          Edit
+          <ul class="context-menu">
+            <!--<li onclick="">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Undo
+            </li>
+            <li onclick="">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Redo
+            </li>-->
+            <!--<li onclick="retimeModifierMarker(0.5)">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Half time
+            </li>
+            <li onclick="retimeModifierMarker(2)">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Double time
+            </li>-->
+            <li onclick="duplicateMarker()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Duplicate markers
+            </li>
+            <li onclick="deleteMarker()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Delete markers
+            </li>
+            <li onclick="disableMarker()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Disable markers
+            </li>
+            <li class="nested-menu-header" style="width: 14em;">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Set marker easing mode
+              <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+              <ul class="context-menu nested-menu">
+                <li onclick="setMarkerInterpolationMode('none')">
+                  <svg viewBox="0 0 20 18" style="height: 14px;"><path d="m 20,16 v 2 H 0 V 0 h 2 l 0.05948,15.967509 z" fill="currentColor" /><path style="fill:none;stroke:currentColor;stroke-width:2.044;stroke-dasharray:none;stroke-opacity:1" d="m 1.7068279,13.051747 9.0073251,-0.06663 0.08065,-8.6358657 9.119189,-0.085008"/></svg>
+                  None
+                </li>
+                <li onclick="setMarkerInterpolationMode('linear')">
+                  <svg viewBox="0 0 20 18" style="height: 14px;"><path d="m 20,16 v 2 H 0 V 0 h 2 l 0.05948,15.967509 z" fill="currentColor" /><path style="fill:none;stroke:currentColor;stroke-width:2.044;stroke-dasharray:none;stroke-opacity:1" d="M 1.9744859,15.906766 18.218824,2.03376" /></svg>
+                  Linear
+                </li>
+                <li onclick="setMarkerInterpolationMode('ease')">
+                  <svg viewBox="0 0 20 18" style="height: 14px;"><path d="m 20,16 v 2 H 0 V 0 h 2 l 0.05948,15.967509 z" fill="currentColor" /><path style="fill:none;stroke:currentColor;stroke-width:2.044;stroke-dasharray:none;stroke-opacity:1" d="m 1.9744859,15.906766 c 0,0 4.8182775,-0.814035 6.4526091,-2.429984 C 11.023854,10.90923 9.62085,5.6331755 12.403768,3.2686772 13.913874,1.9856198 18.218824,2.03376 18.218824,2.03376" /></svg>
+                  Ease in-out
+                </li>
+                <li onclick="setMarkerInterpolationMode('ease-in')">
+                  <svg viewBox="0 0 20 18" style="height: 14px;"><path d="m 20,16 v 2 H 0 V 0 h 2 l 0.05948,15.967509 z" fill="currentColor" /><path style="fill:none;stroke:currentColor;stroke-width:2.044;stroke-dasharray:none;stroke-opacity:1" d="m 1.9744859,15.906766 c 0,0 8.0115001,-0.519548 10.9174271,-2.916181 C 16.024887,10.406698 18.218824,2.03376 18.218824,2.03376" /></svg>
+                  Ease in
+                </li>
+                <li onclick="setMarkerInterpolationMode('ease-out')">
+                  <svg viewBox="0 0 20 18" style="height: 14px;"><path d="m 20,16 v 2 H 0 V 0 h 2 l 0.05948,15.967509 z" fill="currentColor" /><path style="fill:none;stroke:currentColor;stroke-width:2.044;stroke-dasharray:none;stroke-opacity:1" d="m 1.9744859,15.906766 c 0,0 2.3156763,-8.479792 5.5196575,-11.0797494 C 10.362665,2.4992772 18.218824,2.03376 18.218824,2.03376" /></svg>
+                  Ease out
+                </li>
+              </ul>
+            </li>
+            <li class="nested-menu-header">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Erase markers
+              <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+              <ul class="context-menu nested-menu">
+                <li onclick="eraseMarkerCommand()">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  All
+                </li>
+                <li onclick="eraseMarkerCommand('.events')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  All event
+                </li>
+                <li onclick="eraseMarkerCommand('.animations')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  All animation
+                </li>
+              </ul>
+            </li>
+            <li class="nested-menu-header">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Playback Speed
+              <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+              <ul class="context-menu nested-menu">
+                <li onclick="setPlaybackSpeed('0.5')">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-0.5-checkmark" class="speed-checkmark">
+                    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                  </svg>
+                  0.5
+                </li>
+                <li onclick="setPlaybackSpeed('1.0')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24" id="speed-1.0-checkmark" class="speed-checkmark">
+                    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                  </svg>
+                  1.0
+                </li>
+                <li onclick="setPlaybackSpeed('1.5')">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-1.5-checkmark" class="speed-checkmark">
+                    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                  </svg>
+                  1.5
+                </li>
+                <li onclick="setPlaybackSpeed('2.0')">
+                  <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="speed-2.0-checkmark" class="speed-checkmark">
+                    <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                  </svg>
+                  2.0
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </span>
+        <span class="context-label">
+          Add
+          <ul class="context-menu">
+            <li onclick="openInsertSpecificMarker('events')">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Event marker at specific position
+            </li>
+            <li onclick="createEventMarkerCommand()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Event marker at cursor
+            </li>
+            <!--<li onclick="openInsertSpecificMarker('animations')">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Animation marker at specific position
+            </li>
+            <li onclick="createMarker('animations')">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Animation marker at cursor
+            </li>-->
+          </ul>
+        </span>
+        <span class="context-label">
+          View
+          <ul class="context-menu">
+            <li onclick="toggleBasePlate()">
+              <svg style="height: 14px;" viewbox="0 0 24 24" id="baseplate-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Base Plate
+            </li>
+            <li onclick="toggleSmall()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="viewsmall-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Small Model
+            </li>
+            <li onclick="toggleSilhouette()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="silhouette-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Silhouette
+            </li>
+            <li onclick="resetOrbit()">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Reset camera position
+            </li>
+            <li onclick="toggleFramePreview()">
+              <svg style="height: 14px;" viewbox="0 0 24 24" id="framepreview-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Preview Frame-By-Frame Rotation
+            </li>
+            <!--<li onclick="toggleMarkerChangeHighlights()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="markerchange-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Highlight Marker Changes In Editor
+            </li>
+            <li onclick="togglePlaybackChangeHighlights()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playbackmarkerchange-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Highlight Marker Changes In Playback
+            </li>-->
+            <li onclick="toggleForwardDirectionIndicator()">
+              <svg style="height: 14px; visibility: visible;" viewbox="0 0 24 24" id="forwarddirection-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Forward Direction Indicator
+            </li>
+            <li onclick="toggleRotationDirectionIndicator()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="rotationdirection-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Rotation Direction Indicator
+            </li>
+            <li onclick="togglePlaybackPane()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playbackpane-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Playback Pane
+            </li>
+            <li onclick="toggleWaveformVisibility()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="waveform-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Waveform in Editor
+            </li>
+          </ul>
+        </span>
+        <span class="context-label">
+          Help
+          <ul class="context-menu">
+            <li onclick="window.open('/changelog/')">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Changelog
+            </li>
+            <li onclick="window.open('/docs/')">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Documentation
+            </li>
+            <li class="nested-menu-header">
+              <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+              Examples
+              <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+              <ul class="context-menu nested-menu">
+                <li onclick="openExampleFile('./examples/dab.mcanimation', 'Dab')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Dab
+                </li>
+                <li onclick="openExampleFile('./examples/griddyproject.mcanimation', 'Griddy')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Griddy
+                </li>
+                <li onclick="openExampleFile('./examples/spin.mcanimation', 'Spin')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Spin
+                </li>
+                <li onclick="openExampleFile('./examples/wave_test3.mcanimation', 'Wave')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Wave
+                </li>
+                <li onclick="openExampleFile('./examples/sigh_cry_2.mcanimation', 'Sigh Cry')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Sigh Cry
+                </li>
+              </ul>
+            </li>
+            <!--<li class="nested-menu-header">
               <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
               Test
               <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
@@ -292,14 +334,30 @@
                   <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
                   Nested Menu
                 </li>
+                <li class="nested-menu-header">
+                <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                Test
+                <svg style="height: 26px;position:absolute;right:0;vertical-align:middle;" viewbox="0 0 24 24"><path fill="currentColor" d="M10,17L15,12L10,7V17Z" /></svg>
+                <ul class="context-menu nested-menu">
+                  <li>
+                    <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                    Nested Menu
+                  </li>
+                  <li>
+                    <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                    Nested Menu
+                  </li>
+                </ul>
+              </li>
               </ul>
-            </li>
-            </ul>
-          </li>-->
-        </ul>
-      </span>
+            </li>-->
+          </ul>
+        </span>
+      </div>
       
-      <span style="float: right; color: #c1c1c1; width: 170px;">By ReBrainerTV v1.0.2</span>
+      <span id="project-name">Untitled Project</span>
+
+      <span class="watermark">By ReBrainerTV v1.1.1</span>
       <span style="float: right; color: #c1c1c1; margin-right: 12px; display:none;">Compiling frames <div class="save-progress"><div class="value" style="width: 50%"></div></div></span>
     </header>
     <div class="app-main">
@@ -332,102 +390,34 @@
         </div>
       </div><!--
    --><div class="app-right">
-        <div class="app-right-inner screen animations-screen" style="display:none;">
-          <h1>Animation</h1>
-          <br>
-          <table style="margin:auto;">
-            <tbody>
-              <tr>
-                <td>Head</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-head-x" step="5" oninput="updateRotation('Head', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="Head" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-head-y" step="5" oninput="updateRotation('Head', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="Head" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-head-z" step="5" oninput="updateRotation('Head', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="Head" index="2"></td>
-              </tr>
-              <tr>
-                <td>Left Arm</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-leftarm-x" step="5" oninput="updateRotation('LeftArm', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftArm" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-leftarm-y" step="5" oninput="updateRotation('LeftArm', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftArm" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-leftarm-z" step="5" oninput="updateRotation('LeftArm', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftArm" index="2"></td>
-              </tr>
-              <tr>
-                <td>Right Arm</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-rightarm-x" step="5" oninput="updateRotation('RightArm', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightArm" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-rightarm-y" step="5" oninput="updateRotation('RightArm', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightArm" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-rightarm-z" step="5" oninput="updateRotation('RightArm', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightArm" index="2"></td>
-              </tr>
-              <tr>
-                <td>Chest</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-chest-x" step="5" oninput="updateRotation('Body', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="Body" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-chest-y" step="5" oninput="updateRotation('Body', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="Body" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-chest-z" step="5" oninput="updateRotation('Body', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="Body" index="2"></td>
-              </tr>
-              <tr>
-                <td>Left Leg</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-leftleg-x" step="5" oninput="updateRotation('LeftLeg', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftLeg" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-leftleg-y" step="5" oninput="updateRotation('LeftLeg', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftLeg" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-leftleg-z" step="5" oninput="updateRotation('LeftLeg', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="LeftLeg" index="2"></td>
-              </tr>
-              <tr>
-                <td>Right Leg</td>
-                <td><input class="app-input" type="number" default-placeholder="x°" placeholder="x°" id="facing-rightleg-x" step="5" oninput="updateRotation('RightLeg', 0, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightLeg" index="0"></td>
-                <td><input class="app-input" type="number" default-placeholder="y°" placeholder="y°" id="facing-rightleg-y" step="5" oninput="updateRotation('RightLeg', 1, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightLeg" index="1"></td>
-                <td><input class="app-input" type="number" default-placeholder="z°" placeholder="z°" id="facing-rightleg-z" step="5" oninput="updateRotation('RightLeg', 2, this); this.placeholder=this.getAttribute('default-placeholder')" group="RightLeg" index="2"></td>
-              </tr>
-              <tr>
-                <td>Facing</td>
-                <td colspan="3"><input class="app-input" style="width:16em;" type="number" default-placeholder="r°" placeholder="r°" id="facing-rotation" step="5" oninput="updateRotation('rotations', 0, this)" group="rotations" index="0"></td>
-              </tr>
-              <tr>
-                <td>Mode</td>
-                <td colspan="3">
-                  <select class="app-input" style="width:16.3em;" id="marker-mode" oninput="updateRotation('..mode', false, this)">
-                    <option value="none">No Transition</option>
-                    <option selected value="linear">Linear</option>
-                    <option value="ease">Ease</option>
-                    <!--<option value="ease_in">Ease in</option>
-                    <option value="ease_out">Ease out</option>-->
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="4" style="text-align: center;">
-                  <img src="https://cdn.glitch.com/17ff8eee-9239-4ba0-8a5c-9263261550b5%2Ficon_trash.png" class="deletebutton" style="margin-top: 12px;" tabindex="0" onclick="deleteMarker()">
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="app-right-tabs">
+          <span class="tab selected" onclick="openTab(this, 'properties-screen')">Properties</span>
+          <span class="tab" onclick="openTab(this, 'events-screen')">Events</span>
+          <span class="tab" onclick="openTab(this, 'project-screen')">Project Settings</span>
         </div>
-        <div class="app-right-inner screen events-screen" style="display:none;">
+        <div class="app-right-inner screen motion-screen" style="display:unset;" id="properties-screen">
+          <h1>Properties</h1>
+          <div id="properties">
+
+          </div>
+        </div>
+        <div class="app-right-inner screen event-screen" style="display:none;" id="events-screen">
           <h1>Event</h1>
-          <table style="margin:auto;">
-            <tbody>
-              <tr>
-                <td>Run Command</td>
-              </tr>
-              <tr>
-                <td>
-                  <textarea class="app-input" style="width: 32vw; height: 100px; font-size: 10pt; resize: none;" placeholder="say Command goes here" default-placeholder="say Command goes here" id="event-command" oninput="updateEvent()"></textarea><br>
-                  <!--The command will be executed as whoever is running the function at the selected timestamp.-->
-                </td>
-              </tr>
-              <!--<tr>
-                <td>
-                  Repeat
-                  <input class="app-input" type="number" default-placeholder="ticks" placeholder="ticks" id="event-repeat" step="1" oninput="">
-                </td>
-              </tr>-->
-              <tr>
-                
-              </tr>
-              <tr>
-                <td style="text-align: center;"> 
-                  <img src="https://cdn.glitch.com/17ff8eee-9239-4ba0-8a5c-9263261550b5%2Ficon_trash.png" class="deletebutton" onclick="deleteMarker()">
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="text-align:center;">
+            Run Command<br>
+            <textarea class="app-input" style="width: calc(100% - 20px); height: 100px; font-size: 10pt; resize: none;" placeholder="say Command goes here" default-placeholder="say Command goes here" id="event-command" onchange="editEventValue({value: this.value})"></textarea><br>
+            <!--The command will be executed as whoever is running the function at the selected timestamp.-->
+            <!--<div class="property-keyframe-container" style="justify-content: center;">
+              <button class="property-keyframe-button property-keyframe-button-direction property-keyframe-button-left visible" id="event-scroll-previous">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
+              </button>
+              <button class="property-keyframe-button property-keyframe-button-direction property-keyframe-button-right visible" id="event-scroll-next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+              </button>
+            </div>-->
+          </div>
         </div>
-        <div class="app-right-inner screen project-screen" style="display:none;">
+        <div class="app-right-inner screen project-screen" style="display:none;" id="project-screen">
           <h1>Project Settings</h1>
           <table style="margin:auto;">
             <tbody>
@@ -449,13 +439,13 @@
       </div>
       <div class="app-bottom">
         <div class="bottom-bar">
-          <svg class="bottom-button" viewbox="0 0 24 24" style="margin-left:10px;" onclick="scrollToTick(0)">
+          <svg class="bottom-button" viewbox="0 0 24 24" style="margin-left:10px;" onclick="setCursorPos(0)">
             <path fill="currentColor" d="M11.5,12L20,18V6M11,18V6L2.5,12L11,18Z" />
           </svg>
           <svg class="bottom-button" viewbox="0 0 24 24" id="playButton" onclick="playAnimation()">
             <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
           </svg>
-          <svg class="bottom-button" viewbox="0 0 24 24" onclick="scrollToTick(markerdata[markerdata.length-1].timestamp)">
+          <svg class="bottom-button" viewbox="0 0 24 24" onclick="setCursorPos(data.markers[data.markers.length-1].position)">
             <path fill="currentColor" d="M13,6V18L21.5,12M4,18L12.5,12L4,6V18Z" />
           </svg>
           <svg class="bottom-button" viewbox="0 0 24 24" onclick="toggleLoop()" id="loopButton">
@@ -464,16 +454,25 @@
           <svg class="bottom-button" viewbox="0 0 24 24" onclick="createMarker('events')">
             <path fill="currentColor" d="M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z" />
           </svg>
-          <svg class="bottom-button" viewbox="0 0 24 24" onclick="createMarker('animations')">
+          <!--<svg class="bottom-button" viewbox="0 0 24 24" onclick="createMarker('animations')">
             <path fill="currentColor" d="M13 19C13 19.34 13.04 19.67 13.09 20H4C2.9 20 2 19.11 2 18V6C2 4.89 2.9 4 4 4H5L7 8H10L8 4H10L12 8H15L13 4H15L17 8H20L18 4H22V13.81C21.12 13.3 20.1 13 19 13C15.69 13 13 15.69 13 19M20 18V15H18V18H15V20H18V23H20V20H23V18H20Z" />
-          </svg>
+          </svg>-->
+          <div class="axis-select-container">
+            <span class="axis-select-container-title">Show Axis: </span>
+            <div class="axis-select">
+              <div class="axis selected" axis="null" onclick="displayAxis(null)">All</div><!--
+           --><div class="axis axis-x" axis="0" onclick="displayAxis(0)">X</div><!--
+           --><div class="axis axis-y" axis="1" onclick="displayAxis(1)">Y</div><!--
+           --><div class="axis axis-z" axis="2" onclick="displayAxis(2)">Z</div>
+            </div>
+          </div>
         </div>
-        <div style="height: calc(100% - 40px); position: relative;">
-          <div class="cursor"></div>
+        <div style="height: calc(100% - 40px); position: relative;" id="dynamic-editor-area">
           <div class="dynamic-editor-container">
             <div class="drag-selection" style="display:none"></div>
-            <div class="element-placement"></div>
-            <div class="waveform-container" id="waveform-container"></div>
+            <div class="element-placement" id="element-placement"></div>
+            <div class="row-highlighter" id="row-highlighter"></div>
+            
             <table class="dynamic-editor" onclick="">
               <tbody>
                 <tr class="dynamic-ruler" id="dynamic-ruler">
@@ -485,51 +484,39 @@
                   <td class="dynamic-editor-label" style="position:sticky; left:0; border-bottom: 1px solid #252330;">
                     <span style="width: 100px; display: inline-block;">Events</span>
                   </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                  <td class="spacer" style="background:transparent;" rowspan="15"><div></div></td>
                 </tr>
-                <tr id="dynamic-animations-rotation">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Model</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Head</span></td>
                 </tr>
-                <tr id="dynamic-animations">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Head</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Left Arm</span></td>
                 </tr>
-                <tr id="dynamic-animations-leftarm">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Left Arm</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Right Arm</span></td>
                 </tr>
-                <tr id="dynamic-animations-rightarm">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Left Arm</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
-                </tr><tr id="dynamic-animations-body">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Chest</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Chest</span></td>
                 </tr>
-                <tr id="dynamic-animations-leftleg">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Left Leg</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Left Leg</span></td>
                 </tr>
-                <tr id="dynamic-animations-rightleg">
-                  <td class="dynamic-editor-label" style="position:sticky; left:0;">
-                    <span style="width: 100px; display: inline-block;">Right Leg</span>
-                  </td>
-                  <td class="spacer" style="background:transparent;"><div></div></td>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Right Leg</span></td>
+                </tr>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Rotation</span></td>
+                </tr>
+                <tr>
+                  <td class="dynamic-editor-label" style="position:sticky; left:0;"><span style="width: 100px; display: inline-block;">Scale</span></td>
                 </tr>
               </tbody>
             </table>
+            <div class="waveform-container" id="waveform-container" style="display: none;"></div>
+            
+            <div class="cursor">
+              <span class="cursor-indicator">0.00s [0t]</span>
+            </div>
           </div>
         </div>
       </div>
@@ -546,15 +533,6 @@
       <table style="margin:auto;">
         <tbody>
           <tr>
-            <td style="text-align:right;">Marker type:</td>
-            <td>
-              <select class="app-input modal-input" style="width:unset;text-indent: 0;" id="specific-marker-type">
-                <option value="animations">Animation</option>
-                <option value="events">Event</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td style="text-align:right;">Seconds:</td>
             <td><input class="app-input modal-input" placeholder="0" type="number" step="0.05" id="insert-specific-seconds" oninput="correctSpecific(this.value, false, 'insert')"></td>
           </tr>
@@ -564,7 +542,7 @@
           </tr>
         </tbody>
       </table>
-      <button onclick="createMarker(document.getElementById('specific-marker-type').value, document.getElementById('insert-specific-ticks').value); closeModals();">
+      <button onclick="createEventMarkerCommand(document.getElementById('insert-specific-ticks').value);">
         Insert
       </button>
       <br><br>

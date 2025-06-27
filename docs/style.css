@@ -3,19 +3,29 @@ h1 {
   margin: 0;
   text-align: center;
   color: white;
-  filter: drop-shadow(2px 3px 6px black) drop-shadow(-2px 0px 6px black);
-  font-size: 3em;
+  /*filter: drop-shadow(2px 3px 2px black) drop-shadow(-2px 0px 2px black);*/
+  font-size: 2.4em;
+  background-color: var(--potential-page-background);
+}
+
+h2 {
+  font-family: 'MinecraftSeven';
+  font-weight: normal;
+  background-color: var(--potential-app-main-background-color);
+  padding-left: 5px;
 }
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   background-color: var(--app-background);
   color: white;
-  padding: 4px 20px;
+  padding: 0;
   font-size: 14pt;
+  height: 100%;
 }
 
 a[href] {
@@ -28,27 +38,69 @@ a[href] {
 
 table {
   border-collapse: collapse;
-  border: none;
-  background-color: white;
-  color: black;
-  box-shadow: 0px 0px 15px 5px black;
+  border: 1px solid black;
+  text-align: left;
+  background-color: var(--app-inner-background);
 }
 
-.sidebar {
-  display: inline-block;
-  float: left;
-  width: 25%;
+table td, th {
+  border: 1px solid black;
+  padding: 4px;
+}
+
+.app-main {
+  display: flex;
   height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1;
+}
+
+.left {
+  width: 25%;
+  min-width: 350px;
+  height: 100%;
   background-color: var(--sidebar-background);
   overflow-y: auto;
   overflow-x: hidden;
   text-overflow: clip;
+  padding: 0px 8px;
 }
 
-.sidebar a {
+.left a {
   background-color: transparent;
+}
+
+.left h3 {
+  font-family: 'MinecraftTen';
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.4em;
+  margin: 12px 0px;
+}
+
+.right {
+  padding: 40px 20px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+code {
+  background-color: var(--app-main-base-background);
+  padding: 2px 4px;
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+.table-of-contents li {
+  cursor: pointer;
+  user-select: none;
+  padding: 0px 4px;
+}
+
+.table-of-contents li:not(.sublist-container):hover {
+  background-color: var(--old-category-foreground);
+}
+
+.table-of-contents li.sublist-container {
+  list-style-type: none;
 }

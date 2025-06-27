@@ -27,6 +27,7 @@ function init() {
   window.render = render;
 
   scene = new THREE.Scene();
+  window.parentscene = scene;
 
   /*new RGBELoader()
     .setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' )
@@ -58,10 +59,33 @@ function init() {
   scene.add( light );
   window.light = light;
   
-  scene.background = new THREE.Color( 0xcdcbce );
-  scene.environment = new THREE.Color( 0xbfe3dd );
+  scene.background = new THREE.Color( 0xacacc1 );
+  scene.environment = new THREE.Color( 0xacacc1 );
+
+  // Arrow helper
+  function addArrow(dir = new THREE.Vector3( 1, 2, 0 ), origin, length, color, visible = true) {
+    dir.normalize();
   
-  const loader = new GLTFLoader().setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' );
+    const hex = color;
+  
+    const arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex);
+    arrowHelper.visible = visible;
+    scene.add( arrowHelper );
+
+    return arrowHelper
+  }
+  
+  let directionalArrows = [
+    addArrow(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0.1, 0), 0.5, 0xff0000, false),
+    addArrow(new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0.1, 0), 0.5, 0x00ff00, false),
+    addArrow(new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 0.1, 0), 0.5, 0x0000ff, false)
+  ];
+  window.directionalArrows = directionalArrows;
+
+  let forwardArrow = addArrow(new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0.05, 0), 0.65, 0x000000);
+  window.forwardArrow = forwardArrow;
+
+  const loader = new GLTFLoader().setPath( './assets/' );
   loader.load( 'model.gltf', function ( gltf ) {
 
     gltf.scene.scale.set( 1.0, 1.0, 1.0 );
@@ -150,3 +174,29 @@ function onWindowResize() {
 function render() {
   renderer.render( scene, camera );
 }
+
+async function changeTexture(url = './wood.png') {
+  renderer.render( scene, camera );
+
+  let texture = new THREE.TextureLoader().load(url, (result => {
+    console.log(result)
+    result.source.data.style.imageRendering = 'pixelated'
+  }));
+  texture.flipY = true;
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = 1008;
+
+  gltf.scene.traverse(node => {
+    if (node instanceof THREE.Mesh) {
+      node.material.map = texture;
+      node.material.needsUpdate = true;
+    }
+  });
+
+  light.color = new THREE.Color(0.36, 0.36, 0.36);
+
+  renderer.render( scene, camera );
+}
+
+window.changeTexture = changeTexture;
