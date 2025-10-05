@@ -1,5 +1,5 @@
 async function fetchDocs() {
-    let changelog = await fetch('./docs.md').then(result => result.text());
+    let changelog = await fetch('docs.md').then(result => result.text());
     
     document.getElementById("docs").innerHTML = markdownit({html: true}).render(changelog)
 
