@@ -1,3 +1,14 @@
+## v1.1.2
+*September 20, 2025*
+- Fixed an issue that was preventing some exports
+- Removed the "0" keybind to toggle disabling markers because it was causing issues with value inputs
+- The editor will now automatically focus if the cursor is placed out of bounds to the left, as well as to the right
+- You can now adjust the volume of the preview audio playback in-editor
+  - Preview audio and audio volume purposely do not save to the browser or to the project, they must be added back every session
+- Preview audio's playback rate will now scale with the animation's playback speed
+- Added a new option to show a Player Head in the head slot
+- Fixed Docs and Changelog links on the new GitHub site
+
 ## v1.1.1
 *April 13, 2025 (Hotfix)*
 

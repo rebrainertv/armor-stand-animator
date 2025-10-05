@@ -22,6 +22,13 @@ function toggleBasePlate(){
   render();
 }
 
+function togglePlayerHead(){
+  viewPlayerHead = !viewPlayerHead;
+  bones[3].children[1].visible = viewPlayerHead;
+  document.getElementById("playerhead-checkmark").style.visibility = (viewPlayerHead ? 'visible' : 'hidden')
+  render();
+}
+
 function toggleSilhouette(){
   viewSilhouette = !viewSilhouette;
   if(viewSilhouette){

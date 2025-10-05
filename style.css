@@ -392,6 +392,7 @@ header .watermark {
 .axis-select-container {
   display: inline-block;
   vertical-align: middle;
+  padding: 0px 6px;
 }
 
 .axis-select-container-title {

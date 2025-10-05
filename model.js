@@ -28,34 +28,11 @@ function init() {
 
   scene = new THREE.Scene();
   window.parentscene = scene;
-
-  /*new RGBELoader()
-    .setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' )
-    .load( 'quarry_01_1k.hdr', function ( texture ) {
-
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-
-      scene.background = texture;
-      scene.environment = texture;
-
-      render();
-
-      // model
-
-      const loader = new GLTFLoader().setPath( 'https://cdn.glitch.global/4d97fd49-3058-498f-bd12-c7dacef119e3/' );
-      loader.load( 'model.gltf', function ( gltf ) {
-
-        gltf.scene.scale.set( 1.0, 1.0, 1.0 );
-
-        scene.add( gltf.scene );
-
-        render();
-
-      } );
-
-    } );*/
   
-  const light = new THREE.AmbientLight( 0xb7b7b7 ); // soft white light
+  let lightcolor = 0xb7b7b7;
+  //let lightcolor = 0xffffff;
+
+  const light = new THREE.AmbientLight( lightcolor ); // soft white light
   scene.add( light );
   window.light = light;
   
@@ -86,12 +63,17 @@ function init() {
   window.forwardArrow = forwardArrow;
 
   const loader = new GLTFLoader().setPath( './assets/' );
-  loader.load( 'model.gltf', function ( gltf ) {
+  loader.load( 'model2.gltf', function ( gltf ) {
 
     gltf.scene.scale.set( 1.0, 1.0, 1.0 );
     
     window.gltf = gltf;
     window.bones = gltf.scene.children[0].children;
+
+    if(bones[3].children[1]) {
+      setOpacity(bones[3].children[1], 0.7);
+      bones[3].children[1].visible = false;
+    }
 
     scene.add( gltf.scene );
 

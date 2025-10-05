@@ -15,6 +15,7 @@ const framepixelmultiplier = 1;
 const animationduration = 60;
 
 let viewBasePlate = true;
+let viewPlayerHead = false;
 let viewSmall = false;
 let viewSilhouette = false;
 let previewFrames = true;
@@ -208,7 +209,6 @@ function renderPose(rdata = currentPose, inPlayback = false, transparencies = 'n
   setOpacity(bones[2].children[3], (listIsEmpty(rotationData.Body, 'Body') && transparencies !== 'none' ? 0.45 : 1))
   setOpacity(bones[5].children[0], (listIsEmpty(rotationData.LeftLeg, 'LeftLeg') && transparencies !== 'none' ? 0.45 : 1))
   setOpacity(bones[7].children[0], (listIsEmpty(rotationData.RightLeg, 'RightLeg') && transparencies !== 'none' ? 0.45 : 1))
-
   
   renderModelPose(rotationData);
   
@@ -335,7 +335,7 @@ function updateMarkerTitles(){
     
     let axes = ['x', 'y', 'z']
 
-    el.title = "Mode: " + mdata.mode + " \n" + "Value: " + mdata.value;
+    el.title = "Domain:" + mdata.domain + " \n" + "Axis: " + axes[mdata.axis] + " \n" + "Mode: " + mdata.mode + " \n" + "Value: " + mdata.value;
   });
   
   Array.from(document.querySelectorAll(".marker.events")).forEach((el) => {
@@ -498,7 +498,7 @@ function renderMarkers() {
 var selectedMarkers = [];
 var selectedMarker = false; //About to be deprecated
 
-function selectMarker(ev, force = false){ //Selects a single marker
+function selectMarker(ev, force = false, doHighlight = true){ //Selects a single marker
   let el = ev.target;
   if(!ev.ctrlKey){
     deselectMarker()
@@ -515,19 +515,19 @@ function selectMarker(ev, force = false){ //Selects a single marker
     return;
   }
   
-  
   //selectedMarker = markerdata[parseFloat(el.getAttribute("index"))];
   let markerdata = data.markers[parseFloat(el.getAttribute("index"))]
   selectedMarkers = [ markerdata ];
   
   // Highlight the text box, but only if it's not already being edited
-  let activeel = document.activeElement;
-  if(activeel !== document.querySelector('.app-input[domain="'+ markerdata.domain +'"][axis="'+ markerdata.axis +'"]')) {
-    setCursorPos(selectedMarkers[0].position)
+  if(doHighlight) {
+    let activeel = document.activeElement;
+    if(activeel !== document.querySelector('.app-input[domain="'+ markerdata.domain +'"][axis="'+ markerdata.axis +'"]')) {
+      setCursorPos(selectedMarkers[0].position)
 
-    highlightValue(markerdata.domain, markerdata.axis);
+      highlightValue(markerdata.domain, markerdata.axis);
+    }
   }
-  //renderValues()
 }
 
 function multiselectMarker(){ //Handles selecting multiple markers
@@ -713,6 +713,8 @@ function duplicateMarker(){
   /*if(markerlist.length > 1){
     multiselectMarker();
   }*/
+
+  compileFrames();
 }
 
 function disableMarker(){
@@ -1147,7 +1149,7 @@ function editPropertyValue({position = cursorPosition, domain, axis, value}) {
 
   if(!(visibleAxis.axis === null || visibleAxis.axis === marker.axis)) displayAxis(marker.axis, false);
   let markerEl = document.querySelector('.marker[index="' + data.markers.indexOf(marker) + '"]');
-  selectMarker({target: markerEl})
+  selectMarker({target: markerEl}, false, false)
 }
 
 function previewPropertyValue({domain, axis, value}) {
@@ -1195,6 +1197,8 @@ function setPlaybackSpeed(value){
     el.style.visibility = 'hidden';
   })
   
+  if(audiocontent) audiocontent.playbackRate = playbackspeed;
+
   document.getElementById("speed-"+value+"-checkmark").style.visibility = 'unset';
   lsConfig.playbackspeed = value;
   window.localStorage.config = JSON.stringify(lsConfig);
@@ -1566,12 +1570,23 @@ editor.oncontextmenu = function(e){
     }},
     {title: 'Copy Exact Current Pose', callback: function(){
       document.querySelector("#context-menu").style.display = "none";
-      navigator.clipboard.writeText(generatePoseCommand(previewframedata[cursorPosition]));
+      if(previewframedata.length < 1) {
+        alert("You must have at least one animation marker in order to perform this operation.");
+        return;
+      }
+
+      navigator.clipboard.writeText(generatePoseCommand(previewframedata[cursorPosition], lsConfig.exportPoseTemplate));
       alert("Copied the pose of the armor stand at the cursor's position (as it is displayed) to clipboard.");
     }},
     {title: 'Copy Current Pose Changes', callback: function(){
       document.querySelector("#context-menu").style.display = "none";
-      navigator.clipboard.writeText(generatePoseCommand(framedata[cursorPosition]));
+      
+      if(framedata.length < 1) {
+        alert("You must have at least one animation marker in order to perform this operation.");
+        return;
+      }
+      
+      navigator.clipboard.writeText(generatePoseCommand(framedata[cursorPosition], lsConfig.exportPoseTemplate));
       alert("Copied the changes in pose of the armor stand at the cursor's position to clipboard.");
     }}
   ])
@@ -1781,6 +1796,14 @@ document.getElementById("audio-upload").addEventListener("change", function(e){
       normalize: true
     });
 
+    document.getElementById("preview-volume-slider-container").style.display = "inline-block";
+    document.getElementById("preview-volume-slider").oninput = function(e) {
+      audiocontent.volume = parseFloat(e.target.value) / 100;
+    }
+
+    // Set the default playback speed
+    audiocontent.playbackRate = playbackspeed;
+
     showWaveform = false;
     toggleWaveformVisibility();
   }
@@ -1795,7 +1818,7 @@ async function openExampleFile(url, projname = 'example'){
   })
 }
 
-function generatePoseCommand(posedata){
+function generatePoseCommand(posedata, template = 'data merge entity @s %s'){
   let pose = [];
   let rotation = [];
   let scale = false;
@@ -1845,7 +1868,7 @@ function generatePoseCommand(posedata){
 
   let nbt = "{" + nbtlist.join(",") + "}";
   
-  return "data merge entity @s "+ nbt +"";
+  return template.replace("%s", nbt);
 }
 
 function generateFunction(reduced = false){
@@ -1864,8 +1887,8 @@ function generateFunction(reduced = false){
   let extraselectordata = "";
   for(let i = 0; i < framedata.length; i++){
     let frame = framedata[i];
-    if((reduced === false) || i === 0 || (i > 0 && (generatePoseCommand(frame.pose) !== generatePoseCommand(framedata[i-1].pose)))){
-      filedata.push("execute as @s[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generatePoseCommand(frame.pose))
+    if((reduced === false) || i === 0 || (i > 0 && (generatePoseCommand(frame) !== generatePoseCommand(framedata[i-1])))){
+      filedata.push("execute as @s[scores={"+ scoreboardname +"="+ frame.timestamp +"}"+ extraselectordata +"] at @s run "+ generatePoseCommand(frame))
     }
   }
   
@@ -2073,12 +2096,17 @@ if(window.localStorage.config && validConfig){
   if(lsConfig.changeHighlights) toggleMarkerChangeHighlights()
   if(lsConfig.changePlaybackHighlights) togglePlaybackChangeHighlights()
   if(lsConfig.playbackspeed !== 1.0) setPlaybackSpeed(lsConfig.playbackspeed)
+  
+  if(!lsConfig.hasOwnProperty("blankNewProject")) lsConfig.blankNewProject = false;
+  if(!lsConfig.hasOwnProperty("exportPoseTemplate")) lsConfig.exportPoseTemplate = 'data merge entity @s %s';
 } else {
   lsConfig = {
     previewFrames: true,
     changeHighlights: false,
     changePlaybackHighlights: false,
-    playbackspeed: 1.0
+    playbackspeed: 1.0,
+    blankNewProject: false,
+    exportPoseTemplate: 'data merge entity @s %s'
   };
 }
 
@@ -2094,11 +2122,14 @@ function createEventMarkerCommand(position = cursorPosition) {
   closeModals();
 }
 
-createMarker({type: 'event', position: 0}, true)
-createMarker({type: 'motion', position: 5, axis: 0, domain: 'Head'}, false)
-createMarker({type: 'motion', position: 10, axis: 1, domain: 'LeftArm'}, false)
-createMarker({type: 'motion', position: 15, axis: 2, domain: 'RightArm'}, false)
-setCursorPos(0)
+// Create a blank new project
+if(!lsConfig.blankNewProject) {
+  createMarker({type: 'event', position: 0}, true)
+  createMarker({type: 'motion', position: 5, axis: 0, domain: 'Head'}, false)
+  createMarker({type: 'motion', position: 10, axis: 1, domain: 'LeftArm'}, false)
+  createMarker({type: 'motion', position: 15, axis: 2, domain: 'RightArm'}, false)
+  setCursorPos(0)
+}
 
 function openTab(tabel, tabname) {
   Array.from(document.getElementsByClassName("screen")).forEach(el => {

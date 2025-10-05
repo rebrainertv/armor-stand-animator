@@ -156,8 +156,7 @@ document.addEventListener("keydown", function(e){
         let nextButton = document.querySelector('.property-value[domain="' + domain + '"][axis="' + axis + '"] .property-keyframe-button-left')
         if(nextButton.classList.contains("visible")) nextButton.click();
       }
-    }
-    if(e.key == ']'){ //Jump to next marker containing a value in the same text box
+    } else if(e.key == ']'){ //Jump to next marker containing a value in the same text box
       let el = document.activeElement;
       let domain = false;
       let axis = false;
@@ -168,16 +167,23 @@ document.addEventListener("keydown", function(e){
         let nextButton = document.querySelector('.property-value[domain="' + domain + '"][axis="' + axis + '"] .property-keyframe-button-right')
         if(nextButton.classList.contains("visible")) nextButton.click();
       }
+    } else if(e.key == 'Delete' && e.ctrlKey) {
+      e.preventDefault();
+      deleteMarker();
     }
   }
 
   // Regardless of whether an input is selected...
+
+  // CTRL + D: Duplicate
   if(e.key == 'd' && e.ctrlKey){
     e.preventDefault();
     //Duplicate all selected markers
     duplicateMarker()
   }
-  if((e.key == 'd' && !e.ctrlKey) || e.key == '0'){
+
+  // D: Disable
+  if(e.key == 'd' && !e.ctrlKey && document.activeElement.tagName !== "TEXTAREA"){
     e.preventDefault();
     disableMarker()
   }
@@ -323,6 +329,8 @@ function setCursorPos(tick = cursorPosition) {
   let container = document.querySelector(".dynamic-editor-container");
   let width = (window.innerWidth - cursoroffset);
   if(relativeLeft > (width + container.scrollLeft)) {
+    container.scrollLeft = relativeLeft;
+  } else if(relativeLeft < container.scrollLeft) {
     container.scrollLeft = relativeLeft;
   }
 

@@ -111,7 +111,7 @@ If you're already in your world, you should be able to type `/reload` into the c
 
 ## Export to a reduced function file
 
-This is the same as a function file, except it will cut out all duplicate frames. Only use this if you intend to play animations exactly the same way each time from start to finish. 
+This is the same as a function file, except it will cut out all duplicate frames. Only use this if you intend to play animations exactly the same way each time from start to finish. This can greatly reduce strain on the server and help with lag.
 
 ## Export as Bedrock Animation
 
@@ -161,7 +161,8 @@ There's a couple useful keyboard shortcuts included to make editing faster.
 
 - `Space` - Play / Pause playback
 - `Delete` - Delete selected marker(s)
-- `D` or `0` - Disable / Enable current marker(s)
+   - If you're currently typing in a text box, `Ctrl + Delete` will delete the marker (this is so that you can still use the Delete key for text editing)
+- `D` - Disable / Enable current marker(s)
 - `.` - Scroll forward one frame
 - `[` - Scroll to previous marker that also has a value in the selected text box
 - `]` - Scroll to next marker that also has a value in the selected text box

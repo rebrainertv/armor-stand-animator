@@ -29,8 +29,8 @@ body {
 }
 
 a[href] {
-  background-color: #ffffff55;
-  padding: 2px;
+  background-color: #74747455;
+  padding: 3px 6px;
   border-radius: 5px;
   color: var(--button-green);
   text-decoration-color: var(--button-green);

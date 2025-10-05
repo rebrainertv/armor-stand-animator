@@ -8,7 +8,7 @@
     <title>Armor Stand Animator by ReBrainerTV</title>
 
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
 
     <!-- import the webpage's javascript file -->
     <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -223,6 +223,12 @@
               </svg>
               Show Base Plate
             </li>
+            <li onclick="togglePlayerHead()">
+              <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="playerhead-checkmark">
+                <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+              </svg>
+              Show Player Head
+            </li>
             <li onclick="toggleSmall()">
               <svg style="height: 14px; visibility: hidden;" viewbox="0 0 24 24" id="viewsmall-checkmark">
                 <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
@@ -286,11 +292,11 @@
         <span class="context-label">
           Help
           <ul class="context-menu">
-            <li onclick="window.open('/changelog/')">
+            <li onclick="window.open('changelog/')">
               <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
               Changelog
             </li>
-            <li onclick="window.open('/docs/')">
+            <li onclick="window.open('docs/')">
               <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
               Documentation
             </li>
@@ -318,6 +324,10 @@
                 <li onclick="openExampleFile('./examples/sigh_cry_2.mcanimation', 'Sigh Cry')">
                   <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
                   Sigh Cry
+                </li>
+                <li onclick="openExampleFile('./examples/shrug.mcanimation', 'Sigh Cry')">
+                  <svg style="height: 14px;" viewbox="0 0 24 24"></svg>
+                  Shrug
                 </li>
               </ul>
             </li>
@@ -357,7 +367,7 @@
       
       <span id="project-name">Untitled Project</span>
 
-      <span class="watermark">By ReBrainerTV v1.1.1</span>
+      <span class="watermark">By ReBrainerTV v1.1.2</span>
       <span style="float: right; color: #c1c1c1; margin-right: 12px; display:none;">Compiling frames <div class="save-progress"><div class="value" style="width: 50%"></div></div></span>
     </header>
     <div class="app-main">
@@ -465,6 +475,10 @@
            --><div class="axis axis-y" axis="1" onclick="displayAxis(1)">Y</div><!--
            --><div class="axis axis-z" axis="2" onclick="displayAxis(2)">Z</div>
             </div>
+          </div>
+          <div class="axis-select-container" id="preview-volume-slider-container" style="display: none;">
+            <span class="axis-select-container-title">Volume: </span>
+            <input type="range" min="0" max="100" step="0.01" value="100" style="vertical-align: middle;" id="preview-volume-slider">
           </div>
         </div>
         <div style="height: calc(100% - 40px); position: relative;" id="dynamic-editor-area">
